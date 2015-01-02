@@ -1,0 +1,868 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SuperScript.Common</name>
+    </assembly>
+    <members>
+        <member name="M:SuperScript.Configuration.PropertyElement.ToString">
+            <summary>
+            <para>Returns a string containing data about the object's current state.</para>
+            <para>This property is intended for debugging purposes.</para>
+            </summary>
+        </member>
+        <member name="T:SuperScript.Configuration.SuperScriptConfig">
+            <summary>
+            This class represents the default configuration from the web.config file.
+            </summary>
+        </member>
+        <member name="T:SuperScript.Configuration.Settings">
+            <summary>
+            This class represents any default configured declarations from the web.config.
+            </summary>
+        </member>
+        <member name="M:SuperScript.Configuration.Settings.#ctor">
+            <summary>
+            This constructor contains the logic for parsing the configured values out of the web.config.
+            </summary>
+            <exception cref="T:SuperScript.EmitterConfigurationException">Thrown if multiple &lt;emitter&gt; elements have isDefault=true.</exception>
+            <exception cref="T:SuperScript.EmitterConfigurationException">Thrown if multiple &lt;emitter&gt; elements have the same Key property.</exception>
+        </member>
+        <member name="P:SuperScript.Configuration.Settings.EmitterBundles">
+            <summary>
+            Gets or sets a collection of <see cref="T:SuperScript.Emitters.EmitterBundle"/> instances.
+            </summary>
+        </member>
+        <member name="P:SuperScript.Configuration.Settings.DefaultEmitter">
+            <summary>
+            <para>Gets the instance of <see cref="T:SuperScript.Emitters.IEmitter"/> which has IsDefault=true.</para>
+            <para>If no instance of <see cref="T:SuperScript.Emitters.IEmitter"/> has this status explicitly indicated then the first instance of <see cref="T:SuperScript.Emitters.IEmitter"/> in the configuration shall be returned.</para>
+            </summary>
+            <exception cref="T:SuperScript.SuperScriptException">Thrown if no instances of <see cref="T:SuperScript.Emitters.IEmitter"/> have been configured.</exception>
+        </member>
+        <member name="P:SuperScript.Configuration.Settings.Emitters">
+            <summary>
+            Gets or sets a collection containing implementations of <see cref="T:SuperScript.Emitters.IEmitter"/>.
+            </summary>
+        </member>
+        <member name="P:SuperScript.Configuration.Settings.Instance">
+            <summary>
+            Check the web.config file for configured default declarations.
+            </summary>
+        </member>
+        <member name="T:SuperScript.Declarations">
+            <summary>
+            <para>This static class offers the entire site a centralised location for adding instances of <see cref="T:SuperScript.Declarables.DeclarationBase"/>.</para>
+            <para>This collection should then be emitted in a convenient location.</para>
+            <para>The developer can select whether to emit specific declarations in one location and the rest of the 
+            collection in a different location, or simply emit them all together in a single location.</para>
+            </summary>
+        </member>
+        <member name="F:SuperScript.Declarations.EmitterBundles">
+            <summary>
+            Contains the instances of <see cref="T:SuperScript.Emitters.EmitterBundle"/> which will be used to emit <see cref="T:SuperScript.Declarables.DeclarationBase"/> instances.
+            </summary>
+        </member>
+        <member name="F:SuperScript.Declarations.Emitters">
+            <summary>
+            Contains the instances of <see cref="T:SuperScript.Emitters.IEmitter"/> which will be used to emit the <see cref="T:SuperScript.Declarables.DeclarationBase"/> instances.
+            </summary>
+        </member>
+        <member name="M:SuperScript.Declarations.AddDeclaration``1(SuperScript.Declarables.DeclarationBase,System.Nullable{System.Int32})">
+            <summary>
+            By deriving a custom Declaration, any type of declarations can be added to the collection.
+            </summary>
+            <param name="declaration">A custom implementation of the <see cref="T:SuperScript.Declarables.DeclarationBase"/> abstract class.</param>
+            <param name="insertAt">Permits the instance of <see cref="T:SuperScript.Declarables.DeclarationBase"/> to be inserted into the collection at a specified index.</param>
+            <exception cref="T:SuperScript.CollectionNotInstantiatedException">The Collection (<see cref="T:System.Collections.Generic.ICollection`1"/>) property has not been instantiated This should be done for each HTTP request.</exception>
+        </member>
+        <member name="M:SuperScript.Declarations.AddDeclarations``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            By deriving a custom Declaration, any type of declarations can be added to the collection.
+            </summary>
+            <param name="declarations">A collection of custom implementations of the <see cref="T:SuperScript.Declarables.DeclarationBase"/> abstract class.</param>
+            <exception cref="T:SuperScript.CollectionNotInstantiatedException">The Collection (<see cref="T:System.Collections.Generic.ICollection`1"/>) property has not been instantiated This should be done for each HTTP request.</exception>
+        </member>
+        <member name="M:SuperScript.Declarations.Reset(System.Boolean)">
+            <summary>
+            Removes all declarations, web.config defaults being optional, from the current HTTP request.
+            </summary>
+            <param name="removeDefaults">
+            Determines whether the configured default declarations (if any exist) are to remain (the default action) or whether <i>all</i> declarations should be removed.
+            </param>
+            <exception cref="T:SuperScript.CollectionNotInstantiatedException">The Collection (<see cref="T:System.Collections.Generic.ICollection`1"/>) property has not been instantiated This should be done for each HTTP request.</exception>
+        </member>
+        <member name="M:SuperScript.Declarations.Remove(System.String)">
+            <summary>
+            Removes the specified declared variable or function call.
+            </summary>
+            <param name="nameOrCall">
+            <para>The name of the previously-declared variable or function call.</para>
+            <para>If specifying a function call, there is no need to include parentheses and parameters.</para>
+            </param>
+            <exception cref="T:SuperScript.CollectionNotInstantiatedException">The Collection (<see cref="T:System.Collections.Generic.ICollection`1"/>) property has not been instantiated This should be done for each HTTP request.</exception>
+        </member>
+        <member name="M:SuperScript.Declarations.Remove(SuperScript.Declarables.DeclarationBase)">
+            <summary>
+            Removes the specified declaration.
+            </summary>
+            <param name="declaration">The instance of the previously-declared variable or function call.</param>
+            <exception cref="T:SuperScript.CollectionNotInstantiatedException">The Collection (<see cref="T:System.Collections.Generic.ICollection`1"/>) property has not been instantiated This should be done for each HTTP request.</exception>
+        </member>
+        <member name="M:SuperScript.Declarations.Emit(System.String[])">
+            <summary>
+            Emits the <see cref="T:SuperScript.Declarables.DeclarationBase"/> instances.
+            </summary>
+            <param name="declarationNames">
+            <para>If one or more (comma-separated) declarations are specified then only these declarations will be written to the</para>
+            <para>page at the current location (i.e. at the location where this method was called from).</para>
+            <para>Furthermore, these specified declarations will not be written out at a later time if and when this method is</para>
+            <para>called without any declarations being specified.</para>
+            </param>
+            <returns>
+            The formatted output for each instance of <see cref="T:SuperScript.Declarables.DeclarationBase"/>.
+            </returns>
+            <exception cref="T:SuperScript.CollectionNotInstantiatedException">The <see cref="P:SuperScript.Declarations.Collection"/> property has not been instantiated This should be done for each HTTP request.</exception>
+            <exception cref="T:SuperScript.NoEmittersConfiguredException">No implementation of <see cref="T:SuperScript.Emitters.IEmitter"/> has been configured.</exception>
+        </member>
+        <member name="M:SuperScript.Declarations.EmitFor(System.String[])">
+            <summary>
+            Emits all instances of <see cref="T:SuperScript.Declarables.DeclarationBase"/> whose <see cref="P:SuperScript.Emitters.IEmitter.Key"/> has been specified.
+            </summary>
+            <param name="emitterKeys">
+            A comma-separated list (or array) of <see cref="P:SuperScript.Emitters.IEmitter.Key"/> for the desired instances of <see cref="T:SuperScript.Emitters.IEmitter"/>.</param>
+            <returns>
+            The formatted output for each instance of <see cref="T:SuperScript.Declarables.DeclarationBase"/> which references the specified instance of <see cref="P:SuperScript.Emitters.IEmitter.Key"/>.
+            </returns>
+            <exception cref="T:SuperScript.CollectionNotInstantiatedException">The <see cref="P:SuperScript.Declarations.Collection"/> property has not been instantiated This should be done for each HTTP request.</exception>
+            <exception cref="T:SuperScript.NoEmittersConfiguredException">No implementation of <see cref="T:SuperScript.Emitters.IEmitter"/> has been configured.</exception>
+        </member>
+        <member name="M:SuperScript.Declarations.EmitForAll">
+            <summary>
+            Returns the emitted output of all registered instances of <see cref="T:SuperScript.Emitters.IEmitter"/>.
+            </summary>
+            <returns>
+            The formatted output for each instance of <see cref="T:SuperScript.Declarables.DeclarationBase"/>.
+            </returns>
+            <remarks>
+            <para>This method will first of all consider those instances of <see cref="T:SuperScript.Emitters.IEmitter"/> which have not been referenced on a <see cref="T:SuperScript.Emitters.EmitterBundle"/>.</para>
+            <para>Once these stand-alone instances of <see cref="T:SuperScript.Emitters.IEmitter"/> have been omitted then the registered instances of <see cref="T:SuperScript.Emitters.EmitterBundle"/> will be considered.</para>
+            </remarks>
+            <exception cref="T:SuperScript.CollectionNotInstantiatedException">The <see cref="P:SuperScript.Declarations.Collection"/> property has not been instantiated This should be done for each HTTP request.</exception>
+            <exception cref="T:SuperScript.NoEmittersConfiguredException">No implementation of <see cref="T:SuperScript.Emitters.IEmitter"/> has been configured.</exception>
+        </member>
+        <member name="M:SuperScript.Declarations.Emit(System.Collections.Generic.IEnumerable{SuperScript.Declarables.DeclarationBase})">
+            <summary>
+            Emits the specified <see cref="T:SuperScript.Declarables.DeclarationBase"/> instances.
+            </summary>
+        </member>
+        <member name="P:SuperScript.Declarations.Collection">
+            <summary>
+            Contains the collection of all JavaScript variables across this HTTP request.
+            </summary>
+        </member>
+        <member name="T:SuperScript.Declarables.DeclarationBase">
+            <summary>
+            This class holds each of the declarations: JavaScript variable with or without value, function call, 
+            or a JavaScript comment.
+            </summary>
+        </member>
+        <member name="M:SuperScript.Declarables.DeclarationBase.ToString">
+            <summary>
+            Returns this instance as a formatted string.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:SuperScript.Declarables.DeclarationBase.EmitterKey">
+            <summary>
+            <para>Indicates which instance of IEmitter the content should be added to.</para>
+            <para>If not specified then the contents will be added to the default implementation of <see cref="T:SuperScript.Emitters.IEmitter"/>.</para>
+            </summary>
+        </member>
+        <member name="P:SuperScript.Declarables.DeclarationBase.Name">
+            <summary>
+            Gets or sets the name assigned to this declarable.
+            </summary>
+        </member>
+        <member name="T:SuperScript.Emitters.EmitterBundle">
+            <summary>
+            Allows a collection of emitters to have their emitted output bundled together.
+            </summary>
+        </member>
+        <member name="M:SuperScript.Emitters.EmitterBundle.ToHtmlString(System.Collections.Generic.IEnumerable{SuperScript.Declarables.DeclarationBase})">
+            <summary>
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SuperScript.Emitters.EmitterBundle.#ctor">
+            <summary>
+            Default constructor for <see cref="T:SuperScript.Emitters.EmitterBundle"/>.
+            </summary>
+        </member>
+        <member name="M:SuperScript.Emitters.EmitterBundle.#ctor(System.String)">
+            <summary>
+            Constructor for <see cref="T:SuperScript.Emitters.EmitterBundle"/> in which the <see cref="P:SuperScript.Emitters.EmitterBundle.Key"/> property may be specified.
+            </summary>
+            <param name="key">A value for the <see cref="P:SuperScript.Emitters.EmitterBundle.Key"/> property</param>
+        </member>
+        <member name="P:SuperScript.Emitters.EmitterBundle.EmitterKeys">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:SuperScript.Emitters.EmitterBundle.Emitters">
+            <summary>
+            Gets or sets a collection of instances of <see cref="T:SuperScript.Emitters.IEmitter"/> which should have their emitted outputs bundled together.
+            </summary>
+        </member>
+        <member name="P:SuperScript.Emitters.EmitterBundle.CustomObject">
+            <summary>
+            This property allows the user to pass any required object through the modification and writing process.
+            </summary>
+        </member>
+        <member name="P:SuperScript.Emitters.EmitterBundle.Key">
+            <summary>
+            The identifier for this instance of <see cref="T:SuperScript.Emitters.IEmitter"/>.
+            </summary>
+        </member>
+        <member name="P:SuperScript.Emitters.EmitterBundle.PostModifiers">
+            <summary>
+            The implementations of <see cref="T:SuperScript.Modifiers.Post.CollectionPostModifier"/> which have been assigned to this <see cref="T:SuperScript.Emitters.IEmitter"/>.
+            </summary>
+        </member>
+        <member name="P:SuperScript.Emitters.EmitterBundle.HtmlWriter">
+            <summary>
+            The implementation of <see cref="P:SuperScript.Emitters.EmitterBundle.HtmlWriter"/> which has been assigned to this <see cref="T:SuperScript.Emitters.IEmitter"/> for writing the formatted output to the webpage.
+            </summary>
+        </member>
+        <member name="T:SuperScript.EmitMode">
+            <summary>
+            Determines for which modes (i.e., debug, live, or forced on or off) a property should be emitted.
+            </summary>
+        </member>
+        <member name="F:SuperScript.EmitMode.Always">
+            <summary>
+            Always emit, regardless of debug or live.
+            </summary>
+        </member>
+        <member name="F:SuperScript.EmitMode.DebugOnly">
+            <summary>
+            Emit only when debug="true" in the web.config.
+            </summary>
+        </member>
+        <member name="F:SuperScript.EmitMode.LiveOnly">
+            <summary>
+            Emit only when debug="false" in the web.config.
+            </summary>
+        </member>
+        <member name="F:SuperScript.EmitMode.Never">
+            <summary>
+            Never emit, regardless of debug or live.
+            </summary>
+        </member>
+        <member name="T:SuperScript.SuperScriptException">
+            <summary>
+            A base class for all exceptions within the SuperScript library.
+            </summary>
+        </member>
+        <member name="M:SuperScript.SuperScriptException.#ctor(System.String)">
+            <summary>
+            A constructor for the <see cref="T:SuperScript.SuperScriptException"/> base class which permits an <see cref="P:SuperScript.SuperScriptException.ErrorMessage"/> to be specified.
+            </summary>
+            <param name="errorMessage">
+            Contains specific details on the cause of the exception.
+            </param>
+        </member>
+        <member name="M:SuperScript.SuperScriptException.#ctor(System.String,System.Exception)">
+            <summary>
+            A constructor for the <see cref="T:SuperScript.SuperScriptException"/> base class which permits an <see cref="P:SuperScript.SuperScriptException.ErrorMessage"/> to be specified
+            along with an inner exception for more detailed debugging information.
+            </summary>
+            <param name="errorMessage">
+            Contains specific details on the cause of the exception.
+            </param>
+            <param name="innerException">
+            An <see cref="T:System.Exception"/> which will be exposed as the InnerException property.
+            </param>
+        </member>
+        <member name="P:SuperScript.SuperScriptException.ErrorMessage">
+            <summary>
+            Contains specific details on the cause of the exception.
+            </summary>
+        </member>
+        <member name="T:SuperScript.NotSpecifiedException">
+            <summary>
+            This exception is normally thrown when a required property has not been set.
+            </summary>
+        </member>
+        <member name="M:SuperScript.NotSpecifiedException.#ctor(System.String)">
+            <summary>
+            A constructor for the <see cref="T:SuperScript.NotSpecifiedException"/> base class which permits an <see cref="P:SuperScript.SuperScriptException.ErrorMessage"/> to be specified.
+            </summary>
+            <param name="errorMessage">
+            Contains specific details on the cause of the exception.
+            </param>
+        </member>
+        <member name="M:SuperScript.NotSpecifiedException.#ctor(System.String,System.Exception)">
+            <summary>
+            A constructor for the <see cref="T:SuperScript.NotSpecifiedException"/> base class which permits an <see cref="P:SuperScript.SuperScriptException.ErrorMessage"/> to be specified
+            along with an inner exception for more detailed debugging information.
+            </summary>
+            <param name="errorMessage">
+            Contains specific details on the cause of the exception.
+            </param>
+            <param name="innerException">
+            An <see cref="T:System.Exception"/> which will be exposed as the InnerException property.
+            </param>
+        </member>
+        <member name="T:SuperScript.CollectionNotInstantiatedException">
+            <summary>
+            <para>An <see cref="T:System.Exception"/> indicating the the <see cref="T:System.Collections.ObjectModel.Collection`1"/> has not been instantiated.</para>
+            <para>By default, this should be instantiated in the <see cref="T:SuperScript.HttpInitialiser"/> handler, though it can be set anywhere.</para>
+            </summary>
+        </member>
+        <member name="M:SuperScript.CollectionNotInstantiatedException.#ctor">
+            <summary>
+            Parameterless constructor for the <see cref="T:SuperScript.CollectionNotInstantiatedException"/> <see cref="T:System.Exception"/>.
+            </summary>
+        </member>
+        <member name="T:SuperScript.ConfigurablePropertyNotSpecifiedException">
+            <summary>
+            An <see cref="T:System.Exception"/> indicating that a configurable property (i.e., a property which is set in the 
+            web.config) has not been set.
+            </summary>
+        </member>
+        <member name="M:SuperScript.ConfigurablePropertyNotSpecifiedException.#ctor(System.String)">
+            <summary>
+            Constructor for <see cref="T:SuperScript.ConfigurablePropertyNotSpecifiedException"/> which allows a property name
+            to be specified to aid debugging or suggestions.
+            </summary>
+            <param name="propertyName">
+                The name of the property which has not been set. This name will be displayed in an informative <see cref="P:System.Exception.Message"/>.
+            </param>
+        </member>
+        <member name="T:SuperScript.ConfigurationException">
+            <summary>
+            An <see cref="T:System.Exception"/> indicating that a configurable property (i.e., a property which is set in the 
+            web.config) has been set incorrectly.
+            </summary>
+        </member>
+        <member name="M:SuperScript.ConfigurationException.#ctor(System.String)">
+            <summary>
+            Constructor for <see cref="T:SuperScript.ConfigurationException"/> which allows an exception-specific message to be relayed to the developer.
+            </summary>
+            <param name="message">An informative message explaining the cause of this exception.</param>
+        </member>
+        <member name="T:SuperScript.DefaultEmitterException">
+            <summary>
+            An <see cref="T:System.Exception"/> indicating that an error exists within the configuration for the default Emitter.
+            </summary>
+        </member>
+        <member name="M:SuperScript.DefaultEmitterException.#ctor(System.String)">
+            <summary>
+            Constructor for <see cref="T:SuperScript.DefaultEmitterException"/> which allows an exception-specific message to be relayed to the developer.
+            </summary>
+            <param name="message">An informative message explaining the cause of this exception.</param>
+        </member>
+        <member name="T:SuperScript.EmitterConfigurationException">
+            <summary>
+            An <see cref="T:System.Exception"/> indicating that a configurable property (i.e., a property which is set in the web.config)
+            for an &lt;emitter&gt; element has been set incorrectly.
+            </summary>
+        </member>
+        <member name="M:SuperScript.EmitterConfigurationException.#ctor(System.String)">
+            <summary>
+            Constructor for <see cref="T:SuperScript.EmitterConfigurationException"/> which allows an exception-specific message to be relayed to the developer.
+            </summary>
+            <param name="message">An informative message explaining the cause of this exception.</param>
+        </member>
+        <member name="T:SuperScript.NoEmittersConfiguredException">
+            <summary>
+            An <see cref="T:System.Exception"/> indicating that no instances of <see cref="T:SuperScript.Emitters.IEmitter"/> have been configured.
+            </summary>
+        </member>
+        <member name="M:SuperScript.NoEmittersConfiguredException.#ctor(System.String)">
+            <summary>
+            Constructor for <see cref="T:SuperScript.NoEmittersConfiguredException"/> which allows an exception-specific message to be relayed to the developer.
+            </summary>
+        </member>
+        <member name="M:SuperScript.NoEmittersConfiguredException.#ctor">
+            <summary>
+            Constructor for <see cref="T:SuperScript.NoEmittersConfiguredException"/> which allows an exception-specific message to be relayed to the developer.
+            </summary>
+        </member>
+        <member name="T:SuperScript.SpecifiedPropertyNotFoundException">
+            <summary>
+            An <see cref="T:System.Exception"/> indicating that the specified property could not be found.
+            </summary>
+        </member>
+        <member name="M:SuperScript.SpecifiedPropertyNotFoundException.#ctor(System.String)">
+            <summary>
+            Constructor for <see cref="T:SuperScript.SpecifiedPropertyNotFoundException"/> which allows the specifying of the name of the missing property.
+            </summary>
+        </member>
+        <member name="M:SuperScript.SpecifiedPropertyNotFoundException.#ctor">
+            <summary>
+            Constructor for <see cref="T:SuperScript.SpecifiedPropertyNotFoundException"/> which allows an exception-specific message to be relayed to the developer.
+            </summary>
+        </member>
+        <member name="T:SuperScript.ExtensionMethods.ConfigurationExtensions">
+            <summary>
+            Contains extension methods which can be invoked upon the classes which are implemented in the web.config &lt;superScript&gt; section.
+            </summary>
+        </member>
+        <member name="M:SuperScript.ExtensionMethods.ConfigurationExtensions.AssignProperties(SuperScript.Configuration.PropertyCollection,System.Object)">
+            <summary>
+            Enumerates the <see cref="T:SuperScript.Configuration.PropertyCollection"/> and populates the properties specified therein on the specified <see cref="!:host"/> object.
+            </summary>
+            <param name="propertyElmnts">A <see cref="T:SuperScript.Configuration.PropertyCollection"/> object containing a collection of <see cref="T:SuperScript.Configuration.PropertyElement"/> objects.</param>
+            <param name="host">The object to which the value of each <see cref="T:SuperScript.Configuration.PropertyElement"/> object should be transferred to. </param>
+        </member>
+        <member name="M:SuperScript.ExtensionMethods.ConfigurationExtensions.IsCurrentlyEmittable(SuperScript.EmitMode)">
+            <summary>
+            Compares the specified <see cref="T:SuperScript.EmitMode"/> enumeration with the current context.
+            </summary>
+            <param name="emitMode">Determines for which modes (i.e., debug, live, or forced on or off) a property should be emitted.</param>
+            <returns><c>True</c> if the current context covers the specified <see cref="T:SuperScript.EmitMode"/>.</returns>
+        </member>
+        <member name="M:SuperScript.ExtensionMethods.ConfigurationExtensions.ShouldEmitForCurrentContext(SuperScript.Modifiers.ModifierBase)">
+            <summary>
+            Determines whether the specified <see cref="T:SuperScript.Modifiers.ModifierBase"/> should be implemented in the current emitting context.
+            </summary>
+            <param name="modifier">An instance of <see cref="T:SuperScript.Modifiers.ModifierBase"/> whose <see cref="T:SuperScript.EmitMode"/> property will be checked against the current emitting context.</param>
+            <returns><c>true</c> if the specified instance of <see cref="T:SuperScript.Modifiers.ModifierBase"/> should be emitted in the current emitting context.</returns>
+        </member>
+        <member name="M:SuperScript.ExtensionMethods.ConfigurationExtensions.ToAttributeCollection(SuperScript.Configuration.AttributesCollection)">
+            <summary>
+            Converts the specified <see cref="T:SuperScript.Configuration.AttributesCollection"/> into an <see cref="T:System.Collections.Generic.ICollection`1"/>.
+            </summary>
+        </member>
+        <member name="M:SuperScript.ExtensionMethods.ConfigurationExtensions.ToEmitterBundle(SuperScript.Configuration.EmitterBundleElement)">
+            <summary>
+            Creates an instance of <see cref="T:SuperScript.Emitters.EmitterBundle"/> from the specified <see cref="T:SuperScript.Configuration.EmitterBundleElement"/> object.
+            </summary>
+            <exception cref="T:SuperScript.ConfigurationException">Thrown when a static or abstract type is referenced for the custom object.</exception>
+        </member>
+        <member name="M:SuperScript.ExtensionMethods.ConfigurationExtensions.ToEmitterBundles(SuperScript.Configuration.EmitterBundlesCollection)">
+            <summary>
+            Creates an <see cref="T:System.Collections.Generic.ICollection`1"/> containing the instances of <see cref="T:SuperScript.Emitters.EmitterBundle"/> specified by the <see cref="T:SuperScript.Configuration.EmitterBundlesCollection"/>.
+            </summary>
+        </member>
+        <member name="M:SuperScript.ExtensionMethods.ConfigurationExtensions.ToEmitter(SuperScript.Configuration.EmitterElement)">
+            <summary>
+            Creates an instance of <see cref="T:SuperScript.Emitters.IEmitter"/> from the specified <see cref="T:SuperScript.Configuration.EmitterElement"/> object.
+            </summary>
+            <exception cref="T:SuperScript.ConfigurationException">Thrown when a static or abstract type is referenced for the custom object.</exception>
+        </member>
+        <member name="M:SuperScript.ExtensionMethods.ConfigurationExtensions.ToEmitterCollection(SuperScript.Configuration.EmittersCollection)">
+            <summary>
+            Creates an <see cref="T:System.Collections.Generic.IList`1"/> containing instances of the Emitters specified by the <see cref="T:SuperScript.Configuration.EmittersCollection"/>.
+            </summary>
+        </member>
+        <member name="M:SuperScript.ExtensionMethods.ConfigurationExtensions.ToModifier``1(SuperScript.Configuration.ModifiersCollection,System.Boolean)">
+            <summary>
+            Returns the first instance of T which is eligible for the context emit mode (i.e., <see cref="F:SuperScript.EmitMode.Always"/>, <see cref="F:SuperScript.EmitMode.DebugOnly"/>, etc.).
+            </summary>
+            <typeparam name="T">A type derived from <see cref="T:SuperScript.Modifiers.ModifierBase"/>.</typeparam>
+            <param name="modifierElmnts">Contains a collection of instances of <see cref="T:SuperScript.Modifiers.ModifierBase"/>.</param>
+            <param name="required">Indicates whether this method must return a <see cref="T:SuperScript.Modifiers.ModifierBase"/> or whether these are optional.</param>
+            <exception cref="T:SuperScript.ConfigurationException">Thrown if multiple declarations have been made for the context emit mode.</exception>
+            <exception cref="T:SuperScript.ConfigurablePropertyNotSpecifiedException">Thrown if no declarations have been made for the context emit mode.</exception>
+        </member>
+        <member name="M:SuperScript.ExtensionMethods.ConfigurationExtensions.ToModifiers``1(SuperScript.Configuration.ModifiersCollection)">
+            <summary>
+            Creates an <see cref="T:System.Collections.Generic.ICollection`1"/> containing instances of objects specified in each <see cref="T:SuperScript.Configuration.ModifierElement"/>.
+            </summary>
+            <typeparam name="T">A type derived from <see cref="T:SuperScript.Modifiers.ModifierBase"/>.</typeparam>
+            <param name="modifierElmnts">Contains a collection of instances of <see cref="T:SuperScript.Modifiers.ModifierBase"/>.</param>
+        </member>
+        <member name="M:SuperScript.ExtensionMethods.ConfigurationExtensions.ToInstance``1(SuperScript.Configuration.IAssemblyElement)">
+            <summary>
+            Returns the <see cref="T:System.Type"/> specified in the <see cref="T:SuperScript.Configuration.IAssemblyElement"/>.
+            </summary>
+        </member>
+        <member name="M:SuperScript.ExtensionMethods.ModifierExtensions.Process(System.Collections.Generic.IEnumerable{SuperScript.Modifiers.Pre.CollectionPreModifier},SuperScript.Modifiers.PreModifierArgs)">
+            <summary>
+            Processes all <see cref="T:SuperScript.Modifiers.Pre.CollectionPreModifier"/> objects in the specified <see cref="!:modifiers"/> collection.
+            </summary>
+            <param name="modifiers">
+            An <see cref="T:System.Collections.Generic.ICollection`1"/> of <see cref="T:SuperScript.Modifiers.Pre.CollectionPreModifier"/> objects which will be processed consecutively
+            using the specified <see cref="T:SuperScript.Modifiers.PreModifierArgs"/>.
+            </param>
+            <param name="args">The specified instance will be modified by each <see cref="T:SuperScript.Modifiers.Pre.CollectionPreModifier"/>.</param>
+            <returns>A modified version of the specified <see cref="!:args"/> parameter.</returns>
+        </member>
+        <member name="M:SuperScript.ExtensionMethods.ModifierExtensions.Process(System.Collections.Generic.IEnumerable{SuperScript.Modifiers.Post.CollectionPostModifier},SuperScript.Modifiers.PostModifierArgs)">
+            <summary>
+            Processes all <see cref="T:SuperScript.Modifiers.Post.CollectionPostModifier"/> objects in the specified <see cref="!:modifiers"/> collection.
+            </summary>
+            <param name="modifiers">
+            An <see cref="T:System.Collections.Generic.ICollection`1"/> of <see cref="T:SuperScript.Modifiers.Post.CollectionPostModifier"/> objects which will be processed consecutively
+            using the specified <see cref="T:SuperScript.Modifiers.PostModifierArgs"/>.
+            </param>
+            <param name="args">The specified instance will be modified by each <see cref="T:SuperScript.Modifiers.Post.CollectionPostModifier"/>.</param>
+            <returns>A modified version of the specified <see cref="!:args"/> parameter.</returns>
+        </member>
+        <member name="M:SuperScript.InternalLogic.EnsureStripppedContents(System.String)">
+            <summary>
+            Ensures that the specified <see cref="!:contents"/> are stripped of any wrapping tags.
+            </summary>
+            <param name="contents"></param>
+            <returns>A <see cref="T:System.Text.StringBuilder"/> representing the contents, stripped of any wrapping tags.</returns>
+        </member>
+        <member name="T:SuperScript.Modifiers.PostModifierArgs">
+            <summary>
+            Contains the objects, collections, etc., which will be passed to all instances of <see cref="T:SuperScript.Modifiers.Post.CollectionPostModifier"/>.
+            </summary>
+        </member>
+        <member name="M:SuperScript.Modifiers.PostModifierArgs.#ctor">
+            <summary>
+            Default constructor for <see cref="T:SuperScript.Modifiers.PostModifierArgs"/>.
+            </summary>
+        </member>
+        <member name="M:SuperScript.Modifiers.PostModifierArgs.#ctor(System.String)">
+            <summary>
+            Constuctor for <see cref="T:SuperScript.Modifiers.PostModifierArgs"/> which allows the <see cref="P:SuperScript.Modifiers.PostModifierArgs.Emitted"/> property to be set.
+            </summary>
+            <param name="emitted">Value to be passed to the <see cref="P:SuperScript.Modifiers.PostModifierArgs.Emitted"/> property.</param>
+        </member>
+        <member name="M:SuperScript.Modifiers.PostModifierArgs.#ctor(System.Object)">
+            <summary>
+            Constuctor for <see cref="T:SuperScript.Modifiers.PostModifierArgs"/> which allows the <see cref="P:SuperScript.Modifiers.PostModifierArgs.CustomObject"/> property to be set.
+            </summary>
+            <param name="customObject">Value to be passed to the <see cref="P:SuperScript.Modifiers.PostModifierArgs.CustomObject"/> property.</param>
+            <remarks>
+            <para>If the <see cref="!:customObject"/> is a <see cref="T:System.String"/> then this constructor should not be used.</para>
+            <para>Passing a <see cref="T:System.String"/> to this constructor will result in the wrong property being assigned.</para>
+            </remarks>
+        </member>
+        <member name="M:SuperScript.Modifiers.PostModifierArgs.#ctor(System.String,System.Object)">
+            <summary>
+            Constuctor for <see cref="T:SuperScript.Modifiers.PostModifierArgs"/> which allows both the <see cref="P:SuperScript.Modifiers.PostModifierArgs.Emitted"/> and <see cref="P:SuperScript.Modifiers.PostModifierArgs.CustomObject"/> properties to be set.
+            </summary>
+            <param name="emitted">Value to be passed to the <see cref="P:SuperScript.Modifiers.PostModifierArgs.Emitted"/> property.</param>
+            <param name="customObject">Value to be passed to the <see cref="P:SuperScript.Modifiers.PostModifierArgs.CustomObject"/> property.</param>
+        </member>
+        <member name="P:SuperScript.Modifiers.PostModifierArgs.CustomObject">
+            <summary>
+            This property allows the user to pass any required object through the conversion process.
+            </summary>
+        </member>
+        <member name="P:SuperScript.Modifiers.PostModifierArgs.Emitted">
+            Expected to be the output of an <see cref="T:SuperScript.Modifiers.Converters.CollectionConverter"/> or a previous instance of <see cref="T:SuperScript.Modifiers.PostModifierArgs"/>.
+        </member>
+        <!-- Badly formed XML comment ignored for member "P:SuperScript.Modifiers.PostModifierArgs.IsDebug" -->
+        <member name="T:SuperScript.Modifiers.PreModifierArgs">
+            <summary>
+            Contains the objects, collections, etc., which will be passed to all instances of <see cref="T:SuperScript.Modifiers.Pre.CollectionPreModifier"/>.
+            </summary>
+        </member>
+        <member name="M:SuperScript.Modifiers.PreModifierArgs.#ctor">
+            <summary>
+            Default constructor for <see cref="T:SuperScript.Modifiers.PreModifierArgs"/>.
+            </summary>
+        </member>
+        <member name="M:SuperScript.Modifiers.PreModifierArgs.#ctor(System.Collections.Generic.IEnumerable{SuperScript.Declarables.DeclarationBase})">
+            <summary>
+            Constuctor for <see cref="T:SuperScript.Modifiers.PreModifierArgs"/> which allows the <see cref="P:SuperScript.Modifiers.PreModifierArgs.Declarations"/> collection to be set.
+            </summary>
+            <param name="declarations">Value to be passed to the <see cref="P:SuperScript.Modifiers.PreModifierArgs.Declarations"/> property.</param>
+        </member>
+        <member name="M:SuperScript.Modifiers.PreModifierArgs.#ctor(System.Object)">
+            <summary>
+            Constuctor for <see cref="T:SuperScript.Modifiers.PreModifierArgs"/> which allows the <see cref="P:SuperScript.Modifiers.PreModifierArgs.CustomObject"/> property to be set.
+            </summary>
+            <param name="customObject">Value to be passed to the <see cref="P:SuperScript.Modifiers.PreModifierArgs.CustomObject"/> property.</param>
+            <remarks>
+            <para>If the <see cref="!:customObject"/> is an <see cref="T:System.Collections.Generic.IEnumerable`1"/> then this constructor should not be used.</para>
+            <para>Passing an <see cref="T:System.Collections.Generic.IEnumerable`1"/> to this constructor will result in the wrong property being assigned.</para>
+            </remarks>
+        </member>
+        <member name="M:SuperScript.Modifiers.PreModifierArgs.#ctor(System.Collections.Generic.IEnumerable{SuperScript.Declarables.DeclarationBase},System.Object)">
+            <summary>
+            Constuctor for <see cref="T:SuperScript.Modifiers.PreModifierArgs"/> which allows both the <see cref="P:SuperScript.Modifiers.PreModifierArgs.Declarations"/> and <see cref="P:SuperScript.Modifiers.PreModifierArgs.CustomObject"/> properties to be set.
+            </summary>
+            <param name="declarations">Value to be passed to the <see cref="P:SuperScript.Modifiers.PreModifierArgs.Declarations"/> property.</param>
+            <param name="customObject">Value to be passed to the <see cref="P:SuperScript.Modifiers.PreModifierArgs.CustomObject"/> property.</param>
+        </member>
+        <member name="P:SuperScript.Modifiers.PreModifierArgs.CustomObject">
+            <summary>
+            This property allows the user to pass any required object through the conversion process.
+            </summary>
+        </member>
+        <member name="P:SuperScript.Modifiers.PreModifierArgs.Declarations">
+            A collection of <see cref="T:SuperScript.Declarables.DeclarationBase"/> objects to be processed.
+        </member>
+        <member name="P:SuperScript.Modifiers.PreModifierArgs.IsDebug">
+            <summary>
+            Gets a value indicating whether the current HTTP request is in debug mode.
+            </summary>
+        </member>
+        <member name="P:SuperScript.Modifiers.ModifierBase.EmitMode">
+            <summary>
+            <para>Determines the mode in which this implementation emits contents.</para>
+            <para>The default is EmitMode.Always.</para>
+            </summary>
+        </member>
+        <member name="T:SuperScript.Modifiers.Converters.CollectionConverter">
+            <summary>
+            <para>Converts a <see cref="T:System.Collections.Generic.IEnumerable`1"/> into a <see cref="T:System.String"/>.</para>
+            <para>An implementation of this class will be processed after any implementations of the abstract class <see cref="T:SuperScript.Modifiers.Pre.CollectionPreModifier"/>
+            and before any implementations of the abstract class <see cref="T:SuperScript.Modifiers.Post.CollectionPostModifier"/>.</para>
+            </summary>
+        </member>
+        <member name="M:SuperScript.Modifiers.Converters.CollectionConverter.Process(SuperScript.Modifiers.PreModifierArgs)">
+            <summary>
+            Executes this instance of <see cref="T:SuperScript.Modifiers.Converters.CollectionConverter"/> upon the collection of <see cref="T:SuperScript.Declarables.DeclarationBase"/> objects.
+            </summary>
+            <param name="args">An instance of <see cref="T:SuperScript.Modifiers.PreModifierArgs"/> which contains the data for this <see cref="T:SuperScript.Modifiers.Converters.CollectionConverter"/>.</param>
+            <returns>
+            An instance of <see cref="T:SuperScript.Modifiers.PostModifierArgs"/> where the 'Emitted' property is the converted version of the input 'Declarations' property.
+            </returns>
+        </member>
+        <member name="P:SuperScript.Modifiers.IUseWhenBundled.UseWhenBundled">
+            <summary>
+            Gets or sets whether this <see cref="T:SuperScript.Modifiers.ModifierBase"/> should be implemented when its parent <see cref="T:SuperScript.Emitters.IEmitter"/> is referenced by a <see cref="T:SuperScript.Emitters.EmitterBundle"/>.
+            </summary>
+        </member>
+        <member name="T:SuperScript.Modifiers.Post.CollectionPostModifier">
+            <summary>
+            <para>Modifies the <see cref="T:System.String"/> output of an <see cref="T:SuperScript.Modifiers.Converters.CollectionConverter"/> implementation.</para>
+            <para>Implementations of this abstract class will be processed at the final stage before writing to the webpage.</para>
+            </summary>
+        </member>
+        <member name="M:SuperScript.Modifiers.Post.CollectionPostModifier.Process(SuperScript.Modifiers.PostModifierArgs)">
+            <summary>
+            Executes this instance of <see cref="T:SuperScript.Modifiers.Post.CollectionPostModifier"/> upon the specified <see cref="T:SuperScript.Modifiers.PostModifierArgs"/>.
+            </summary>
+            <param name="args">An instance of <see cref="T:SuperScript.Modifiers.PostModifierArgs"/> which contains the data for this modifier.</param>
+            <returns>An instance of <see cref="T:SuperScript.Modifiers.PostModifierArgs"/> which is expected to be a modified version of the input argument.</returns>
+        </member>
+        <member name="P:SuperScript.Modifiers.Post.CollectionPostModifier.UseWhenBundled">
+            <summary>
+            Gets or sets whether this <see cref="T:SuperScript.Modifiers.Post.CollectionPostModifier"/> should be implemented when its parent <see cref="T:SuperScript.Emitters.IEmitter"/> is referenced by a <see cref="T:SuperScript.Emitters.EmitterBundle"/>.
+            </summary>
+        </member>
+        <member name="M:SuperScript.ExtensionMethods.CollectionExtensions.ForEmitter(System.Collections.Generic.IEnumerable{SuperScript.Declarables.DeclarationBase},System.String[])">
+            <summary>
+            Returns a collection of <see cref="T:SuperScript.Declarables.DeclarationBase"/> which reference a specific instance of <see cref="T:SuperScript.Emitters.IEmitter"/>.
+            </summary>
+            <param name="declarations">
+            A collection of <see cref="T:SuperScript.Declarables.DeclarationBase"/> instances which is to be filtered by Emitter.
+            </param>
+            <param name="emitterKeys">
+            A comma-separated list of <see cref="P:SuperScript.Emitters.IEmitter.Key"/> for the desired instances of <see cref="T:SuperScript.Emitters.IEmitter"/>.
+            </param>
+            <returns>
+            A collection of <see cref="T:SuperScript.Declarables.DeclarationBase"/> instances, each using the desired Emitter.
+            </returns>
+        </member>
+        <member name="M:SuperScript.ExtensionMethods.CollectionExtensions.GroupByEmitter(System.Collections.Generic.IEnumerable{SuperScript.Declarables.DeclarationBase})">
+            <summary>
+            Groups collections of <see cref="T:SuperScript.Declarables.DeclarationBase"/> by their specified <see cref="T:SuperScript.Emitters.IEmitter"/>.
+            </summary>
+            <remarks>
+            Only instances of <see cref="T:SuperScript.Declarables.DeclarationBase"/> which have a specified (i.e., non-default) Emitter specified will be considered.
+            </remarks>
+            <param name="declarations">
+            A collection of <see cref="T:SuperScript.Declarables.DeclarationBase"/> instances, each of which may have a specified Emitter.
+            </param>
+            <returns>
+            A collection of groups of <see cref="T:SuperScript.Declarables.DeclarationBase"/> instances, each with a shared Emitter.
+            </returns>
+        </member>
+        <member name="M:SuperScript.ExtensionMethods.CollectionExtensions.RemoveDuplicates(System.Collections.Generic.ICollection{SuperScript.Declarables.DeclarationBase},SuperScript.Declarables.DeclarationBase)">
+            <summary>
+            <para>Removes an instance of <see cref="T:SuperScript.Declarables.DeclarationBase"/> from the specified collection.</para>
+            <para>Any instances of <see cref="T:SuperScript.Declarables.DeclarationBase"/> with a matching name will be removed.</para>
+            </summary>
+            <param name="collection">
+            The instance of <see cref="T:System.Collections.ObjectModel.Collection`1"/> which is storing the declarations.
+            </param>
+            <param name="declaration">
+            <para>An instance of <see cref="T:SuperScript.Declarables.DeclarationBase"/>.</para>
+            <para>This <see cref="T:SuperScript.Declarables.DeclarationBase"/> instance will replace any existing declaration instances with a matching Name property,</para>
+            <para>provided that the Name property it not null or whitespace.</para>
+            </param>
+        </member>
+        <member name="M:SuperScript.ExtensionMethods.CollectionExtensions.RemoveDuplicates(System.Collections.Generic.ICollection{SuperScript.Declarables.DeclarationBase},System.String)">
+            <summary>
+            <para>Removes an instance of <see cref="T:SuperScript.Declarables.DeclarationBase"/> from the specified collection.</para>
+            <para>Any instances of <see cref="T:SuperScript.Declarables.DeclarationBase"/> with a matching name will be removed.</para>
+            </summary>
+            <param name="collection">
+            The instance of <see cref="T:System.Collections.ObjectModel.Collection`1"/> which is storing the declarations.
+            </param>
+            <param name="name">
+            <para>Any currently-declared instances of <see cref="T:SuperScript.Declarables.DeclarationBase"/> which have a matching Name property</para>
+            <para>will be removed, provided the Name property is neither null nor empty.</para>
+            </param>
+        </member>
+        <member name="T:SuperScript.HttpInitialiser">
+            <summary>
+            This class is instantiated for each HTTP request. [This is wired-up in the web.config.]
+            </summary>
+        </member>
+        <member name="M:SuperScript.HttpInitialiser.InitEvents(System.Web.HttpApplication)">
+            <summary>
+            Custom handler for wiring-up events.
+            </summary>
+            <param name="context">
+            The current HttpContext.
+            </param>
+        </member>
+        <member name="T:SuperScript.Modifiers.Pre.CollectionPreModifier">
+            <summary>
+            <para>Modifies the <see cref="T:System.Collections.Generic.IEnumerable`1"/>.</para>
+            <para>Implementations of this abstract class are processed prior to the <see cref="T:System.Collections.Generic.IEnumerable`1"/> being converted using an <see cref="T:SuperScript.Modifiers.Converters.CollectionConverter"/>.</para>
+            </summary>
+        </member>
+        <member name="M:SuperScript.Modifiers.Pre.CollectionPreModifier.Process(SuperScript.Modifiers.PreModifierArgs)">
+            <summary>
+            Executes this instance of <see cref="T:SuperScript.Modifiers.Converters.CollectionConverter"/> upon the specified <see cref="T:SuperScript.Modifiers.PreModifierArgs"/>.
+            </summary>
+            <param name="args">An instance of <see cref="T:SuperScript.Modifiers.PreModifierArgs"/> which contains the data for this modifier.</param>
+            <returns>An instance of <see cref="T:SuperScript.Modifiers.PreModifierArgs"/> which is expected to be a modified version of the input argument.</returns>
+        </member>
+        <member name="P:SuperScript.Modifiers.Pre.CollectionPreModifier.UseWhenBundled">
+            <summary>
+            Gets or sets whether this <see cref="T:SuperScript.Modifiers.Post.CollectionPostModifier"/> should be implemented when its parent <see cref="T:SuperScript.Emitters.IEmitter"/> is referenced by a <see cref="T:SuperScript.Emitters.EmitterBundle"/>.
+            </summary>
+        </member>
+        <member name="T:SuperScript.Emitters.IEmitter">
+            <summary>
+            Implementations of this interface can be used for emitting an instance of <see cref="T:SuperScript.Declarables.DeclarationBase"/> onto the webpage.
+            </summary>
+        </member>
+        <member name="M:SuperScript.Emitters.IEmitter.ToHtmlString(System.Collections.Generic.IEnumerable{SuperScript.Declarables.DeclarationBase})">
+            <summary>
+            Enumerates through the specified collection of <see cref="T:SuperScript.Declarables.DeclarationBase"/> instances and formats each of them.
+            </summary>
+            <param name="declarations">
+            A collection of <see cref="T:SuperScript.Declarables.DeclarationBase"/> instances.
+            </param>
+        </member>
+        <member name="P:SuperScript.Emitters.IEmitter.CustomObject">
+            <summary>
+            This property allows the user to pass any required object through the modification and conversion process.
+            </summary>
+        </member>
+        <member name="P:SuperScript.Emitters.IEmitter.IsDefault">
+            <summary>
+            Indicates whether this is the default instance of <see cref="T:SuperScript.Emitters.IEmitter"/>.
+            </summary>
+            <remarks>
+            The default instance of <see cref="T:SuperScript.Emitters.IEmitter"/> is used for situations where no specific instance of <see cref="T:SuperScript.Emitters.IEmitter"/> has been specified.
+            </remarks>
+        </member>
+        <member name="P:SuperScript.Emitters.IEmitter.Key">
+            <summary>
+            The identifier for this instance of <see cref="T:SuperScript.Emitters.IEmitter"/>.
+            </summary>
+        </member>
+        <member name="P:SuperScript.Emitters.IEmitter.Converter">
+            <summary>
+            The implementation of <see cref="T:SuperScript.Modifiers.Converters.CollectionConverter"/> which has been assigned to this <see cref="T:SuperScript.Emitters.IEmitter"/>.
+            </summary>
+        </member>
+        <member name="P:SuperScript.Emitters.IEmitter.PreModifiers">
+            <summary>
+            The implementations of <see cref="T:SuperScript.Modifiers.Pre.CollectionPreModifier"/> which have been assigned to this <see cref="T:SuperScript.Emitters.IEmitter"/>.
+            </summary>
+        </member>
+        <member name="P:SuperScript.Emitters.IEmitter.PostModifiers">
+            <summary>
+            The implementations of <see cref="T:SuperScript.Modifiers.Post.CollectionPostModifier"/> which have been assigned to this <see cref="T:SuperScript.Emitters.IEmitter"/>.
+            </summary>
+        </member>
+        <member name="P:SuperScript.Emitters.IEmitter.HtmlWriter">
+            <summary>
+            The implementation of <see cref="P:SuperScript.Emitters.IEmitter.HtmlWriter"/> which has been assigned to this <see cref="T:SuperScript.Emitters.IEmitter"/> for writing the formatted output to the webpage.
+            </summary>
+        </member>
+        <member name="T:SuperScript.Emitters.StandardEmitter">
+            <summary>
+            The default implementation of <see cref="T:SuperScript.Emitters.IEmitter"/>.
+            </summary>
+        </member>
+        <member name="M:SuperScript.Emitters.StandardEmitter.ToHtmlString(System.Collections.Generic.IEnumerable{SuperScript.Declarables.DeclarationBase})">
+            <summary>
+            Converts the specified collection of <see cref="T:SuperScript.Declarables.DeclarationBase"/> instances into a string.
+            </summary>
+            <param name="declarations">A collection of JavaScript declarations.</param>
+            <returns>
+            An <see cref="T:System.Web.HtmlString"/> containing the contents of the specified collection of <see cref="T:SuperScript.Declarables.DeclarationBase"/>.
+            </returns>
+            <exception cref="T:SuperScript.NotSpecifiedException">Thrown if either the <see cref="P:SuperScript.Emitters.StandardEmitter.Converter"/> or the <see cref="P:SuperScript.Emitters.StandardEmitter.HtmlWriter"/> properties are null.</exception>
+        </member>
+        <member name="M:SuperScript.Emitters.StandardEmitter.ToString">
+            <summary>
+            Returns a string that represents the current object, and should be used for debugging purposes only.
+            </summary>
+            <returns>
+            A string containing information about this instance of <see cref="T:SuperScript.Emitters.IEmitter"/>.
+            </returns>
+        </member>
+        <member name="P:SuperScript.Emitters.StandardEmitter.CustomObject">
+            <summary>
+            This property allows the user to pass any required object through the modification and conversion process.
+            </summary>
+        </member>
+        <member name="P:SuperScript.Emitters.StandardEmitter.IsDefault">
+            <summary>
+            Indicates whether this is the default instance of <see cref="T:SuperScript.Emitters.IEmitter"/>.
+            </summary>
+            <remarks>
+            The default instance of <see cref="T:SuperScript.Emitters.IEmitter"/> is used for situations where no specific instance of <see cref="T:SuperScript.Emitters.IEmitter"/> has been specified.
+            </remarks>
+        </member>
+        <member name="P:SuperScript.Emitters.StandardEmitter.Key">
+            <summary>
+            The identifier for this instance of <see cref="T:SuperScript.Emitters.IEmitter"/>.
+            </summary>
+        </member>
+        <member name="P:SuperScript.Emitters.StandardEmitter.Converter">
+            <summary>
+            The implementation of <see cref="T:SuperScript.Modifiers.Converters.CollectionConverter"/> which has been assigned to this <see cref="T:SuperScript.Emitters.IEmitter"/>.
+            </summary>
+        </member>
+        <member name="P:SuperScript.Emitters.StandardEmitter.PreModifiers">
+            <summary>
+            The implementations of <see cref="T:SuperScript.Modifiers.Pre.CollectionPreModifier"/> which have been assigned to this <see cref="T:SuperScript.Emitters.IEmitter"/>.
+            </summary>
+        </member>
+        <member name="P:SuperScript.Emitters.StandardEmitter.PostModifiers">
+            <summary>
+            The implementations of <see cref="T:SuperScript.Modifiers.Post.CollectionPostModifier"/> which have been assigned to this <see cref="T:SuperScript.Emitters.IEmitter"/>.
+            </summary>
+        </member>
+        <member name="P:SuperScript.Emitters.StandardEmitter.HtmlWriter">
+            <summary>
+            The implementation of <see cref="P:SuperScript.Emitters.StandardEmitter.HtmlWriter"/> which has been assigned to this <see cref="T:SuperScript.Emitters.IEmitter"/> for writing the formatted output to the webpage.
+            </summary>
+        </member>
+        <member name="M:SuperScript.Modifiers.Writers.HtmlWriter.Process(SuperScript.Modifiers.PostModifierArgs)">
+            <summary>
+            Executes this instance of <see cref="T:SuperScript.Modifiers.Writers.HtmlWriter"/> upon the collection of <see cref="T:SuperScript.Declarables.DeclarationBase"/> objects.
+            </summary>
+            <param name="args">An instance of <see cref="T:SuperScript.Modifiers.PostModifierArgs"/> which contains the data for this <see cref="T:SuperScript.Modifiers.Writers.HtmlWriter"/>.</param>
+            <returns>
+            An implementation-specific instance of <see cref="T:System.Web.IHtmlString"/>.
+            </returns>
+        </member>
+        <member name="T:SuperScript.OptionsBase`1">
+            <summary>
+            Base class for SuperScript declaration options.
+            </summary>
+        </member>
+        <member name="M:SuperScript.OptionsBase`1.EmitterKey(System.String)">
+            <summary>
+            Specifies which instance of <see cref="T:SuperScript.Emitters.IEmitter"/> should be used to emit this instance of <see cref="T:SuperScript.Declarables.DeclarationBase"/>.
+            </summary>
+        </member>
+        <member name="M:SuperScript.OptionsBase`1.InsertAt(System.Nullable{System.Int32})">
+            <summary>
+            Permits this instance of <see cref="T:SuperScript.Declarables.DeclarationBase"/> to be inserted into the collection at the specified index.
+            </summary>
+        </member>
+    </members>
+</doc>

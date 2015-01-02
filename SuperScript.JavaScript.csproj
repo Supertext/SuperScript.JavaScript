@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{935D6D62-1873-4A2B-B9FE-EC36333CDF7B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SuperScript.JavaScript</RootNamespace>
+    <AssemblyName>SuperScript.JavaScript</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime">
+      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\SuperScript Test\packages\Newtonsoft.Json.6.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WebGrease">
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Attributes\EnumJsTextAttribute.cs" />
+    <Compile Include="Attributes\EnumLocalizePropertyAttribute.cs" />
+    <Compile Include="Attributes\EnumOptionTextAttribute.cs" />
+    <Compile Include="Configuration\Classes\ArrayElement.cs" />
+    <Compile Include="Configuration\Classes\ArrayElementElement.cs" />
+    <Compile Include="Configuration\Classes\ArrayElementsCollection.cs" />
+    <Compile Include="Configuration\Classes\ArraysCollection.cs" />
+    <Compile Include="Configuration\Classes\CallElement.cs" />
+    <Compile Include="Configuration\Classes\CallsCollection.cs" />
+    <Compile Include="Configuration\Classes\CommentElement.cs" />
+    <Compile Include="Configuration\Classes\ContainersElement.cs" />
+    <Compile Include="Configuration\Classes\DeclarationElement.cs" />
+    <Compile Include="Configuration\Classes\DeclarationsCollection.cs" />
+    <Compile Include="Configuration\Classes\ParameterElement.cs" />
+    <Compile Include="Configuration\Classes\ParametersCollection.cs" />
+    <Compile Include="Configuration\Classes\VariableElement.cs" />
+    <Compile Include="Configuration\Classes\VariablesCollection.cs" />
+    <Compile Include="Configuration\Settings.cs" />
+    <Compile Include="Configuration\Classes\JavaScriptConfig.cs" />
+    <Compile Include="Declarables\ObjectDeclaration.cs" />
+    <Compile Include="Declarables\CollectedScript.cs" />
+    <Compile Include="Declarations.cs" />
+    <Compile Include="Declarables\ArrayDeclaration.cs" />
+    <Compile Include="Declarables\BaseClass\DeclarationBase.cs" />
+    <Compile Include="Declarables\CallDeclaration.cs" />
+    <Compile Include="Declarables\CommentDeclaration.cs" />
+    <Compile Include="Declarables\EnumDeclaration.cs" />
+    <Compile Include="Declarables\JavaScriptValues.cs" />
+    <Compile Include="Declarables\StandardDeclaration.cs" />
+    <Compile Include="Enumerations\Enumerations.cs" />
+    <Compile Include="ExtensionMethods\ConfigurationExtensions.cs" />
+    <Compile Include="ExtensionMethods\EnumExtensions.cs" />
+    <Compile Include="HttpInitialiser.cs" />
+    <Compile Include="Modifiers\Converters\JavaScriptStringify.cs" />
+    <Compile Include="Modifiers\Post\JavaScriptMinifier.cs" />
+    <Compile Include="Modifiers\Post\WhenReady.cs" />
+    <Compile Include="Modifiers\Writers\ScriptTagWriter.cs" />
+    <Compile Include="Options\ObjectOptions.cs" />
+    <Compile Include="Options\ArrayOptions.cs" />
+    <Compile Include="Options\BaseClass\OptionsBase.cs" />
+    <Compile Include="Options\CallOptions.cs" />
+    <Compile Include="Options\CommentOptions.cs" />
+    <Compile Include="Options\EnumeratedTypeOptions.cs" />
+    <Compile Include="Options\VariableOptions.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SuperScript.Common\SuperScript.Common.csproj">
+      <Project>{6eb032a6-96d9-4e1d-9e8b-1bc5174a7d09}</Project>
+      <Name>SuperScript.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SuperScript.Container.Mvc\SuperScript.Container.Mvc.csproj">
+      <Project>{f00360b4-8ef4-4e39-b743-e9534e676eba}</Project>
+      <Name>SuperScript.Container.Mvc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SuperScript.Container.WebForms\SuperScript.Container.WebForms.csproj">
+      <Project>{4425bbd0-4073-44a9-8ec9-cffcc245f011}</Project>
+      <Name>SuperScript.Container.WebForms</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

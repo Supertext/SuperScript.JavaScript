@@ -1,0 +1,5 @@
+*.user
+*.vspscc
+*.DotSettings
+*.nupkg
+*.cache
