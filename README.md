@@ -46,7 +46,7 @@ var myVar = "hello world"; /* A comment */
 
 ##What's in this project?
 
-Below is a list of some of the more important classes in the SuperScript.Common project.
+Below is a list of some of the more important classes in the `SuperScript.JavaScript` project.
 
 * `SuperScript.JavaScript.Declarables.ArrayDeclaration`
 * `SuperScript.JavaScript.Declarables.CallDeclaration`
