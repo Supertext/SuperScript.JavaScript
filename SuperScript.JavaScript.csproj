@@ -110,14 +110,6 @@
       <Project>{6eb032a6-96d9-4e1d-9e8b-1bc5174a7d09}</Project>
       <Name>SuperScript.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SuperScript.Container.Mvc\SuperScript.Container.Mvc.csproj">
-      <Project>{f00360b4-8ef4-4e39-b743-e9534e676eba}</Project>
-      <Name>SuperScript.Container.Mvc</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SuperScript.Container.WebForms\SuperScript.Container.WebForms.csproj">
-      <Project>{4425bbd0-4073-44a9-8ec9-cffcc245f011}</Project>
-      <Name>SuperScript.Container.WebForms</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
