@@ -66,5 +66,13 @@ Below is a list of some of the more important classes in the `SuperScript.JavaSc
 
 This project also contains attributes for .NET `enum` types which allow greater control over their client-side representations.
 
+##Dependencies
+There are a variety of SuperScript projects, some being dependent upon others.
+
+* [`SuperScript.Common`](https://github.com/Supertext/SuperScript.Common)
+
+  This library contains the core classes which facilitate all other SuperScript modules but which won't produce any meaningful output on its own.
+
+
 
 `SuperScript.JavScript` has been made available under the [MIT License](https://github.com/Supertext/SuperScript.JavaScript/blob/master/LICENSE).
