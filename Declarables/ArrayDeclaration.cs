@@ -41,7 +41,6 @@ namespace SuperScript.JavaScript.Declarables
             output.Append(" = [");
             foreach (var arrayElement in Elements)
             {
-
                 output.Append(arrayElement.GetType() != Type
                                   ? GetFormattedValue(arrayElement, Type)
                                   : GetFormattedValue(arrayElement));
