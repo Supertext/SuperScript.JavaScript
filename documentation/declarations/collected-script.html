@@ -1,0 +1,176 @@
+<div class="row">
+
+	<div class="col-xs-12">
+
+		<p class="lead">
+			SuperScript offers a means of declaring assets in one part of a .NET web solution and have them emitted somewhere else.
+		</p>
+
+		<p>
+			<mark><strong><em>This documentation is still being written. Please bear with us while we complete this documentation.</em></strong></mark>
+		</p>
+	
+	</div>
+
+</div>
+
+<div class="row">
+
+	<div class="col-xs-12">
+	
+		<h2>Collected Script Declaration</h2>
+		
+		<p>
+			The <abbr title="SuperScript.JavaScript.Declarables.CollectedScript"><code>CollectedScript</code></abbr> declaration offers a means of
+			declaring a block of mixed JavaScript logic, <em>i.e.</em>, general declarations along with function calls, or perhaps even functions
+			themselves.
+		</p>
+		
+		<p>
+			Although available for use just as with, for example, 
+			<a href="#!/page/declarations.array-declaration"><abbr title="SuperScript.JavaScript.Declarables.ArrayDeclaration"><code>ArrayDeclaration</code></abbr></a> 
+			or <a href="#!/page/declarations.call-declaration"><abbr title="SuperScript.JavaScript.Declarables.CallDeclaration"><code>CallDeclaration</code></abbr></a>, 
+			<abbr title="SuperScript.JavaScript.Declarables.CollectedScript"><code>CollectedScript</code></abbr> is also used internally by projects
+			which build upon the functionality of SuperScript.JavaScript. For example, SuperScript.JavaScript.Mvc and SuperScript.JavaScript.WebForms
+			both offer a container control which internally creates an instance of 
+			<abbr title="SuperScript.JavaScript.Declarables.CollectedScript"><code>CollectedScript</code></abbr>.
+		</p>
+		
+		<pre class="brush: c#">
+			class CollectedScript : SuperScript.JavaScript.Declarables.DeclarationBase
+			{
+				object Value { get; set; }
+				override string ToString();
+				void WrapInLocationComment(string virtualPath);
+			}
+		</pre>
+
+		<p>
+			
+		</p>
+
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Type</th>
+					<th>Description</th>
+				</tr>
+			</thead>
+			<tr>
+				<td>Value</td>
+				<td>object</td>
+				<td>
+					<p>
+						Contains the contents of the general script block.
+					</p>
+					<p>
+						<strong>Optional</strong>. [Though a declaration of this type without any contents carries no purpose.]
+					</p>
+				</td>
+			</tr>
+			<tr>
+				<td>ToString</td>
+				<td>string</td>
+				<td>
+					<p>
+						Returns this instance as a formatted JavaScript declaration.
+					</p>
+				</td>
+			</tr>
+			<tr>
+				<td>WrapInLocationComment</td>
+				<td>&nbsp;</td>
+				<td>
+					<p>
+						Wraps the <abbr title="SuperScript.JavaScript.Declarables.CollectedScript.Value"><code>Value</code></abbr> property 
+						in a JavaScript-formatted comment indicating the original location.
+					</p>
+					<p>
+						When <abbr title="SuperScript.JavaScript.Declarables.CollectedScript"><code>CollectedScript</code></abbr> is implemented by
+						SuperScript.JavaScript.Mvc and SuperScript.JavaScript.WebForms, this method is automatically called.
+					</p>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3">
+					Inherited members
+				</td>
+			</tr>
+			<tr>
+				<td>Comment</td>
+				<td>string</td>
+				<td>
+					<p>
+						This text may be emitted onto its own line or after a variable, depending upon the specific implementation of <abbr title="SuperScript.JavaScript.Declarables.DeclarationBase"><code>DeclarationBase</code></abbr>.
+					</p>
+					<p>
+						<strong>Optional</strong>.
+					</p>
+				</td>
+			</tr>
+			<tr>
+				<td>EmitterKey</td>
+				<td>string</td>
+				<td>
+					<p>
+						Indicates which instance of <abbr title="SuperScript.Emitters.IEmitter"><code>IEmitter</code></abbr> the content should be added to.
+					</p>
+					<p>
+						<strong>Optional</strong>. If not specified then the contents will be added to the default implementation of <abbr title="SuperScript.Emitters.IEmitter"><code>IEmitter</code></abbr>.
+					</p>
+				</td>
+			</tr>
+			<tr>
+				<td>Name</td>
+				<td>string</td>
+				<td>
+					<p>
+						Gets or sets the name assigned to this declarable.
+					</p>
+					<p>
+						<strong>Optional</strong>.
+					</p>
+				</td>
+			</tr>
+		</table>
+
+		<h3>Example</h3>
+		
+		<p>
+			Unlike some other derivations of <abbr title="SuperScript.JavaScript.Declarables.DeclarationBase"><code>DeclarationBase</code></abbr>,
+			cannot be added to a configuration file. Nor is there a method offering fluent syntax declaring of a 
+			<abbr title="SuperScript.JavaScript.Declarables.CollectedScript"><code>CollectedScript</code></abbr> object.
+		</p>
+		
+		<pre class="brush: c#">
+			var collScript = new CollectedScript();
+            collScript.EmitterKey = "javascript";
+            collScript.Value = @"var demoVal = 'hello world';
+                                 function logToConsole(msg) {
+                                     if (typeof console == 'object') {
+                                         console.log(msg);
+                                     }
+                                 }
+								 logToConsole(demoVal);";
+
+            SuperScript.Declarations.AddDeclaration&lt;CollectedScript&gt;(collScript);
+		</pre>
+		
+		<p>
+			The above example will output the following:
+		</p>
+		
+		<pre class="brush: javascript">
+			var demoVal = 'hello world';
+			function logToConsole(msg) {
+				if (typeof console == 'object') {
+					console.log(msg);
+				}
+			}
+			logToConsole(demoVal);
+		</pre>
+		
+	</div>
+
+</div>

@@ -1,0 +1,175 @@
+<div class="row">
+
+	<div class="col-xs-12">
+
+		<p class="lead">
+			SuperScript offers a means of declaring assets in one part of a .NET web solution and have them emitted somewhere else.
+		</p>
+
+		<p>
+			<mark><strong><em>This documentation is still being written. Please bear with us while we complete this documentation.</em></strong></mark>
+		</p>
+	
+	</div>
+
+</div>
+
+<div class="row">
+
+	<div class="col-xs-12">
+	
+		<h2>JavaScript-specific Declarations</h2>
+		
+		<p>
+			SuperScript.JavaScript contains a class, <abbr title="SuperScript.JavaScript.Declarables.DeclarationBase"><code>DeclarationBase</code></abbr>,
+			which is  an implementation of the abstract <abbr title="SuperScript.Declarables.DeclarationBase"><code>DeclarationBase</code></abbr> found
+			in the core SuperScript library.
+		</p>
+		
+		<pre class="brush: c#">
+			abstract class DeclarationBase : SuperScript.Declarables.DeclarationBase
+			{
+				string Comment { get; set; }
+			}
+		</pre>
+
+		<p>
+			Aside from some internal logic, <abbr title="SuperScript.JavaScript.Declarables.DeclarationBase"><code>DeclarationBase</code></abbr> only exposes
+			a single property, <abbr title="SuperScript.JavaScript.Declarables.DeclarationBase.Comment"><code>Comment</code></abbr>, which is common to all
+			implementations of <abbr title="SuperScript.JavaScript.Declarables.DeclarationBase"><code>DeclarationBase</code></abbr> in the SuperScript.JavaScript 
+			library.
+		</p>
+
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Type</th>
+					<th>Description</th>
+				</tr>
+			</thead>
+			<tr>
+				<td>Comment</td>
+				<td>string</td>
+				<td>
+					<p>
+						This text may be emitted onto its own line or after a variable, depending upon the specific implementation of <abbr title="SuperScript.JavaScript.Declarables.DeclarationBase"><code>DeclarationBase</code></abbr>.
+					</p>
+				</td>
+			</tr>
+		</table>
+		
+		<h3>Implementations</h3>
+		
+		<p>
+			Here follows a list of the implementations of <abbr title="SuperScript.JavaScript.Declarables.DeclarationBase"><code>DeclarationBase</code></abbr>
+			included in this project.
+		</p>
+		
+		<ul>
+			<li>
+				<h4><abbr title="SuperScript.JavaScript.Declarables.ArrayDeclaration"><code>ArrayDeclaration</code></abbr></h4>
+				<p>
+					Offers functionality for declaring an array in code and emitting this to the client.
+				</p>
+				<p>
+					Read about the <abbr title="SuperScript.JavaScript.Declarables.ArrayDeclaration"><code>ArrayDeclaration</code></abbr> 
+					<a href="#!/page/declarations.array-declaration">here</a>.
+				</p>
+				<p>
+					<a href="https://github.com/Supertext/SuperScript.JavaScript/blob/master/Declarables/ArrayDeclaration.cs" target="_blank">
+					View this class on GitHub</a>
+				</p>
+			</li>
+			<li>
+				<h4><abbr title="SuperScript.JavaScript.Declarables.CallDeclaration"><code>CallDeclaration</code></abbr></h4>
+				<p>
+					Enables calls to JavaScript functions to be declared in server-side code.
+				</p>
+				<p>
+					Read about the <abbr title="SuperScript.JavaScript.Declarables.CallDeclaration"><code>CallDeclaration</code></abbr> 
+					<a href="#!/page/declarations.call-declaration">here</a>.
+				</p>
+				<p>
+					<a href="https://github.com/Supertext/SuperScript.JavaScript/blob/master/Declarables/CallDeclaration.cs" target="_blank">
+					View this class on GitHub</a>
+				</p>
+			</li>
+			<li>
+				<h4><abbr title="SuperScript.JavaScript.Declarables.CollectedScript"><code>CollectedScript</code></abbr></h4>
+				<p>
+					Accommodates mixed JavaScript, <em>i.e.</em> multiple lines of declarations, function calls and general JavaScript logic.
+				</p>
+				<p>
+					This declaration is used by the container controls found in SuperScript.JavaScript.Mvc and SuperScript.JavaScript.WebForms.
+				</p>
+				<p>
+					Read about the <abbr title="SuperScript.JavaScript.Declarables.CollectedScript"><code>CollectedScript</code></abbr> 
+					<a href="#!/page/declarations.collected-script">here</a>.
+				</p>
+				<p>
+					<a href="https://github.com/Supertext/SuperScript.JavaScript/blob/master/Declarables/CollectedScript.cs" target="_blank">
+					View this class on GitHub</a>
+				</p>
+			</li>
+			<li>
+				<h4><abbr title="SuperScript.JavaScript.Declarables.CommentDeclaration"><code>CommentDeclaration</code></abbr></h4>
+				<p>
+					Simply allows declaring a comment to be added to the client-side JavaScript.
+				</p>
+				<p>
+					Read about the <abbr title="SuperScript.JavaScript.Declarables.CommentDeclaration"><code>CommentDeclaration</code></abbr> 
+					<a href="#!/page/declarations.comment-declaration">here</a>.
+				</p>
+				<p>
+					<a href="https://github.com/Supertext/SuperScript.JavaScript/blob/master/Declarables/CommentDeclaration.cs" target="_blank">
+					View this class on GitHub</a>
+				</p>
+			</li>
+			<li>
+				<h4><abbr title="SuperScript.JavaScript.Declarables.EnumDeclaration"><code>EnumDeclaration</code></abbr></h4>
+				<p>
+					Exposes functionality for emitting an <code>enum</code> in client-side JavaScript.
+				</p>
+				<p>
+					Read about the <abbr title="SuperScript.JavaScript.Declarables.EnumDeclaration"><code>EnumDeclaration</code></abbr> 
+					<a href="#!/page/declarations.enum-declaration">here</a>.
+				</p>
+				<p>
+					<a href="https://github.com/Supertext/SuperScript.JavaScript/blob/master/Declarables/EnumDeclaration.cs" target="_blank">
+					View this class on GitHub</a>
+				</p>
+			</li>
+			<li>
+				<h4><abbr title="SuperScript.JavaScript.Declarables.ObjectDeclaration"><code>ObjectDeclaration</code></abbr></h4>
+				<p>
+					Offers a simple means of declaring an object which will be emitted in client-side JavaScript.
+				</p>
+				<p>
+					Read about the <abbr title="SuperScript.JavaScript.Declarables.ObjectDeclaration"><code>ObjectDeclaration</code></abbr> 
+					<a href="#!/page/declarations.object-declaration">here</a>.
+				</p>
+				<p>
+					<a href="https://github.com/Supertext/SuperScript.JavaScript/blob/master/Declarables/ObjectDeclaration.cs" target="_blank">
+					View this class on GitHub</a>
+				</p>
+			</li>
+			<li>
+				<h4><abbr title="SuperScript.JavaScript.Declarables.StandardDeclaration"><code>StandardDeclaration</code></abbr></h4>
+				<p>
+					This declaration is used for declaring JavaScript variables or assigning a value to an existing variable.
+				</p>
+				<p>
+					Read about the <abbr title="SuperScript.JavaScript.Declarables.StandardDeclaration"><code>StandardDeclaration</code></abbr> 
+					<a href="#!/page/declarations.standard-declaration">here</a>.
+				</p>
+				<p>
+					<a href="https://github.com/Supertext/SuperScript.JavaScript/blob/master/Declarables/StandardDeclaration.cs" target="_blank">
+					View this class on GitHub</a>
+				</p>
+			</li>
+		</ul>
+
+	</div>
+
+</div>
