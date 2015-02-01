@@ -1,4 +1,5 @@
-﻿using SuperScript.JavaScript.Declarables;
+﻿using System;
+using SuperScript.JavaScript.Declarables;
 
 namespace SuperScript.JavaScript
 {
@@ -10,6 +11,7 @@ namespace SuperScript.JavaScript
         internal bool _assignExisting;
         internal string _name;
         internal object[] _elements = null;
+        internal Type _type = typeof (String);
 
 
         /// <summary>
@@ -68,6 +70,16 @@ namespace SuperScript.JavaScript
         public ArrayOptions Name(string value)
         {
             _name = value;
+            return this;
+        }
+
+
+        /// <summary>
+        /// Specifies the type of the emitted values.
+        /// </summary>
+        public ArrayOptions Type(Type type)
+        {
+            _type = type;
             return this;
         }
     }

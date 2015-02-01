@@ -65,7 +65,7 @@ namespace SuperScript.JavaScript.Declarables
         /// var exampleVar = "hello world";
         /// var anotherVar = exampleVar;
         /// </example>
-        internal string GetFormattedValue(object value)
+        internal string GetFormattedValue(object value, Type type = null)
         {
             var decbase = value as DeclarationBase;
             if (decbase != null)
@@ -83,9 +83,32 @@ namespace SuperScript.JavaScript.Declarables
                 return value.ToString();
             }
 
+            if (type != null && CanChangeType(value, type))
+            {
+                value = Convert.ChangeType(value, type);
+            }
+
             return value == JavaScriptValues.Null
                        ? "null"
                        : JsonConvert.SerializeObject(value);
+        }
+
+
+        private bool CanChangeType(object value, Type conversionType)
+        {
+            if (conversionType == null)
+            {
+                return false;
+            }
+
+            if (value == null)
+            {
+                return false;
+            }
+
+            var convertible = value as IConvertible;
+
+            return convertible != null;
         }
 
 
