@@ -5,7 +5,7 @@ var PageManager = function (win, doc) {
 		issueUrl = "https://github.com/Supertext/" + projectName + "/issues/new",
 		urlSegments = doc.location.pathname.split("/"),
 		removeLastSegment = urlSegments.pop(),
-		urlDirectory = doc.location.protocol + "//" + urlSegments.join("/") + "/documentation/",
+		urlDirectory = doc.location.protocol + "//" + doc.location.host + urlSegments.join("/") + "/documentation/",
 	
 		configureRouting = function() {
 			Routing.map("#!/page/:contentName")
