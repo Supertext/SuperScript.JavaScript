@@ -21,13 +21,17 @@
 		<h2>Comment Declaration</h2>
 		
 		<p>
-			
+			Offers a simple means of declaring a JavaScript comment from server-side code.
+		</p>
+		
+		<p>
+			The comment will be wrapped in JavaScript multi-line symbols, <em>i.e.</em>, <code>/*&hellip;*/</code>
 		</p>
 		
 		<pre class="brush: c#">
 			class CommentDeclaration : SuperScript.JavaScript.Declarables.DeclarationBase
 			{
-				
+				override string ToString();
 			}
 		</pre>
 
@@ -44,15 +48,64 @@
 				</tr>
 			</thead>
 			<tr>
-				<td></td>
-				<td></td>
+				<td>ToString</td>
+				<td>string</td>
 				<td>
 					<p>
-						
+						Returns this instance as a formatted JavaScript declaration.
 					</p>
 				</td>
 			</tr>
 		</table>
+		
+		<pre class="brush: xml">
+			&lt;configuration&gt;
+				&lt;configSections&gt;
+					&lt;section name="superScript"
+							type="SuperScript.Configuration.SuperScriptConfig, SuperScript.Common, Version=0.0.0.1, Culture=neutral" /&gt;
+					&lt;section name="superScript.JavaScript"
+							type="SuperScript.JavaScript.Configuration.JavaScriptConfig, SuperScript.JavaScript, Version=0.0.0.1, Culture=neutral" /&gt;
+				&lt;/configSections&gt;
+			&lt;/configuration&gt;
+			&#10;
+			&hellip;
+			&#10;
+			&lt;superScript.JavaScript&gt;
+				&lt;comment text="This is a test comment." emitterKey="javascript" /&gt;
+			&lt;/superScript.JavaScript&gt;
+		</pre>
+		
+		<p>
+			Comments may also be declared in code. SuperScript.JavaScript exposes a fluent syntax for declarables which allows for easier adding of declarations.
+		</p>
+		
+		<pre class="brush: c#">
+			using SuperScript.JavaScript;
+			&#10;
+			Declarations.AddComment(opt => opt.Comment("This is a test comment.")
+                                              .EmitterKey("javascript"));
+		</pre>
+		
+		<p>
+			Alternatively, function calls may also be declared in a more conventional programmatic style.
+		</p>
+		
+		<pre class="brush: c#">
+			using SuperScript.JavaScript;
+			&#10;
+			var cmtDecl = new CommentDeclaration();
+			cmtDecl.Comment = "This is a test comment.";
+			callDecl.EmitterKey = "javascript";
+			SuperScript.Declarations.AddDeclaration&lt;CommentDeclaration&gt;(cmtDecl);
+		</pre>
+		
+		<p>
+			All of the above examples will output the following:
+		</p>
+		
+		<pre class="brush: js">
+			/* This is a test comment. */
+		</pre>
 
 	</div>
 
