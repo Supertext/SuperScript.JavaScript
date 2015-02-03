@@ -127,18 +127,18 @@
 		
 		<pre class="brush: c#">
 			public enum DemoEnum
-		        {
-		            Value1,
-		            Value2
-		        }
+	        {
+	            Value1,
+	            Value2
+	        }
 		</pre>
 		
 		<pre class="brush: c#">
 			using SuperScript.JavaScript;
 			&#10;
 			Declarations.AddEnum(opt => opt.Emitter("javascript")
-							.Name("DemoEnum")
-							.Type(typeof (DemoEnum)));
+								.Name("DemoEnum")
+								.Type(typeof (DemoEnum)));
 		</pre>
 		
 		<p>
@@ -154,7 +154,7 @@
 			using SuperScript.JavaScript;
 			&#10;
 			Declarations.AddEnum(opt => opt.Emitter("javascript")
-							.Type(typeof (DemoEnum)));
+								.Type(typeof (DemoEnum)));
 		</pre>
 		
 		<p>
@@ -162,14 +162,14 @@
 		</p>
 		
 		<pre class="brush: c#">
-			using SuperScript.JavaScript;
-			&#10;
-	            	var enumDecl = new EnumDeclaration();
-            		enumDecl.EmitterKey = "javascript";
-            		enumDecl.Name = "DemoEnum";	// optional
-            		enumDecl.Type = typeof(DemoEnum);
+		using SuperScript.JavaScript;
+		&#10;
+            	var enumDecl = new EnumDeclaration();
+    		enumDecl.EmitterKey = "javascript";
+    		enumDecl.Name = "DemoEnum";	// optional
+    		enumDecl.Type = typeof(DemoEnum);
 
-            		SuperScript.Declarations.AddDeclaration<EnumDeclaration>(enumDecl);
+    		SuperScript.Declarations.AddDeclaration&lt;EnumDeclaration&gt;(enumDecl);
 		</pre>
 
 		<p>
