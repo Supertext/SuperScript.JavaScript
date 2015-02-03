@@ -21,13 +21,22 @@
 		<h2>Enum Declaration</h2>
 		
 		<p>
-			
+			The <abbr title="SuperScript.JavaScript.Declarables.EnumDeclaration"><code>EnumDeclaration</code></abbr> offers
+			an easy way of transferring an enumeration from server-side code to client-side JavaScript.
+		</p>
+		
+		<p>
+			It should be remembered that JavaScript does not strictly recognise an <code>enum</code>, however an 
+			object can be created which offers the same functionality as a conventional <code>enum</code>, and this
+			is what is offered by the <abbr title="SuperScript.JavaScript.Declarables.EnumDeclaration"><code>EnumDeclaration</code></abbr>
+			class.
 		</p>
 		
 		<pre class="brush: c#">
 			class EnumDeclaration : SuperScript.JavaScript.Declarables.DeclarationBase
 			{
-				
+				Type Type { get; set; }
+				override string ToString();
 			}
 		</pre>
 
@@ -44,15 +53,140 @@
 				</tr>
 			</thead>
 			<tr>
-				<td></td>
-				<td></td>
+				<td>Type</td>
+				<td>Type</td>
 				<td>
 					<p>
-						
+						The <abbr title="System.Type"><code>Type</code></abbr> of the enumeration to be converted to JavaScript.
+					</p>
+				</td>
+			</tr>
+			<tr>
+				<td>ToString</td>
+				<td>string</td>
+				<td>
+					<p>
+						Returns this enumerated type as a formatted JavaScript enumeration.
+					</p>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3">
+					Inherited members
+				</td>
+			</tr>
+			<tr>
+				<td>Comment</td>
+				<td>string</td>
+				<td>
+					<p>
+						This text may be emitted onto its own line or after a variable, depending upon the specific implementation of <abbr title="SuperScript.JavaScript.Declarables.DeclarationBase"><code>DeclarationBase</code></abbr>.
+					</p>
+					<p>
+						<strong>Optional</strong>.
+					</p>
+				</td>
+			</tr>
+			<tr>
+			<td>EmitterKey</td>
+			<td>string</td>
+				<td>
+					<p>
+						Indicates which instance of <abbr title="SuperScript.Emitters.IEmitter"><code>IEmitter</code></abbr> the content should be added to.
+					</p>
+					<p>
+						<strong>Optional</strong>. If not specified then the contents will be added to the default implementation of <abbr title="SuperScript.Emitters.IEmitter"><code>IEmitter</code></abbr>.
+					</p>
+				</td>
+			</tr>
+			<tr>
+				<td>Name</td>
+				<td>string</td>
+				<td>
+					<p>
+						Gets or sets the name assigned to this declarable.
+					</p>
+					<p>
+						<strong>Optional</strong>. If not specified, SuperScript.JavaScript will use the name
+						of the enumeration.
 					</p>
 				</td>
 			</tr>
 		</table>
+		
+		
+		<h3>Example</h3>
+		
+		<p>
+			SuperScript.JavaScript exposes a fluent syntax for declarables which allows for easier adding of declarations.
+		</p>
+		
+		<p>
+			The following examples reference the following simple enumeration:
+		</p>
+		
+		<pre class="brush: c#">
+			public enum DemoEnum
+		        {
+		            Value1,
+		            Value2
+		        }
+		</pre>
+		
+		<pre class="brush: c#">
+			using SuperScript.JavaScript;
+			&#10;
+			Declarations.AddEnum(opt => opt.Emitter("javascript")
+							.Name("DemoEnum")
+							.Type(typeof (DemoEnum)));
+		</pre>
+		
+		<p>
+			A client-side name for the enumeration is not required to be specified. If not specified then SuperScript.JavaScript
+			will use the server-side name of the enumeration for the name of its client-side counterpart.
+		</p>
+		
+		<p>
+			Therefore, the following will produce the same output as above:
+		</p>
+		
+		<pre class="brush: c#">
+			using SuperScript.JavaScript;
+			&#10;
+			Declarations.AddEnum(opt => opt.Emitter("javascript")
+							.Type(typeof (DemoEnum)));
+		</pre>
+		
+		<p>
+			 Alternatively, enumerations may also be declared in a more conventional programmatic style.
+		</p>
+		
+		<pre class="brush: c#">
+			using SuperScript.JavaScript;
+			&#10;
+	            	var enumDecl = new EnumDeclaration();
+            		enumDecl.EmitterKey = "javascript";
+            		enumDecl.Name = "DemoEnum";	// optional
+            		enumDecl.Type = typeof(DemoEnum);
+
+            		SuperScript.Declarations.AddDeclaration<EnumDeclaration>(enumDecl);
+		</pre>
+
+		<p>
+			All of the above examples will output the following:
+		</p>
+		
+		<pre class="brush: js">
+			var DemoEnum = { "Value1": 0, "Value2": 1 };
+		</pre>
+		
+		<p>
+			Which can be used in the following way:
+		</p>
+		
+		<pre class="brush: js">
+			var enumVal = DemoEnum.Value1;	// assigns the value 0 to enumVal
+		</pre>
 
 	</div>
 
