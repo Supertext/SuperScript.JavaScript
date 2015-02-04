@@ -147,8 +147,8 @@
 			using SuperScript.JavaScript;
 			&#10;
 			Declarations.AddEnum(opt => opt.Emitter("javascript")
-								.Name("DemoEnum")
-								.Type(typeof (DemoEnum)));
+										.Name("DemoEnum")
+										.Type(typeof (DemoEnum)));
 		</pre>
 		
 		<p>
@@ -164,7 +164,7 @@
 			using SuperScript.JavaScript;
 			&#10;
 			Declarations.AddEnum(opt => opt.Emitter("javascript")
-								.Type(typeof (DemoEnum)));
+										.Type(typeof (DemoEnum)));
 		</pre>
 		
 		<p>
@@ -263,6 +263,29 @@
 			If no <abbr title="SuperScript.JavaScript.EnumAttribute"><code>EnumAttribute</code></abbr> is specified
 			then the enumeration text in the client-side JavaScript will be the same as the server-side code.
 		</p>
+		
+		<h4>Alternative Name</h4>
+		
+		<p>
+			Another option is presented by the <code>Name</code> property. This allows an alternate name to be specified
+			for the client-side enumerated type (<em>i.e.</em>, the JavaScript object representing the server-side enumerated type).
+		</p>
+		
+		<pre class="brush: c#">
+			using SuperScript.JavaScript;
+			&#10;
+			Declarations.AddEnum(opt => opt.Emitter("javascript")
+								.Name("anotherName")
+								.Type(typeof (DemoEnum)));
+		</pre>
+		
+		<p>
+			This will output the following:
+		</p>
+		
+		<pre class="brush: js">
+			var anotherName = { "Value1": 0, "Value2": 1 };
+		</pre>
 
 	</div>
 
