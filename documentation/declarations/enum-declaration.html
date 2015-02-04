@@ -35,14 +35,11 @@
 		<pre class="brush: c#">
 			class EnumDeclaration : SuperScript.JavaScript.Declarables.DeclarationBase
 			{
+				EnumAttribute EnumAttribute { get; set; }
 				Type Type { get; set; }
 				override string ToString();
 			}
 		</pre>
-
-		<p>
-			
-		</p>
 
 		<table class="table table-bordered">
 			<thead>
@@ -52,6 +49,19 @@
 					<th>Description</th>
 				</tr>
 			</thead>
+			<tr>
+				<td>EnumAttribute</td>
+				<td><abbr title="SuperScript.JavaScript.EnumAttribute"><code>EnumAttribute</code></abbr></td>
+				<td>
+					<p>
+						Allows alternate text to be specified for each enumeration.
+					</p>
+					<p>
+						<strong>Optional</strong>. Default value is <abbr title="SuperScript.JavaScript.EnumAttribute.None"><code>EnumAttribute.None</code></abbr>, which
+						indicates that the enumeration text should be the same as the server-side enumeration text.
+					</p>
+				</td>
+			</tr>
 			<tr>
 				<td>Type</td>
 				<td>Type</td>
@@ -187,6 +197,72 @@
 		<pre class="brush: js">
 			var enumVal = DemoEnum.Value1;	// assigns the value 0 to enumVal
 		</pre>
+		
+		
+		<h4>Alternative Text</h4>
+		
+		<p>
+			SuperScript.JavaScript also permits the textual enumerated type to be switched to an alternative value. 
+			This can be achieved by using the <abbr title="SuperScript.JavaScript.EnumAttribute"><code>EnumAttribute</code></abbr> attribute
+			for each enumeration.
+		</p>
+		
+		<p>
+			The <code>DemoEnum</code> used in these examples needs to be decorated:
+		</p>
+		
+		<pre class="brush: c#">
+			public enum DemoEnum
+	        {
+	            [JsEnumText("value_one")
+	            Value1,
+	            
+	            [JsEnumText("value_two")
+	            Value2
+	        }
+		</pre>
+		
+		<p>
+			To utilise the values in the <abbr title="SuperScript.JavaScript.Attributes.JsEnumTextAttribute"><code>JsEnumText</code></abbr> attributes
+			we can modify the above examples by specifying where the enumeration text should be obtained from.
+		</p>
+		
+		<pre class="brush: c#">
+			using SuperScript.JavaScript;
+			&#10;
+			Declarations.AddEnum(opt => opt.Emitter("javascript")
+								.EnumAttribute(EnumAttribute.EnumText)
+								.Type(typeof (DemoEnum)));
+		</pre>
+		
+		<p>
+			Or using the conventional programmatic syntax:
+		</p>
+		
+		<pre class="brush: c#">
+		using SuperScript.JavaScript;
+		&#10;
+            	var enumDecl = new EnumDeclaration();
+    		enumDecl.EmitterKey = "javascript";
+    		enumDecl.EnumAttribute = EnumAttribute.EnumText;
+    		enumDecl.Name = "DemoEnum";	// optional
+    		enumDecl.Type = typeof(DemoEnum);
+
+    		SuperScript.Declarations.AddDeclaration&lt;EnumDeclaration&gt;(enumDecl);
+		</pre>
+		
+		<p>
+			The above examples will output the following:
+		</p>
+		
+		<pre class="brush: js">
+			var DemoEnum = { "value_one": 0, "value_two": 1 };
+		</pre>
+		
+		<p>
+			If no <abbr title="SuperScript.JavaScript.EnumAttribute"><code>EnumAttribute</code></abbr> is specified
+			then the enumeration text in the client-side JavaScript will be the same as the server-side code.
+		</p>
 
 	</div>
 
