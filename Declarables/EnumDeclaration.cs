@@ -10,22 +10,29 @@ namespace SuperScript.JavaScript.Declarables
     /// </summary>
     public class EnumDeclaration : DeclarationBase
     {
-        internal object _value = null;
+        internal Type _type = null;
+        private EnumAttribute _enumAttribute = EnumAttribute.None;
 
 
-        /// <summary>
-        /// <para>The value of the JavaScript variable. This is not mandatory for each variable.</para>
-        /// <para>This property is ignored for instances of <see cref="CallDeclaration"/>.</para>
-        /// </summary>
-        public object Value
+        public EnumAttribute EnumAttribute
         {
-            get { return _value; }
-            set { _value = value; }
+            get { return _enumAttribute; }
+            set { _enumAttribute = value; }
         }
 
 
         /// <summary>
-        /// Returns this enumerated type as a formatted JavaScript enumeration.
+        /// The <see cref="System.Type"/> of the enumeration to converted to JavaScript.
+        /// </summary>
+        public Type Type
+        {
+            get { return _type; }
+            set { _type = value; }
+        }
+
+
+        /// <summary>
+        /// Returns this enumeration as a formatted JavaScript enumeration.
         /// </summary>
         public override string ToString()
         {
@@ -36,7 +43,8 @@ namespace SuperScript.JavaScript.Declarables
             output.Append(" = { ");
 
             var firstValue = true;
-            foreach (var e in (IList<SerializedEnumerator>) Value)
+            var srlsdEnum = Type.ToList(EnumAttribute);
+            foreach (var e in srlsdEnum)
             {
                 if (firstValue)
                 {
@@ -69,11 +77,12 @@ namespace SuperScript.JavaScript.Declarables
         public EnumDeclaration(EnumeratedTypeOptions options)
         {
             Comment = options._comment;
+            EnumAttribute = options._enumAttribute;
             Name = !String.IsNullOrEmpty(options._name)
-                ? options._name
-                : options._type.Name;
+                       ? options._name
+                       : options._type.Name;
             EmitterKey = options._emitterKey;
-            Value = options._type.ToList(EnumAttribute.EnumText);
+            Type = options._type;
         }
 
         #endregion

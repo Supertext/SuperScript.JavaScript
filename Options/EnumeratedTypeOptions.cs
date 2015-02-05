@@ -7,6 +7,7 @@ namespace SuperScript.JavaScript
     /// </summary>
     public class EnumeratedTypeOptions : OptionsBase<EnumeratedTypeOptions>
     {
+        internal EnumAttribute _enumAttribute = JavaScript.EnumAttribute.None;
         internal string _name;
         internal System.Type _type;
 
@@ -27,6 +28,16 @@ namespace SuperScript.JavaScript
         public override EnumeratedTypeOptions EmitterKey(string value)
         {
             _emitterKey = value;
+            return this;
+        }
+
+
+        /// <summary>
+        /// Specifies the <see cref="EnumAttribute"/> indicating the source of the client-side enumerated type.
+        /// </summary>
+        public EnumeratedTypeOptions EnumAttribute(EnumAttribute enumAttribute)
+        {
+            _enumAttribute = enumAttribute;
             return this;
         }
 
