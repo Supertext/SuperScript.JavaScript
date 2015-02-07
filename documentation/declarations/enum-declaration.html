@@ -143,6 +143,47 @@
 	        }
 		</pre>
 		
+		<p>
+			Function calls may be declared in the config file.
+		</p>
+		
+		<pre class="brush: xml">
+			&lt;configuration&gt;
+				&lt;configSections&gt;
+					&lt;section name="superScript"
+							type="SuperScript.Configuration.SuperScriptConfig, SuperScript.Common, Version=0.0.0.1, Culture=neutral" /&gt;
+					&lt;section name="superScript.JavaScript"
+							type="SuperScript.JavaScript.Configuration.JavaScriptConfig, SuperScript.JavaScript, Version=0.0.0.1, Culture=neutral" /&gt;
+				&lt;/configSections&gt;
+			&lt;/configuration&gt;
+			&#10;
+			&hellip;
+			&#10;
+			&lt;superScript.JavaScript&gt;
+				&lt;declarations&gt;
+					&lt;enum comment="A simple enum." emitterKey="javascript" type="[Fully-qualified name of the enumerated type, assembly name]" /&gt;
+				&lt;/declarations&gt;
+			&lt;/superScript.JavaScript&gt;
+		</pre>
+		
+		<p>
+			<strong>Important:</strong> the <code>type</code> attribute in the above example must be in the format
+			[fully-qualified name, assembly]. For example, if we wished to declare the enumerated type <code>System.DayOfWeek</code> we
+			would need to write this as
+		</p>
+		
+		<pre class="brush: xml">
+			type="System.DayOfWeek, mscorlib"
+		</pre>
+		
+		<p>
+			Furthermore, in the above example <code>type</code> is the only required attribute.
+		</p>
+		
+		<p>
+			Enumerated type declarations may also be declared in code. SuperScript.JavaScript exposes a fluent syntax for declarables which allows for easier adding of declarations.
+		</p>
+		
 		<pre class="brush: c#">
 			using SuperScript.JavaScript;
 			&#10;
@@ -227,6 +268,10 @@
 			we can modify the above examples by specifying where the enumerator text should be obtained from.
 		</p>
 		
+		<pre class="brush: xml">
+			&lt;enum comment="A simple enum." emitterKey="javascript" type="[Fully-qualified name of the enumerated type, assembly name]" enumAttribute="EnumText" /&gt;
+		</pre>
+		
 		<pre class="brush: c#">
 			using SuperScript.JavaScript;
 			&#10;
@@ -282,6 +327,10 @@
 			Another option is presented by the <code>Name</code> property. This allows an alternate name to be specified
 			for the client-side enumerated type (<em>i.e.</em>, the JavaScript object representing the server-side enumerated type).
 		</p>
+		
+		<pre class="brush: xml">
+			&lt;enum comment="A simple enum." emitterKey="javascript" name="anotherName" type="[Fully-qualified name of the enumerated type, assembly name]" /&gt;
+		</pre>
 		
 		<pre class="brush: c#">
 			using SuperScript.JavaScript;
