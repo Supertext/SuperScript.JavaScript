@@ -161,7 +161,7 @@
 			&#10;
 			&lt;superScript.JavaScript&gt;
 				&lt;declarations&gt;
-					&lt;enum comment="A simple enum." emitterKey="javascript" type="[Fully-qualified name of the enumerated type, assembly name]" /&gt;
+					&lt;enum comment="A simple enum" emitterKey="javascript" type="[Fully-qualified name of the enumerated type, assembly name]" /&gt;
 				&lt;/declarations&gt;
 			&lt;/superScript.JavaScript&gt;
 		</pre>
@@ -187,25 +187,9 @@
 		<pre class="brush: c#">
 			using SuperScript.JavaScript;
 			&#10;
-			Declarations.AddEnum(opt => opt.Emitter("javascript")
-									       .Name("DemoEnum")
+			Declarations.AddEnum(opt => opt.Comment("A simple enum")
+									.Emitter("javascript")
 								       .Type(typeof (DemoEnum)));
-		</pre>
-		
-		<p>
-			A client-side name for the enumerated type is not required to be specified. If not specified then SuperScript.JavaScript
-			will use the server-side name of the enumerated type for the name of its client-side counterpart.
-		</p>
-		
-		<p>
-			Therefore, the following will produce the same output as above:
-		</p>
-		
-		<pre class="brush: c#">
-			using SuperScript.JavaScript;
-			&#10;
-			Declarations.AddEnum(opt => opt.Emitter("javascript")
-								            .Type(typeof (DemoEnum)));
 		</pre>
 		
 		<p>
@@ -216,8 +200,8 @@
  	using SuperScript.JavaScript;
 	&#10;
     var enumDecl = new EnumDeclaration();
+    enumDecl.Comment = "A simple enum";
     enumDecl.EmitterKey = "javascript";
-    enumDecl.Name = "DemoEnum";	// optional
     enumDecl.Type = typeof(DemoEnum);
 
     SuperScript.Declarations.AddDeclaration&lt;EnumDeclaration&gt;(enumDecl);
@@ -228,7 +212,7 @@
 		</p>
 		
 		<pre class="brush: js">
-			var DemoEnum = { "Value1": 0, "Value2": 1 };
+			var DemoEnum = { "Value1": 0, "Value2": 1 };	/* A simple enum */
 		</pre>
 		
 		<p>
