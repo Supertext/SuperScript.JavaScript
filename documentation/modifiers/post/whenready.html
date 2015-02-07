@@ -1,0 +1,71 @@
+<div class="row">
+
+  <div class="col-xs-12">
+  
+  	<p class="lead">
+  		SuperScript offers a means of declaring assets in one part of a .NET web solution and have them emitted somewhere else.
+  	</p>
+  
+  	<p>
+  		<mark><strong><em>This documentation is still being written. Please bear with us while we complete this documentation.</em></strong></mark>
+  	</p>
+  	
+  	<p>
+  		Developers should familiarise themselves with the operation of a <abbr title="SuperScript.Modifiers.Converters.CollectionConverter"><code>CollectionConverter</code></abbr> by
+  		reading the documentation <a href="http://supertext.github.io/SuperScript/modifiers/collection-converter.html" target="_blank">here</a>.
+  	</p>
+  
+  </div>
+
+</div>
+
+<div class="row">
+
+	<div class="col-xs-12">
+	
+		<h2>WhenReady Post-conversion Modifier</h2>
+		
+		<p>
+		  Wraps the specified string (in the <abbr title="SuperScript.Modifiers.PostModifierArgs.Emitted"><code>PostModifierArgs.Emitted</code></abbr> property) in 
+		  a <a href="http://api.jquery.com/ready/" target="_blank">jQuery <code>.ready()</code></a> function call.
+		</p>
+		
+		<p>
+		  Like all implementations of <abbr title="SuperScript.Modifiers.Post.CollectionPostModifier"><code>CollectionPostModifier</code></abbr>, 
+		  <abbr title="SuperScript.JavaScript.Modifiers.Post.WhenReady"><code>WhenReady</code></abbr> exposes a single
+		  public method, <abbr title="SuperScript.Modifiers.Post.CollectionPostModifier.Process"><code>Process</code></abbr> which accepts
+		  an instance of <abbr title="SuperScript.Modifiers.PostModifierArgs"><code>PostModifierArgs</code></abbr>. This argument object's
+		  <abbr title="SuperScript.Modifiers.PostModifierArgs.Emitted"><code>Emitted</code></abbr> property contains the output of either
+		</p>
+		
+		<ul>
+		  <li>
+  		  <p>
+  		    an implementation of <abbr title="SuperScript.Modifiers.Post.CollectionPostModifier"><code>CollectionPostModifier</code></abbr> which
+  		    has been configured for the context <abbr title="SuperScript.Emitters.IEmitter"><code>IEmitter</code></abbr>, or
+  		  </p>
+		  </li>
+		  <li>
+		    <p>
+		      an implementation of <abbr title="SuperScript.Modifiers.Converters.CollectionConverter"><code>CollectionConverter</code></abbr>.
+		    </p>
+		  </li>
+		</ul>
+		
+		<p>
+		  The result of the <abbr title="SuperScript.Modifiers.Post.CollectionPostModifier.Process"><code>Process</code></abbr> method
+		  is an instance of <abbr title="SuperScript.Modifiers.PostModifierArgs"><code>PostModifierArgs</code></abbr> where the 
+		  <abbr title="SuperScript.Modifiers.PostModifierArgs.Emitted"><code>Emitted</code></abbr> property contains the passed-in 
+		  <abbr title="SuperScript.Modifiers.PostModifierArgs.Emitted"><code>Emitted</code></abbr> property's contents wrapped in a
+		  jQuery <code>.ready()</code> function call.
+		</p>
+		
+		<p>
+			<strong>Important:</strong> It should be remembered that multiple implementations of 
+			<abbr title="SuperScript.Modifiers.Post.CollectionPostModifier"><code>CollectionPostModifier</code></abbr> may
+			be configured for an <abbr title="SuperScript.Emitters.IEmitter"><code>IEmitter</code></abbr>.
+		</p>
+
+	</div>
+	
+</div>
