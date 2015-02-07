@@ -21,19 +21,23 @@
 		<h2>Object Declaration</h2>
 		
 		<p>
-			
+			The <abbr title="SuperScript.JavaScript.Declarables.ObjectDeclaration"><code>ObjectDeclaration</code></abbr> offers
+			a simple means of transferring a server-side object into client-side JavaScript.
+		</p>
+		
+		<p>
+			Internally, SuperScript.JavaScript uses the <abbr title="Newtonsoft.Json.JsonConvert"><code>JsonConvert</code></abbr> method 
+			of the <a href="http://www.newtonsoft.com/json" target="_blank">Json.NET</a> library for serialising the object.
 		</p>
 		
 		<pre class="brush: c#">
 			class ObjectDeclaration : SuperScript.JavaScript.Declarables.DeclarationBase
 			{
-				
+				bool AssignExisting { get; set; }
+				override string ToString();
+				object Value { get; set; }
 			}
 		</pre>
-
-		<p>
-			
-		</p>
 
 		<table class="table table-bordered">
 			<thead>
@@ -44,15 +48,136 @@
 				</tr>
 			</thead>
 			<tr>
-				<td></td>
-				<td></td>
+				<td>AssignExisting</td>
+				<td>bool</td>
 				<td>
 					<p>
-						
+						Indicates whether this declaration is new or is setting the value of an existing variable.
+					</p>
+					<p>
+						This value determines whether the emitted variable is preceded by the <code>var</code> keyword.
+					</p>
+					<p>
+						<strong>Optional</strong>. Default value: <code>false</code>
+					</p>
+				</td>
+			</tr>
+			<tr>
+				<td>ToString</td>
+				<td>string</td>
+				<td>
+					<p>
+						Returns this instance as a formatted JavaScript declaration.
+					</p>
+				</td>
+			</tr>
+			<tr>
+				<td>Value</td>
+				<td>object</td>
+				<td>
+					<p>
+						The value of the JavaScript declaration's source (<em>i.e.</em>, the right-hand side of the declaration).
+					</p>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3">
+					Inherited members
+				</td>
+			</tr>
+			<tr>
+				<td>Comment</td>
+				<td>string</td>
+				<td>
+					<p>
+						This text may be emitted onto its own line or after a variable, depending upon the specific implementation of <abbr title="SuperScript.JavaScript.Declarables.DeclarationBase"><code>DeclarationBase</code></abbr>.
+					</p>
+					<p>
+						<strong>Optional</strong>.
+					</p>
+				</td>
+			</tr>
+			<tr>
+				<td>EmitterKey</td>
+				<td>string</td>
+				<td>
+					<p>
+						Indicates which instance of <abbr title="SuperScript.Emitters.IEmitter"><code>IEmitter</code></abbr> the content should be added to.
+					</p>
+					<p>
+						<strong>Optional</strong>. If not specified then the contents will be added to the default implementation of <abbr title="SuperScript.Emitters.IEmitter"><code>IEmitter</code></abbr>.
+					</p>
+				</td>
+			</tr>
+			<tr>
+				<td>Name</td>
+				<td>string</td>
+				<td>
+					<p>
+						Gets or sets the name assigned to this declarable.
+					</p>
+					<p>
+						<strong>Optional</strong>. Default value is the name of the class in lower camel case.
 					</p>
 				</td>
 			</tr>
 		</table>
+		
+		<h3>Example</h3>
+		
+		<p>
+			Unlike some other derivations of <abbr title="SuperScript.JavaScript.Declarables.DeclarationBase"><code>DeclarationBase</code></abbr>,
+			<abbr title="SuperScript.JavaScript.Declarables.ObjectDeclaration"><code>ObjectDeclaration</code></abbr> declarations
+			cannot be added to a configuration file.
+		</p>
+		
+		<pre class="brush: c#">
+		        public class TestClass 
+		        {
+	            		public string TestString { get; set; }
+	            		public int TestInt { get; set; }
+		
+				// a helpful constructor
+				public TestClass(string testString, int testInt)
+				{
+					TestString = testString;
+					TestInt = testInt;
+				}
+		        }
+		        
+            		var testObj = new TestClass("hello world", 999);
+            		
+            		var decTestObj = Declarations.AddObject(opt => opt.Comment("an instance of TestClass")
+    										.EmitterKey("javascript")
+            									.Value(testObj));
+		</pre>
+		
+		<p>
+			The above example will produce the following output.
+		</p>
+		
+		<pre class="brush: js">
+			var testClass = {"TestString":"hello world", "TestInt":999};	/* an instance of TestClass */
+		</pre>
+		
+		<p>
+			A more specific name may be assigned.
+		</p>
+		
+		<pre class="brush: c#">
+            		var decTestObj = Declarations.AddObject(opt => opt.Comment("an instance of TestClass")
+            									.EmitterKey("javascript")
+    										.Name("testObj")
+            									.Value(testObj));
+		</pre>
+		
+		<p>
+			The above example will produce the following output.
+		</p>
+		
+		<pre class="brush: js">
+			var testObj = {"TestString":"hello world", "TestInt":999};	/* an instance of TestClass */
+		</pre>
 
 	</div>
 
