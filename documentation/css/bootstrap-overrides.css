@@ -93,6 +93,7 @@ table > tbody > tr > td[colspan="3"] {
 
 ul.dropdown-menu > li.sub-heading {
 	padding: 3px 20px;
+	font-weight: bold;
 }
 
 #content .syntaxhighlighter {
