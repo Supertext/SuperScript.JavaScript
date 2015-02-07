@@ -36,9 +36,13 @@ namespace SuperScript.JavaScript.Declarables
                 Name = Char.ToLowerInvariant(n[0]) + n.Substring(1);
             }
 
-            return AssignExisting
-                       ? Name + " = " + jsonObj
-                       : "var " + Name + " = " + jsonObj;
+            return (AssignExisting
+                        ? String.Empty
+                        : "var ")
+                   + Name + " = " + jsonObj + ";"
+                   + (!String.IsNullOrWhiteSpace(Comment)
+                          ? "\t/* " + Comment + " */"
+                          : String.Empty);
         }
 
 
