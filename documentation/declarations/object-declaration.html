@@ -132,25 +132,24 @@
 		</p>
 		
 		<pre class="brush: c#">
-			public class TestClass 
+		public class TestClass 
+		{
+			public string TestString { get; set; }
+			public int TestInt { get; set; }
+			
+			// a helpful constructor
+			public TestClass(string testString, int testInt)
 			{
-				public string TestString { get; set; }
-				public int TestInt { get; set; }
-				
-				// a helpful constructor
-				public TestClass(string testString, int testInt)
-				{
-					TestString = testString;
-					TestInt = testInt;
-				}
+				TestString = testString;
+				TestInt = testInt;
+			}
 	        }
 		        
     		var testObj = new TestClass("hello world", 999);
 		
 		var decTestObj = Declarations.AddObject(opt => opt.Comment("an instance of TestClass")
-									
-								.EmitterKey("javascript")
-								.Value(testObj));
+									.EmitterKey("javascript")
+									.Value(testObj));
 		</pre>
 		
 		<p>
