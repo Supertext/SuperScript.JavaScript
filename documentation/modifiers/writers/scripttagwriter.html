@@ -1,3 +1,93 @@
-<p>
-  &nbsp;
-</p>
+<div class="row">
+
+  <div class="col-xs-12">
+  
+  	<p class="lead">
+  		SuperScript offers a means of declaring assets in one part of a .NET web solution and have them emitted somewhere else.
+  	</p>
+  
+  	<p>
+  		<mark><strong><em>This documentation is still being written. Please bear with us while we complete this documentation.</em></strong></mark>
+  	</p>
+  	
+  	<p>
+  		Developers should familiarise themselves with the operation of a <abbr title="SuperScript.Modifiers.Converters.CollectionConverter"><code>CollectionConverter</code></abbr> by
+  		reading the documentation <a href="http://supertext.github.io/SuperScript/modifiers/collection-converter.html" target="_blank">here</a>.
+  	</p>
+  
+  </div>
+
+</div>
+
+<div class="row">
+
+	<div class="col-xs-12">
+	
+		<h2>ScriptTagWriter HTML Writer</h2>
+		
+		<p>
+		  Writes the formatted output of the <abbr title="SuperScript.Modifiers.PostModifierArgs.Emitted"><code>Emitted</code></abbr>
+		  into an HTML tag.
+		</p>
+		
+		<p>
+		  By default this will output the contents in a <code>&lt;script&gt;</code> tag.
+		</p>
+		
+		<pre class="brush: c#">
+			IEnumerable<KeyValuePair<string, string>> TagAttributes { get; set; }
+			string TagName { get; set; }
+			override IHtmlString Process(PostModifierArgs args)
+		</pre>
+
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Type</th>
+					<th>Description</th>
+				</tr>
+			</thead>
+			<tr>
+				<td>Process</td>
+				<td>IHtmlString</td>
+				<td>
+					<p>
+						Executes this instance of <abbr title="SuperScript.Modifiers.Writers.HtmlWriter"><code>HtmlWriter</code></abbr> upon the specified argument object.
+					</p>
+				</td>
+			</tr>
+		</table>
+		
+		<p>
+		  Like all implementations of <abbr title="SuperScript.Modifiers.Writers.HtmlWriter"><code>HtmlWriter</code></abbr>, 
+		  <abbr title="SuperScript.JavaScript.Modifiers.Writers.HtmlWriter"><code>ScriptTagWriter</code></abbr> exposes a single
+		  public method, <abbr title="SuperScript.Modifiers.Writers.HtmLWriter"><code>Process</code></abbr> which accepts
+		  an instance of <abbr title="SuperScript.Modifiers.PostModifierArgs"><code>PostModifierArgs</code></abbr>. This argument object's
+		  <abbr title="SuperScript.Modifiers.PostModifierArgs.Emitted"><code>Emitted</code></abbr> property contains the output of 
+		</p>
+		
+		<ul>
+		  <li>
+  		  <p>
+  		    an implementation of <abbr title="SuperScript.Modifiers.Post.CollectionPostModifier"><code>CollectionPostModifier</code></abbr> which
+  		    has been configured for the context <abbr title="SuperScript.Emitters.IEmitter"><code>IEmitter</code></abbr>, or
+  		  </p>
+		  </li>
+		  <li>
+		    <p>
+		      an implementation of <abbr title="SuperScript.Modifiers.Converters.CollectionConverter"><code>CollectionConverter</code></abbr>.
+		    </p>
+		  </li>
+		</ul>
+		
+		<p>
+		  The result of the <abbr title="SuperScript.Modifiers.Writers.HtmlWriter.Process"><code>Process</code></abbr> method
+		  is a string Which, in this case, is contained inside an HTML tag described by the 
+		  <abbr title="SuperScript.Modifiers.Writers.HtmlWriter.TagAttributes"><code>TagAttributes</code></abbr> and
+		  <abbr title="SuperScript.Modifiers.Writers.HtmlWriter.TagName"><code>TagName</code></abbr> properties.
+		</p>
+
+	</div>
+	
+</div>
