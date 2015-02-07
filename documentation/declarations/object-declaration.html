@@ -143,13 +143,13 @@
 				TestString = testString;
 				TestInt = testInt;
 			}
-	        }
+		}
 		        
-    		var testObj = new TestClass("hello world", 999);
+		var testObj = new TestClass("hello world", 999);
 		
 		var decTestObj = Declarations.AddObject(opt => opt.Comment("an instance of TestClass")
-									.EmitterKey("javascript")
-									.Value(testObj));
+									 .EmitterKey("javascript")
+									 .Value(testObj));
 		</pre>
 		
 		<p>
