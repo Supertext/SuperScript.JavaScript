@@ -17,7 +17,7 @@ var PageManager = function (win, doc) {
 			Routing.map("#!/page/:contentName")
 					.before(function() {
 						$("#content").html("<img src=\"https://assets-cdn.github.com/images/spinners/octocat-spinner-32.gif\" alt=\"loading...\" class=\"center-block\" />");
-						$("a.active").removeClass("active");
+						$("li.active").removeClass("active");
 					})
 					.to(function() {
 						
