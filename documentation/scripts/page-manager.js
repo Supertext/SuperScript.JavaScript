@@ -9,8 +9,8 @@ var PageManager = function (win, doc) {
 		escapeRegExp = function (string) {
     			return string.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
 		},
-		replaceAll = function (find, replace, str) {
-			return str.replace(new RegExp(find, 'g'), replace);
+		replaceAll = function (string, find, replace) {
+			return string.replace(new RegExp(escapeRegExp(find), 'g'), replace);
 		}
 	
 		configureRouting = function() {
@@ -21,7 +21,7 @@ var PageManager = function (win, doc) {
 					})
 					.to(function() {
 						
-							var specificPath = replaceAll(".", "/", this.params.contentName.value) + ".html",
+							var specificPath = replaceAll(this.params.contentName.value, ".", "/") + ".html",
 								loadUrl = urlDirectory + specificPath,
 								elmntLink = $("a[href='" + specificPath + "']");
 								
