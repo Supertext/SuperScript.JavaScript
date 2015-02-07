@@ -31,6 +31,24 @@
 			Developers should familiarise themselves with the operation of a <abbr title="SuperScript.Modifiers.Converters.CollectionConverter"><code>CollectionConverter</code></abbr> by
 			reading the documentation <a href="http://supertext.github.io/SuperScript/modifiers/collection-converter.html" target="_blank">here</a>.
 		</p>
+		
+		<p>
+			This implementation of <abbr title="SuperScript.Modifiers.Converters.CollectionConverter"><code>CollectionConverter</code></abbr> simply
+			enumerates each instance of <abbr title="SuperScript.JavaScript.Declarables.DeclarationBase"><code>DeclarationBase</code></abbr> in 
+			the <abbr title="SuperScript.Modifiers.PreModifierArgs.Declarations"><code>PreModifierArgs.Declarations</code></abbr> property
+			and calls <abbr title="SuperScript.JavaScript.Declarables.DeclarationBase.ToString()"><code>DeclarationBase.ToString()</code></abbr>.
+		</p>
+		
+		<p>
+			The result of each <abbr title="SuperScript.JavaScript.Declarables.DeclarationBase.ToString()"><code>DeclarationBase.ToString()</code></abbr> call
+			is placed on a new line and indented by a tab space.
+		</p>
+		
+		<p>
+			The result of this conversion process is then passed to the 
+			<abbr title="SuperScript.Modifiers.PostModifierArgs.Emitted"><code>Emitted</code></abbr> property of a 
+			<abbr title="SuperScript.Modifiers.PostModifierArgs"><code>PostModifierArgs</code></abbr> object.
+		</p>
 
 	</div>
 	
