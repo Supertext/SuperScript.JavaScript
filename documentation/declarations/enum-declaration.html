@@ -204,11 +204,11 @@
 		<p>
 			SuperScript.JavaScript also permits the textual enumerated type to be switched to an alternative value. 
 			This can be achieved by using the <abbr title="SuperScript.JavaScript.EnumAttribute"><code>EnumAttribute</code></abbr> attribute
-			for each enumeration.
+			for each enumerator.
 		</p>
 		
 		<p>
-			The <code>DemoEnum</code> used in these examples needs to be decorated:
+			Each enumerator in the <code>DemoEnum</code> enumerated type used in these examples needs to be decorated:
 		</p>
 		
 		<pre class="brush: c#">
@@ -224,7 +224,7 @@
 		
 		<p>
 			To utilise the values in the <abbr title="SuperScript.JavaScript.Attributes.JsEnumTextAttribute"><code>JsEnumText</code></abbr> attributes
-			we can modify the above examples by specifying where the enumeration text should be obtained from.
+			we can modify the above examples by specifying where the enumerator text should be obtained from.
 		</p>
 		
 		<pre class="brush: c#">
@@ -261,7 +261,19 @@
 		
 		<p>
 			If no <abbr title="SuperScript.JavaScript.EnumAttribute"><code>EnumAttribute</code></abbr> is specified
-			then the enumeration text in the client-side JavaScript will be the same as the server-side code.
+			then the enumerator text in the client-side JavaScript will be the same as the server-side code.
+		</p>
+		
+		<p>
+			Assigning <abbr title="SuperScript.JavaScript.EnumAttribute.None"><code>EnumAttribute.None</code></abbr> is
+			equivalent to not specifying that an attribute should be used. In other words, 
+			<abbr title="SuperScript.JavaScript.EnumAttribute.None"><code>EnumAttribute.None</code></abbr> will instruct
+			SuperScript.JavaScript to use the text of the enumerator.
+		</p>
+		
+		<p>
+			<abbr title="SuperScript.JavaScript.EnumAttribute.None"><code>EnumAttribute.None</code></abbr> is the default
+			value for the <abbr title="SuperScript.JavaScript.Declarables.EnumDeclaration.EnumAttribute"><code>EnumAttribute</code></abbr> property.
 		</p>
 		
 		<h4>Alternative Name</h4>
