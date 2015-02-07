@@ -132,24 +132,24 @@
 		</p>
 		
 		<pre class="brush: c#">
-		        public class TestClass 
-		        {
-	            		public string TestString { get; set; }
-	            		public int TestInt { get; set; }
-		
-					// a helpful constructor
-					public TestClass(string testString, int testInt)
-					{
-						TestString = testString;
-						TestInt = testInt;
-					}
-		        }
+	        public class TestClass 
+	        {
+            		public string TestString { get; set; }
+            		public int TestInt { get; set; }
+	
+				// a helpful constructor
+				public TestClass(string testString, int testInt)
+				{
+					TestString = testString;
+					TestInt = testInt;
+				}
+	        }
 		        
     		var testObj = new TestClass("hello world", 999);
             		
     		var decTestObj = Declarations.AddObject(opt => opt.Comment("an instance of TestClass")
     										.EmitterKey("javascript")
-            									.Value(testObj));
+    									.Value(testObj));
 		</pre>
 		
 		<p>
@@ -166,9 +166,9 @@
 		
 		<pre class="brush: c#">
             		var decTestObj = Declarations.AddObject(opt => opt.Comment("an instance of TestClass")
-            									.EmitterKey("javascript")
-    										.Name("testObj")
-            									.Value(testObj));
+		            									.EmitterKey("javascript")
+		    										.Name("testObj")
+		            									.Value(testObj));
 		</pre>
 		
 		<p>
