@@ -22,13 +22,13 @@
 		
 		<p>
 			The <abbr title="SuperScript.JavaScript.Declarables.EnumDeclaration"><code>EnumDeclaration</code></abbr> offers
-			an easy way of transferring an enumeration from server-side code to client-side JavaScript.
+			an easy way of transferring an enumerated type from server-side code to client-side JavaScript.
 		</p>
 		
 		<p>
 			It should be remembered that JavaScript does not strictly recognise an <code>enum</code>, however an 
 			object can be created which offers the same functionality as a conventional <code>enum</code>, and this
-			is what is offered by the <abbr title="SuperScript.JavaScript.Declarables.EnumDeclaration"><code>EnumDeclaration</code></abbr>
+			is offered by the <abbr title="SuperScript.JavaScript.Declarables.EnumDeclaration"><code>EnumDeclaration</code></abbr>
 			class.
 		</p>
 		
@@ -54,11 +54,11 @@
 				<td><abbr title="SuperScript.JavaScript.EnumAttribute"><code>EnumAttribute</code></abbr></td>
 				<td>
 					<p>
-						Allows alternate text to be specified for each enumeration.
+						Allows alternate text to be specified for each enumerator.
 					</p>
 					<p>
 						<strong>Optional</strong>. Default value is <abbr title="SuperScript.JavaScript.EnumAttribute.None"><code>EnumAttribute.None</code></abbr>, which
-						indicates that the enumeration text should be the same as the server-side enumeration text.
+						indicates that the enumerator text should be the same as the server-side enumeration text.
 					</p>
 				</td>
 			</tr>
@@ -67,7 +67,7 @@
 				<td>Type</td>
 				<td>
 					<p>
-						The <abbr title="System.Type"><code>Type</code></abbr> of the enumeration to be converted to JavaScript.
+						The <abbr title="System.Type"><code>Type</code></abbr> of the enumerated type to be converted to JavaScript.
 					</p>
 				</td>
 			</tr>
@@ -118,7 +118,7 @@
 					</p>
 					<p>
 						<strong>Optional</strong>. If not specified, SuperScript.JavaScript will use the name
-						of the enumeration.
+						of the enumerated type.
 					</p>
 				</td>
 			</tr>
@@ -132,7 +132,7 @@
 		</p>
 		
 		<p>
-			The following examples reference the following simple enumeration:
+			The following examples reference the following simple enumerated type:
 		</p>
 		
 		<pre class="brush: c#">
@@ -152,8 +152,8 @@
 		</pre>
 		
 		<p>
-			A client-side name for the enumeration is not required to be specified. If not specified then SuperScript.JavaScript
-			will use the server-side name of the enumeration for the name of its client-side counterpart.
+			A client-side name for the enumerated type is not required to be specified. If not specified then SuperScript.JavaScript
+			will use the server-side name of the enumerated type for the name of its client-side counterpart.
 		</p>
 		
 		<p>
@@ -168,7 +168,7 @@
 		</pre>
 		
 		<p>
-			 Alternatively, enumerations may also be declared in a more conventional programmatic style.
+			 Alternatively, enumerated types may also be declared in a more conventional programmatic style.
 		</p>
 		
 		<pre class="brush: c#">
