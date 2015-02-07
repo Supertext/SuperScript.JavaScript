@@ -6,6 +6,12 @@ var PageManager = function (win, doc) {
 		urlSegments = doc.location.pathname.split("/"),
 		removeLastSegment = urlSegments.pop(),
 		urlDirectory = doc.location.protocol + "//" + doc.location.host + urlSegments.join("/") + "/documentation/",
+		escapeRegExp = function (string) {
+    			return string.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
+		},
+		replaceAll = function (find, replace, str) {
+			return str.replace(new RegExp(find, 'g'), replace);
+		}
 	
 		configureRouting = function() {
 			Routing.map("#!/page/:contentName")
@@ -15,7 +21,7 @@ var PageManager = function (win, doc) {
 					})
 					.to(function() {
 						
-							var specificPath = this.params.contentName.value.replace(new RegExp(".", "g"), "/") + ".html",
+							var specificPath = replaceAll(".", "/", this.params.contentName.value) + ".html",
 								loadUrl = urlDirectory + specificPath,
 								elmntLink = $("a[href='" + specificPath + "']");
 								
