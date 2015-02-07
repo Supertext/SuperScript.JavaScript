@@ -90,7 +90,7 @@
 				<td>string</td>
 				<td>
 					<p>
-						This text may be emitted onto its own line or after a variable, depending upon the specific implementation of <abbr title="SuperScript.JavaScript.Declarables.DeclarationBase"><code>DeclarationBase</code></abbr>.
+						Emitted inside JavaScript's multi-line comment symbols, a tab space after the end of the client-side declaration.
 					</p>
 					<p>
 						<strong>Optional</strong>.
@@ -137,17 +137,17 @@
 	            		public string TestString { get; set; }
 	            		public int TestInt { get; set; }
 		
-				// a helpful constructor
-				public TestClass(string testString, int testInt)
-				{
-					TestString = testString;
-					TestInt = testInt;
-				}
+					// a helpful constructor
+					public TestClass(string testString, int testInt)
+					{
+						TestString = testString;
+						TestInt = testInt;
+					}
 		        }
 		        
-            		var testObj = new TestClass("hello world", 999);
+    		var testObj = new TestClass("hello world", 999);
             		
-            		var decTestObj = Declarations.AddObject(opt => opt.Comment("an instance of TestClass")
+    		var decTestObj = Declarations.AddObject(opt => opt.Comment("an instance of TestClass")
     										.EmitterKey("javascript")
             									.Value(testObj));
 		</pre>
