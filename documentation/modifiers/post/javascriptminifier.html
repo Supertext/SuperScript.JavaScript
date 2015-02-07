@@ -11,8 +11,8 @@
   	</p>
   	
   	<p>
-  		Developers should familiarise themselves with the operation of a <abbr title="SuperScript.Modifiers.Converters.CollectionConverter"><code>CollectionConverter</code></abbr> by
-  		reading the documentation <a href="http://supertext.github.io/SuperScript/modifiers/collection-converter.html" target="_blank">here</a>.
+  		Developers should familiarise themselves with the operation of a <abbr title="SuperScript.Modifiers.Post.CollectionPostModifier"><code>CollectionPostModifier</code></abbr> by
+  		reading the documentation <a href="http://supertext.github.io/SuperScript/modifiers/collection-post-modifier.html" target="_blank">here</a>.
   	</p>
   
   </div>
@@ -33,6 +33,34 @@
 		<p>
 		  If errors occur during the minification process then an error message is rendered in place.
 		</p>
+		
+		<pre class="brush: c#">
+			override PostModifierArgs Process(PostModifierArgs args)
+		</pre>
+
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Type</th>
+					<th>Description</th>
+				</tr>
+			</thead>
+			<tr>
+				<td colspan="3">
+					Inherited members
+				</td>
+			</tr>
+			<tr>
+				<td>Process</td>
+				<td>IHtmlString</td>
+				<td>
+					<p>
+						Minifies the JavaScript. If errors occur during the minification process then an error message is rendered in place.
+					</p>
+				</td>
+			</tr>
+		</table>
 		
 		<p>
 		  Like all implementations of <abbr title="SuperScript.Modifiers.Post.CollectionPostModifier"><code>CollectionPostModifier</code></abbr>, 
