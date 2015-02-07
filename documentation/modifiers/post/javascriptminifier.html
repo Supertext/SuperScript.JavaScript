@@ -1,3 +1,68 @@
-<p>
-  &nbsp;
-</p>
+<div class="row">
+
+  <div class="col-xs-12">
+  
+  	<p class="lead">
+  		SuperScript offers a means of declaring assets in one part of a .NET web solution and have them emitted somewhere else.
+  	</p>
+  
+  	<p>
+  		<mark><strong><em>This documentation is still being written. Please bear with us while we complete this documentation.</em></strong></mark>
+  	</p>
+  	
+  	<p>
+  		Developers should familiarise themselves with the operation of a <abbr title="SuperScript.Modifiers.Converters.CollectionConverter"><code>CollectionConverter</code></abbr> by
+  		reading the documentation <a href="http://supertext.github.io/SuperScript/modifiers/collection-converter.html" target="_blank">here</a>.
+  	</p>
+  
+  </div>
+
+</div>
+
+<div class="row">
+
+	<div class="col-xs-12">
+	
+		<h2>JavaScriptMinify Post-conversion Modifier</h2>
+		
+		<p>
+		  Minifies the specified string (in the <abbr title="SuperScript.Modifiers.PostModifierArgs.Emitted"><code>PostModifierArgs.Emitted</code></abbr> property) using
+		  Microsoft's <a href="https://webgrease.codeplex.com/documentation" target="_blank">WebGrease library</a>.
+		</p>
+		
+		<p>
+		  If errors occur during the minification process then an error message is rendered in place.
+		</p>
+		
+		<p>
+		  Like all implementation of <abbr title="SuperScript.Modifiers.Post.CollectionPostModifier"><code>CollectionPostModifier</code></abbr>, 
+		  <abbr title="SuperScript.JavaScript.Modifiers.Post.JavaScriptMinifier"><code>JavaScriptMinifier</code></abbr> exposes a single
+		  public method, <abbr title="SuperScript.Modifiers.Post.CollectionPostModifier.Process"><code>Process</code></abbr> which accepts
+		  an instance of <abbr title="SuperScript.Modifiers.PostModifierArgs"><code>PostModifierArgs</code></abbr>. This argument object's
+		  <abbr title="SuperScript.Modifiers.PostModifierArgs.Emitted"><code>Emitted</code></abbr> property contains the output of either
+		</p>
+		
+		<ul>
+		  <li>
+  		  <p>
+  		    an implementation of <abbr title="SuperScript.Modifiers.Post.CollectionPostModifier"><code>CollectionPostModifier</code></abbr> which
+  		    has been configured for this current <abbr title="SuperScript.Emitters.IEmitter"><code>IEmitter</code></abbr>, or
+  		  </p>
+		  </li>
+		  <li>
+		    <p>
+		      an implementation of <abbr title="SuperScript.Modifiers.Converters.CollectionConverter"><code>CollectionConverter</code></abbr>.
+		    </p>
+		  </li>
+		</ul>
+		
+		<p>
+		  The result of the <abbr title="SuperScript.Modifiers.Post.CollectionPostModifier.Process"><code>Process</code></abbr> method
+		  is an instance of <abbr title="SuperScript.Modifiers.PostModifierArgs"><code>PostModifierArgs</code></abbr> where the 
+		  <abbr title="SuperScript.Modifiers.PostModifierArgs.Emitted"><code>Emitted</code></abbr> property contains the output of the
+		  minification process.
+		</p>
+
+	</div>
+	
+</div>
