@@ -23,7 +23,7 @@ var PageManager = function (win, doc) {
 						
 							var specificPath = replaceAll(this.params.contentName.value, ".", "/") + ".html",
 								loadUrl = urlDirectory + specificPath,
-								elmntLink = $("a[href='#!/page/" + specificPath + "']");
+								elmntLink = $("a[href='#!/page/" + this.params.contentName.value + "']");
 								
 							$.ajax({
 								dataType: "html",
