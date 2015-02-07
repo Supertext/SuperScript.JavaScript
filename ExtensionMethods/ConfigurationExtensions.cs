@@ -26,7 +26,9 @@ namespace SuperScript.JavaScript.ExtensionMethods
 
             var commentOptions = new CommentOptions();
             commentOptions.Comment(commentElement.Text);
-            commentOptions.EmitterKey(!String.IsNullOrWhiteSpace(commentElement.EmitterKey) ? commentElement.EmitterKey : defaultEmitterKey);
+            commentOptions.EmitterKey(!String.IsNullOrWhiteSpace(commentElement.EmitterKey)
+                                          ? commentElement.EmitterKey
+                                          : defaultEmitterKey);
 
             return new CommentDeclaration(commentOptions);
         }
@@ -60,7 +62,9 @@ namespace SuperScript.JavaScript.ExtensionMethods
                 var arrayOptions = new ArrayOptions();
                 arrayOptions.Comment(array.Comment);
                 arrayOptions.Elements(items.ToArray());
-                arrayOptions.EmitterKey(!String.IsNullOrWhiteSpace(array.EmitterKey) ? array.EmitterKey : defaultEmitterKey);
+                arrayOptions.EmitterKey(!String.IsNullOrWhiteSpace(array.EmitterKey)
+                                            ? array.EmitterKey
+                                            : defaultEmitterKey);
                 arrayOptions.Name(array.Name);
 
                 yield return new ArrayDeclaration(arrayOptions);
@@ -93,11 +97,41 @@ namespace SuperScript.JavaScript.ExtensionMethods
 
                 var callOptions = new CallOptions();
                 callOptions.Comment(callElement.Comment);
-                callOptions.EmitterKey(!String.IsNullOrWhiteSpace(callElement.EmitterKey) ? callElement.EmitterKey : defaultEmitterKey);
+                callOptions.EmitterKey(!String.IsNullOrWhiteSpace(callElement.EmitterKey)
+                                           ? callElement.EmitterKey
+                                           : defaultEmitterKey);
                 callOptions.FunctionName(callElement.FunctionName);
                 callOptions.Parameters(parameters);
 
                 yield return new CallDeclaration(callOptions);
+            }
+        }
+
+
+        /// <summary>
+        /// Yields a collection of <see cref="EnumDeclaration"/> objects based upon the configured <see cref="EnumsCollection"/>.
+        /// </summary>
+        /// <param name="enumCollection">These are expected to be configured in the web.config.</param>
+        /// <param name="defaultEmitterKey">Required in case the <see cref="IEmitter"/> has not been specified.</param>
+        public static IEnumerable<EnumDeclaration> ToDeclarations(this EnumsCollection enumCollection, string defaultEmitterKey)
+        {
+            if (enumCollection == null || enumCollection.Count == 0)
+            {
+                yield break;
+            }
+
+            foreach (EnumElement enumElement in enumCollection)
+            {
+                var enumOptions = new EnumeratedTypeOptions();
+                enumOptions.Comment(enumElement.Comment);
+                enumOptions.EmitterKey(!String.IsNullOrWhiteSpace(enumElement.EmitterKey)
+                                           ? enumElement.EmitterKey
+                                           : defaultEmitterKey);
+                enumOptions.EnumAttribute(enumElement.EnumAttribute);
+                enumOptions.Name(enumElement.Name);
+                enumOptions.Type(enumElement.Type);
+
+                yield return new EnumDeclaration(enumOptions);
             }
         }
 
@@ -118,7 +152,9 @@ namespace SuperScript.JavaScript.ExtensionMethods
             {
                 var varOptions = new VariableOptions();
                 varOptions.Comment(variableElement.Comment);
-                varOptions.EmitterKey(!String.IsNullOrWhiteSpace(variableElement.EmitterKey) ? variableElement.EmitterKey : defaultEmitterKey);
+                varOptions.EmitterKey(!String.IsNullOrWhiteSpace(variableElement.EmitterKey)
+                                          ? variableElement.EmitterKey
+                                          : defaultEmitterKey);
                 varOptions.Name(variableElement.Name);
                 varOptions.Value(Convert.ChangeType(variableElement.Value, variableElement.Type));
 

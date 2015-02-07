@@ -68,6 +68,9 @@ namespace SuperScript.JavaScript.Configuration
             // function calls
             collection.AddRange(config.Declarations.Calls.ToDeclarations(defaultEmitterKey));
 
+            // enums
+            collection.AddRange(config.Declarations.Enums.ToDeclarations(defaultEmitterKey));
+
             Declarations = collection;
         }
 

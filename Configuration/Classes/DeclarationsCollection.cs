@@ -8,6 +8,7 @@ namespace SuperScript.JavaScript.Configuration
         private static readonly ConfigurationProperty ArrayCollectionElement = new ConfigurationProperty("arrays", typeof (ArraysCollection), null, ConfigurationPropertyOptions.None);
         private static readonly ConfigurationProperty CallCollectionElement = new ConfigurationProperty("calls", typeof (CallsCollection), null, ConfigurationPropertyOptions.None);
         private static readonly ConfigurationProperty CommentElement = new ConfigurationProperty("comment", typeof (CommentElement), null, ConfigurationPropertyOptions.None);
+        private static readonly ConfigurationProperty EnumCollectionElement = new ConfigurationProperty("enums", typeof (EnumsCollection), null, ConfigurationPropertyOptions.None);
         private static readonly ConfigurationProperty VariableCollectionElement = new ConfigurationProperty("variables", typeof (VariablesCollection), null, ConfigurationPropertyOptions.None);
 
         [ConfigurationProperty("arrays", IsRequired = false)]
@@ -26,6 +27,12 @@ namespace SuperScript.JavaScript.Configuration
         public CommentElement Comment
         {
             get { return (CommentElement) this[CommentElement]; }
+        }
+
+        [ConfigurationProperty("enums", IsRequired = false)]
+        public EnumsCollection Enums
+        {
+            get { return (EnumsCollection) this[EnumCollectionElement]; }
         }
 
         [ConfigurationProperty("variables", IsRequired = false)]

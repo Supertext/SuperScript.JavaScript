@@ -63,6 +63,7 @@
     <Compile Include="Configuration\Classes\ArrayElementsCollection.cs" />
     <Compile Include="Configuration\Classes\ArraysCollection.cs" />
     <Compile Include="Configuration\Classes\CallElement.cs" />
+    <Compile Include="Configuration\Classes\EnumsCollection.cs" />
     <Compile Include="Configuration\Classes\CallsCollection.cs" />
     <Compile Include="Configuration\Classes\CommentElement.cs" />
     <Compile Include="Configuration\Classes\ContainersElement.cs" />
@@ -70,6 +71,7 @@
     <Compile Include="Configuration\Classes\DeclarationsCollection.cs" />
     <Compile Include="Configuration\Classes\ParameterElement.cs" />
     <Compile Include="Configuration\Classes\ParametersCollection.cs" />
+    <Compile Include="Configuration\Classes\EnumElement.cs" />
     <Compile Include="Configuration\Classes\VariableElement.cs" />
     <Compile Include="Configuration\Classes\VariablesCollection.cs" />
     <Compile Include="Configuration\Settings.cs" />
