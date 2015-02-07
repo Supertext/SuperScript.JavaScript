@@ -124,10 +124,6 @@
 			Variables may be declared in the config file. 
 		</p>
 		
-		<p>
-			SuperScript.JavaScript exposes a fluent syntax for declarables which allows for easier adding of declarations.
-		</p>
-		
 		<pre class="brush: xml">
 			&lt;configuration&gt;
 				&lt;configSections&gt;
@@ -181,7 +177,7 @@
 		</p>
 		
 		<pre class="brush: js">
-			var exampleVar = 1";	/* A commented variable */
+			var exampleVar = 1;	/* A commented variable */
 		</pre>
 		
 		<p>
@@ -191,9 +187,9 @@
 		
 		<pre class="brush: c#">
 			var exampleVar = Declarations.AddVariable(opt => opt.Comment("A commented variable")
-											.EmitterKey("javascript")
-											.Name("exampleVar")
-											.Value("hello world"));
+														.EmitterKey("javascript")
+														.Name("exampleVar")
+														.Value("hello world"));
 		</pre>
 		
 		<p>
@@ -209,14 +205,14 @@
 		</p>
 		
 		<pre class="brush: c#">
-			var varDecl = new StandardDeclaration();
-			varDecl.AssignExisting = false; // this is the default value
-			varDecl.Comment = "A commented variable";
-			varDecl.EmitterKey = "javascript";
-			varDecl.Name = "exampleVar";
-			varDecl.Value = 1;
-			
-			SuperScript.Declarations.AddDeclaration<StandardDeclaration>(varDecl);
+		var varDecl = new StandardDeclaration();
+		varDecl.AssignExisting = false; // this is the default value
+		varDecl.Comment = "A commented variable";
+		varDecl.EmitterKey = "javascript";
+		varDecl.Name = "exampleVar";
+		varDecl.Value = 1;
+		
+		SuperScript.Declarations.AddDeclaration&lt;StandardDeclaration&gt;(varDecl);
 		</pre>
 		
 		<p>
@@ -224,7 +220,7 @@
 		</p>
 		
 		<pre class="brush: js">
-			var exampleVar = 1";	/* A commented variable */
+			var exampleVar = 1;	/* A commented variable */
 		</pre>
 	</div>
 
