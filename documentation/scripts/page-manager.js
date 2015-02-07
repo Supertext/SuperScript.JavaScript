@@ -15,7 +15,7 @@ var PageManager = function (win, doc) {
 					})
 					.to(function() {
 						
-							var specificPath = this.params.contentName.value.replace(".", "/") + ".html",
+							var specificPath = this.params.contentName.value.replace(new RegExp(".", "g"), "/") + ".html",
 								loadUrl = urlDirectory + specificPath,
 								elmntLink = $("a[href='" + specificPath + "']");
 								
