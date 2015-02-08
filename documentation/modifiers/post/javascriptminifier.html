@@ -35,7 +35,11 @@
 		</p>
 		
 		<pre class="brush: c#">
-			override PostModifierArgs Process(PostModifierArgs args)
+			class JavaScriptMinifier : SuperScript.Modifiers.Post.CollectionPostModifier
+			{
+				EmitMode EmitMode { get; set; }
+				override PostModifierArgs Process(PreModifierArgs args)
+			}
 		</pre>
 
 		<table class="table table-bordered">
@@ -47,8 +51,12 @@
 				</tr>
 			</thead>
 			<tr>
-				<td style="background-color: transparent; font-weight: normal;" colspan="3">
-					<em>No implementation members</em>
+				<td>Process</td>
+				<td>IHtmlString</td>
+				<td>
+					<p>
+						Minifies the JavaScript. If errors occur during the minification process then an error message is rendered in place.
+					</p>
 				</td>
 			</tr>
 			<tr>
@@ -57,11 +65,14 @@
 				</td>
 			</tr>
 			<tr>
-				<td>Process</td>
-				<td>IHtmlString</td>
+				<td>EmitMode</td>
+				<td><abbr title="SuperScript.EmitMode"><code>EmitMode</code></abbr></td>
 				<td>
 					<p>
-						Minifies the JavaScript. If errors occur during the minification process then an error message is rendered in place.
+						Determines the mode in which this implementation emits contents.
+					</p>
+					<p>
+						<strong>Optional</strong>. Default value: <abbr title="SuperScript.EmitMode.Always"><code>EmitMode.Always</code></abbr>
 					</p>
 				</td>
 			</tr>
