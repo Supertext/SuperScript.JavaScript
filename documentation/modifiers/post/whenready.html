@@ -31,9 +31,13 @@
 		</p>
 		
 		<pre class="brush: c#">
-			string WhenReadyClose { get; set; }
-			string WhenReadyOpen { get; set; }
-			override PostModifierArgs Process(PostModifierArgs args)
+			class JavaScriptMinifier : SuperScript.Modifiers.Post.CollectionPostModifier
+			{
+				EmitMode EmitMode { get; set; }
+				string WhenReadyClose { get; set; }
+				string WhenReadyOpen { get; set; }
+				override PostModifierArgs Process(PostModifierArgs args)
+			}
 		</pre>
 
 		<table class="table table-bordered">
@@ -69,16 +73,28 @@
 				</td>
 			</tr>
 			<tr>
-				<td colspan="3">
-					Inherited members
-				</td>
-			</tr>
-			<tr>
 				<td>Process</td>
 				<td>IHtmlString</td>
 				<td>
 					<p>
 						Wraps the contents in a jQuery DOM-ready closure.
+					</p>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3">
+					Inherited members
+				</td>
+			</tr>
+			<tr>
+				<td>EmitMode</td>
+				<td><abbr title="SuperScript.EmitMode"><code>EmitMode</code></abbr></td>
+				<td>
+					<p>
+						Determines the mode in which this implementation emits contents.
+					</p>
+					<p>
+						<strong>Optional</strong>. Default value: <abbr title="SuperScript.EmitMode.Always"><code>EmitMode.Always</code></abbr>
 					</p>
 				</td>
 			</tr>
