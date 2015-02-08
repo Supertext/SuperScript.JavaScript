@@ -35,9 +35,13 @@
 		</p>
 		
 		<pre class="brush: c#">
-			IEnumerable&lt;KeyValuePair&lt;string, string&gt;&gt; TagAttributes { get; set; }
-			string TagName { get; set; }
-			override IHtmlString Process(PostModifierArgs args)
+			class ScriptTagWriter : SuperScript.Modifiers.Writers.HtmlWriter
+			{
+				EmitMode EmitMode { get; set; }
+				override IHtmlString Process(PostModifierArgs args)
+				IEnumerable&lt;KeyValuePair&lt;string, string&gt;&gt; TagAttributes { get; set; }
+				string TagName { get; set; }
+			}
 		</pre>
 
 		<table class="table table-bordered">
@@ -48,6 +52,58 @@
 					<th>Description</th>
 				</tr>
 			</thead>
+			<tr>
+				<td>WhenReadyClose</td>
+				<td>string</td>
+				<td>
+					<p>
+						Gets or sets the JavaScript string which closes the wrapping function call.
+					</p>
+					<p>
+						<strong>Optional</strong>. Default value: "});"
+					</p>
+				</td>
+			</tr>
+			<tr>
+				<td>WhenReadyOpen</td>
+				<td>string</td>
+				<td>
+					<p>
+						Gets or sets the JavaScript string which opens the wrapping function call.
+					</p>
+					<p>
+						<strong>Optional</strong>. Default value: "$(function() {"
+					</p>
+				</td>
+			</tr>
+			<tr>
+				<td>Process</td>
+				<td>IHtmlString</td>
+				<td>
+					<p>
+						Wraps the contents in a jQuery DOM-ready closure.
+					</p>
+				</td>
+			</tr>
+		</table>
+
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Type</th>
+					<th>Description</th>
+				</tr>
+			</thead>
+			<tr>
+				<td>Process</td>
+				<td>IHtmlString</td>
+				<td>
+					<p>
+						Executes this instance of <abbr title="SuperScript.Modifiers.Writers.HtmlWriter"><code>HtmlWriter</code></abbr> upon the specified argument object.
+					</p>
+				</td>
+			</tr>
 			<tr>
 				<td>TagAttributes</td>
 				<td>IEnumerable&lt;KeyValuePair&lt;string, string&gt;&gt;</td>
@@ -78,11 +134,14 @@
 				</td>
 			</tr>
 			<tr>
-				<td>Process</td>
-				<td>IHtmlString</td>
+				<td>EmitMode</td>
+				<td><abbr title="SuperScript.EmitMode"><code>EmitMode</code></abbr></td>
 				<td>
 					<p>
-						Executes this instance of <abbr title="SuperScript.Modifiers.Writers.HtmlWriter"><code>HtmlWriter</code></abbr> upon the specified argument object.
+						Determines the mode in which this implementation emits contents.
+					</p>
+					<p>
+						<strong>Optional</strong>. Default value: <abbr title="SuperScript.EmitMode.Always"><code>EmitMode.Always</code></abbr>
 					</p>
 				</td>
 			</tr>
