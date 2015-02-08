@@ -135,16 +135,16 @@
 							minifies the contents passed in.
 						</p>
 						<p>
-							This <abbr title="SuperScript.Modifiers.Post.CollectionPostModifier"><code>CollectinPostModifier</code></abbr> is also
+							This <abbr title="SuperScript.Modifiers.Post.CollectionPostModifier"><code>CollectionPostModifier</code></abbr> is also
 							configured with two further properties: <code>emitMode="LiveOnly"</code> indicates that this 
-							<abbr title="SuperScript.Modifiers.Post.CollectionPostModifier"><code>CollectinPostModifier</code></abbr> should only
+							<abbr title="SuperScript.Modifiers.Post.CollectionPostModifier"><code>CollectionPostModifier</code></abbr> should only
 							be implemented when <code>debug = false</code>; the second property, <code>useWhenBundled="false"</code>, indicates
 							that this modifier should <em>not</em> be implemented if this <abbr title="SuperScript.Emitters.IEmitter"><code>IEmitter</code></abbr> is 
 							grouped into an <abbr title="SuperScript.Emitters.EmitterBundle"><code>EmitterBundle</code></abbr>.
 						</p>
 						<p>
 							Read more about the <abbr title="SuperScript.JavaScript.Modifiers.Post.JavaScriptMinifier"><code>JavaScriptMinifier</code></abbr> 
-							<abbr title="SuperScript.Modifiers.Post.CollectionPostModifier"><code>CollectinPostModifier</code></abbr>
+							<abbr title="SuperScript.Modifiers.Post.CollectionPostModifier"><code>CollectionPostModifier</code></abbr>
 							<a href="#!/page/modifiers.post.javascriptminifier">here</a>.
 						</p>
 					</li>
@@ -155,7 +155,7 @@
 						</p>
 						<p>
 							Read more about the <abbr title="SuperScript.JavaScript.Modifiers.Post.WhenReady"><code>WhenReady</code></abbr> 
-							<abbr title="SuperScript.Modifiers.Post.CollectionPostModifier"><code>CollectinPostModifier</code></abbr>
+							<abbr title="SuperScript.Modifiers.Post.CollectionPostModifier"><code>CollectionPostModifier</code></abbr>
 							<a href="#!/page/modifiers.post.whenready">here</a>.
 						</p>
 					</li>
@@ -195,31 +195,31 @@
 			using SuperScript.JavaScript;
 			&#10;
 			Declarations.AddArray(opt => opt.Elements(new object[] { 1, 2, 3 })
-							.EmitterKey("javascript2")
-							.Name("demoArray")
-							.Type(typeof (System.Int32)));
+										.EmitterKey("javascript2")
+										.Name("demoArray")
+										.Type(typeof (System.Int32)));
 			
 			Declarations.AddCall(opt => opt.EmitterKey("javascript2")
-							.FunctionName("doSomething")
-							.Parameters("hello world", 1));
+									.FunctionName("doSomething")
+									.Parameters("hello world", 1));
 			
 			Declarations.AddComment(opt => opt.Comment("Comments will not be emitted when debug=false")
-								.EmitterKey("javascript2"));
+										.EmitterKey("javascript2"));
 			
 			Declarations.AddEnum(opt => opt.EmitterKey("javascript2")
-							.Type(typeof (System.DayOfWeek)));
+									.Type(typeof (System.DayOfWeek)));
 			
 			Declarations.AddObject(opt => opt.EmitterKey("javascript2")
-								.Name("demoObject")
-								.Value(new
-								{
-									Prop1 = "hello world",
-									Prop2 = 1
-								}));
+										.Name("demoObject")
+										.Value(new
+										{
+											Prop1 = "hello world",
+											Prop2 = 1
+										}));
 			
 			Declarations.AddVariable(opt => opt.EmitterKey("javascript2")
-								.Name("demoVar")
-								.Value(100));
+										.Name("demoVar")
+										.Value(100));
 		</pre>
 		
 		<p>
