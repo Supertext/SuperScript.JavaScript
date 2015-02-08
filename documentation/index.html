@@ -44,7 +44,214 @@
 			SuperScript.JavaScript therefore consists of implementations of <abbr title="SuperScript.Declarables.DeclarationBase"><code>DeclarationBase</code></abbr>
 			and modifiers which are specific to JavaScript.
 		</p>
-	
+		
+		<h3>Example</h3>
+		
+		<p>
+			This library contains several implementations of 
+			<abbr title="SuperScript.Declarables.DeclarationBase"><code>DeclarationBase</code></abbr> and 
+			<abbr title="SuperScript.Modifiers.ModifierBase"><code>ModifierBase</code></abbr>. It should be
+			remembered that multiple modifiers may be configured into a single 
+			<abbr title="SuperScript.Emitters.IEmitter"><code>IEmitter</code></abbr>.
+		</p>
+		
+		<p>
+			The following code offers an example of each of the 
+			<abbr title="SuperScript.Declarables.DeclarationBase"><code>DeclarationBase</code></abbr> implementations
+			and emits these through an <abbr title="SuperScript.Emitters.IEmitter"><code>IEmitter</code></abbr> which 
+			has been configured with all of the <abbr title="SuperScript.Modifiers.ModifierBase"><code>modifiers</code></abbr>
+			contained in this library.
+		</p>
+		
+		<p>
+			First of all, configure an <abbr title="SuperScript.Emitters.IEmitter"><code>IEmitter</code></abbr>. In this
+			example the <abbr title="SuperScript.Emitters.IEmitter"><code>IEmitter</code></abbr> will be configured
+			in the config file.
+		</p>
+		
+		<pre class="brush: xml">
+			&lt;configuration&gt;
+				&lt;configSections&gt;
+					&lt;section name="superScript" type="SuperScript.Configuration.SuperScriptConfig, SuperScript.Common" /&gt;
+					&lt;section name="superScript.JavaScript" type="SuperScript.JavaScript.Configuration.JavaScriptConfig, SuperScript.JavaScript" /&gt;
+				&lt;/configSections&gt;
+			&lt;/configuration&gt;
+			&#10;
+			&hellip;
+			&#10;
+			&lt;superScript&gt;
+				&lt;emitters&gt;
+					&lt;emitter key="javascript"&gt;
+						&lt;converters&gt;
+							&lt;modifier type="SuperScript.JavaScript.Modifiers.Converters.JavaScriptStringify, SuperScript.JavaScript" /&gt;
+						&lt;/converters&gt;
+						&lt;postModifiers&gt;
+							&lt;modifier emitMode="LiveOnly" useWhenBundled="false" type="SuperScript.JavaScript.Modifiers.Post.JavaScriptMinifier, SuperScript.JavaScript" /&gt;
+							&lt;modifier type="SuperScript.JavaScript.Modifiers.Post.WhenReady, SuperScript.JavaScript" /&gt;
+						&lt;/postModifiers&gt;
+						&lt;writers&gt;
+							&lt;modifier type="SuperScript.ExternalFile.Modifiers.Writers.ExternalScriptWriter, SuperScript.ExternalFile" /&gt;
+						&lt;/writers&gt;
+					&lt;/emitter&gt;
+				&lt;/emitters&gt;
+			&lt;/superScript&gt;
+		</pre>
+		
+		<p>
+			The above code configures the following:
+		</p>
+		
+		<ul>
+			<li>
+				<p>
+					an <abbr title="SuperScript.Emitters.IEmitter"><code>IEmitter</code></abbr> with 
+					the <abbr title="SuperScript.Emitters.IEmitter.Key"><code>Key</code></abbr> "javascript"
+				</p>
+			</li>
+			<li>
+				<p>
+					An implementation of <abbr title="SuperScript.Modifiers.Converters.CollectionConverter"><code>CollectionConverter</code></abbr>, 
+					<abbr title="SuperScript.JavaScript.Modifiers.Converters.JavaScriptStringify"><code>JavaScriptStringify</code></abbr>, 
+					is added.
+				</p>
+				<p>
+					This class converts each of the declarations into a formatted, client-side JavaScript equivalent.
+				</p>
+				<p>
+					Read more about the <abbr title="SuperScript.JavaScript.Modifiers.Converters.JavaScriptStringify"><code>JavaScriptStringify</code></abbr> 
+					<abbr title="SuperScript.Modifiers.Converters.CollectionConverter"><code>CollectionConverter</code></abbr> 
+					<a href="!#/page/modifiers.converters.javascriptstringify">here</a>.
+				</p>
+			</li>
+			<li>
+				<p>
+					Two implementations of <abbr title="SuperScript.Modifiers.Post.CollectionPostModifier"><code>CollectionPostModifier</code></abbr>
+					are added:
+				</p>
+				<ul>
+					<li>
+						<p>
+							<abbr title="SuperScript.JavaScript.Modifiers.Post.JavaScriptMinifier"><code>JavaScriptMinifier</code></abbr>: This class
+							minifies the contents passed in.
+						</p>
+						<p>
+							This <abbr title="SuperScript.Modifiers.Post.CollectionPostModifier"><code>CollectinPostModifier</code></abbr> is also
+							configured with two further properties: <code>emitMode="LiveOnly"</code> indicates that this 
+							<abbr title="SuperScript.Modifiers.Post.CollectionPostModifier"><code>CollectinPostModifier</code></abbr> should only
+							be implemented when <code>debug = false</code>; the second property, <code>useWhenBundled="false"</code>, indicates
+							that this modifier should <em>not</em> be implemented if this <abbr title="SuperScript.Emitters.IEmitter"><code>IEmitter</code></abbr> is 
+							grouped into an <abbr title="SuperScript.Emitters.EmitterBundle"><code>EmitterBundle</code></abbr>.
+						</p>
+						<p>
+							Read more about the <abbr title="SuperScript.JavaScript.Modifiers.Post.JavaScriptMinifier"><code>JavaScriptMinifier</code></abbr> 
+							<abbr title="SuperScript.Modifiers.Post.CollectionPostModifier"><code>CollectinPostModifier</code></abbr>
+							<a href="#!/page/modifiers.post.javascriptminifier">here</a>.
+						</p>
+					</li>
+					<li>
+						<p>
+							<abbr title="SuperScript.JavaScript.Modifiers.Post.WhenReady"><code>WhenReady</code></abbr>: This class
+							wraps the passed-in contents into a jQuery <a href="http://api.jquery.com/ready/" target="_blank">.ready</a> function call.
+						</p>
+						<p>
+							Read more about the <abbr title="SuperScript.JavaScript.Modifiers.Post.WhenReady"><code>WhenReady</code></abbr> 
+							<abbr title="SuperScript.Modifiers.Post.CollectionPostModifier"><code>CollectinPostModifier</code></abbr>
+							<a href="#!/page/modifiers.post.whenready">here</a>.
+						</p>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<p>
+					An implementation of <abbr title="SuperScript.Modifiers.Writers.HtmlWriter"><code>HtmlWriter</code></abbr>, 
+					<abbr title="SuperScript.JavaScript.Modifiers.Writers.ScriptTagWriter"><code>ScriptTagWriter</code></abbr>, 
+					is added.
+				</p>
+				<p>
+					This class writes the passed-in contents (which are emitted from the preceding implementations of 
+					<abbr title="SuperScript.Modifiers.Post.CollectionPostModifier"><code>CollectionPostModifier</code></abbr>) into an
+					HTML tag. By default, this HTML tag is <code>&lt;script type="text/javascript"&gt;</code>.
+				</p>
+				<p>
+					Read more about the <abbr title="SuperScript.JavaScript.Modifiers.Writers.ScriptTagWriter"><code>ScriptTagWriter</code></abbr> 
+					<abbr title="SuperScript.Modifiers.Writers.HtmlWriter"><code>HtmlWriter</code></abbr> 
+					<a href="!#/page/modifiers.writers.scripttagwriter">here</a>.
+				</p>
+			</li>
+		</ul>
+		
+		<p>
+			To summarise, "javascript" is an <abbr title="SuperScript.Emitters.IEmitter"><code>IEmitter</code></abbr> which
+			converts each of the declarations into a formatted, client-side JavaScript equivalent, then minifies the 
+			JavaScript (when not running in debug mode), collects the JavaScript into a jQuery DOM-ready function call,
+			and finally writes these contents into a <code>&lt;script type="text/javascript"&gt;</code> HTML tag.
+		</p>
+		
+		<p>
+			Let's add some JavaScript-oriented declarations.
+		</p>
+		
+		<pre class="brush: c#">
+			using SuperScript.JavaScript;
+			&#10;
+			Declarations.AddArray(opt => opt.Elements(new object[] { 1, 2, 3 })
+							.EmitterKey("javascript2")
+							.Name("demoArray")
+							.Type(typeof (System.Int32)));
+			
+			Declarations.AddCall(opt => opt.EmitterKey("javascript2")
+							.FunctionName("doSomething")
+							.Parameters("hello world", 1));
+			
+			Declarations.AddComment(opt => opt.Comment("Comments will not be emitted when debug=false")
+								.EmitterKey("javascript2"));
+			
+			Declarations.AddEnum(opt => opt.EmitterKey("javascript2")
+							.Type(typeof (System.DayOfWeek)));
+			
+			Declarations.AddObject(opt => opt.EmitterKey("javascript2")
+								.Name("demoObject")
+								.Value(new
+								{
+									Prop1 = "hello world",
+									Prop2 = 1
+								}));
+			
+			Declarations.AddVariable(opt => opt.EmitterKey("javascript2")
+								.Name("demoVar")
+								.Value(100));
+		</pre>
+		
+		<p>
+			When emitted, the above code will produce the following:
+		</p>
+		
+		<pre class="brush: js">
+			&lt;script type="text/javascript"&gt;
+				$(function() {
+					var demoArray = [1, 2, 3];
+					doSomething("hello world", 1);
+					/* Comments will not be emitted when debug=false */
+					var DayOfWeek = { "Sunday": 0, "Monday": 1, "Tuesday": 2, "Wednesday": 3, "Thursday": 4, "Friday": 5, "Saturday": 6 };
+					var demoObject = {"Prop1":"hello world","Prop2":1};
+					var demoVar = 100;
+				});
+			&lt;/script&gt;
+		</pre>
+		
+		
+		<p>
+			If <code>debug</code> is set to <code>true</code> then the following output is obtained:
+		</p>
+		
+		<pre class="brush: js">
+			&lt;script type="text/javascript"&gt;
+				$(function() {
+					var demoArray=[1,2,3];doSomething("hello world",1);var DayOfWeek={Sunday:0,Monday:1,Tuesday:2,Wednesday:3,
+					Thursday:4,Friday:5,Saturday:6},demoObject={Prop1:"hello world",Prop2:1},demoVar=100
+				});
+			&lt;/script&gt;
+		</pre>
 	</div>
 
 </div>
