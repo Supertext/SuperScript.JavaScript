@@ -199,21 +199,21 @@
 			using SuperScript.JavaScript;
 			&#10;
 			Declarations.AddArray(opt => opt.Elements(new object[] { 1, 2, 3 })
-										.EmitterKey("javascript2")
+										.EmitterKey("javascript")
 										.Name("demoArray")
 										.Type(typeof (System.Int32)));
 			
-			Declarations.AddCall(opt => opt.EmitterKey("javascript2")
+			Declarations.AddCall(opt => opt.EmitterKey("javascript")
 									.FunctionName("doSomething")
 									.Parameters("hello world", 1));
 			
 			Declarations.AddComment(opt => opt.Comment("Comments will not be emitted when debug=false")
-										.EmitterKey("javascript2"));
+										.EmitterKey("javascript"));
 			
-			Declarations.AddEnum(opt => opt.EmitterKey("javascript2")
+			Declarations.AddEnum(opt => opt.EmitterKey("javascript")
 									.Type(typeof (System.DayOfWeek)));
 			
-			Declarations.AddObject(opt => opt.EmitterKey("javascript2")
+			Declarations.AddObject(opt => opt.EmitterKey("javascript")
 										.Name("demoObject")
 										.Value(new
 										{
@@ -221,7 +221,7 @@
 											Prop2 = 1
 										}));
 			
-			Declarations.AddVariable(opt => opt.EmitterKey("javascript2")
+			Declarations.AddVariable(opt => opt.EmitterKey("javascript")
 										.Name("demoVar")
 										.Value(100));
 		</pre>
