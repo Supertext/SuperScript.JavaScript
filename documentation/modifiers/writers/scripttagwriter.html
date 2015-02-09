@@ -132,6 +132,48 @@
 		  <abbr title="SuperScript.Modifiers.Writers.HtmlWriter.TagAttributes"><code>TagAttributes</code></abbr> and
 		  <abbr title="SuperScript.Modifiers.Writers.HtmlWriter.TagName"><code>TagName</code></abbr> properties.
 		</p>
+		
+		
+		<h3>Example</h3>
+		
+		<p>
+			Programatically adding an instance of <abbr title="SuperScript.JavaScript.Modifiers.Writers.ScriptTagWriter"><code>ScriptTagWriter</code></abbr> to an 
+			<abbr title="SuperScript.Emitters.IEmitter"><code>IEmitter</code></abbr> is fairly trivial. However, here is an 
+			example of declaratively configuring an <abbr title="SuperScript.Emitters.IEmitter"><code>IEmitter</code></abbr> with an
+			<abbr title="SuperScript.JavaScript.Modifiers.Writers.ScriptTagWriter"><code>ScriptTagWriter</code></abbr> in a config file.
+		</p>
+		
+		<p>
+			This example also shows how to explicitly set the <abbr title="SuperScript.JavaScript.Modifiers.Writers.ScriptTagWriter.TagName"><code>TagName</code></abbr> and
+			property. Unfortunately the <abbr title="SuperScript.JavaScript.Modifiers.Writers.ScriptTagWriter.TagAttributes"><code>TagAttributes</code></abbr> property cannot 
+			be declared in a config file.
+		</p>
+		
+		<pre class="brush: xml">
+			&lt;configuration&gt;
+				&lt;configSections&gt;
+					&lt;section name="superScript" type="SuperScript.Configuration.SuperScriptConfig, SuperScript.Common" /&gt;
+					&lt;section name="superScript.JavaScript" type="SuperScript.JavaScript.Configuration.JavaScriptConfig, SuperScript.JavaScript" /&gt;
+				&lt;/configSections&gt;
+			&lt;/configuration&gt;
+			&#10;
+			&hellip;
+			&#10;
+			&lt;superScript&gt;
+				&lt;emitters&gt;
+					&lt;emitter key="javascript" isDefault="true"&gt;
+						&lt;writers&gt;
+							&lt;modifier type="SuperScript.JavaScript.Modifiers.Writers.ScriptTagWriter, SuperScript.JavaScript"&gt;
+								&lt;properties&gt;
+									&lt;!-- the 'type' attribute has the default value of String, but is shown here by example --&gt;
+									&lt;property name="TagName" value="script" type="System.String, mscorlib" /&gt;
+								&lt;/properties&gt;
+							&lt;/modifier&gt;
+						&lt;/writers&gt;
+					&lt;/emitter&gt;
+				&lt;/emitters&gt;
+			&lt;superScript&gt;
+		</pre>
 
 	</div>
 	
