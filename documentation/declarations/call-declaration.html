@@ -1,206 +1,198 @@
-<div class="row">
+<h2>Function Call Declaration</h2>
 
-	<div class="col-xs-12">
-	
-		<h2>Function Call Declaration</h2>
-		
-		<p>
-			By specifying a function name and an optional collection of parameters, a JavaScript function call may be declared.
-		</p>
-		
-		<pre class="brush: c#">
-			class CallDeclaration : SuperScript.JavaScript.Declarables.DeclarationBase
-			{
-				object[] Parameters { get; set; }
-				override string ToString();
-			}
-		</pre>
+<p>
+	By specifying a function name and an optional collection of parameters, a JavaScript function call may be declared.
+</p>
 
-		<table class="table table-bordered">
-			<thead>
-				<tr>
-					<th>Name</th>
-					<th>Type</th>
-					<th>Description</th>
-				</tr>
-			</thead>
-			<tr>
-				<td>Parameters</td>
-				<td>object[]</td>
-				<td>
-					<p>
-						Represents the collection of parameters for this function call.
-					</p>
-					<p>
-						<strong>Optional</strong>.
-					</p>
-				</td>
-			</tr>
-			<tr>
-				<td>ToString</td>
-				<td>string</td>
-				<td>
-					<p>
-						Returns this instance as a formatted JavaScript declaration.
-					</p>
-				</td>
-			</tr>
-			<tr>
-				<td colspan="3">
-					Inherited members
-				</td>
-			</tr>
-			<tr>
-				<td>Comment</td>
-				<td>string</td>
-				<td>
-					<p>
-						This text may be emitted onto its own line or after a variable, depending upon the specific implementation of <abbr title="SuperScript.JavaScript.Declarables.DeclarationBase"><code>DeclarationBase</code></abbr>.
-					</p>
-					<p>
-						<strong>Optional</strong>.
-					</p>
-				</td>
-			</tr>
-			<tr>
-				<td>EmitterKey</td>
-				<td>string</td>
-				<td>
-					<p>
-						Indicates which instance of <abbr title="SuperScript.Emitters.IEmitter"><code>IEmitter</code></abbr> the content should be added to.
-					</p>
-					<p>
-						<strong>Optional</strong>. If not specified then the contents will be added to the default implementation of <abbr title="SuperScript.Emitters.IEmitter"><code>IEmitter</code></abbr>.
-					</p>
-				</td>
-			</tr>
-			<tr>
-				<td>Name</td>
-				<td>string</td>
-				<td>
-					<p>
-						Gets or sets the name assigned to this declarable.
-					</p>
-					<p>
-						<strong>Required</strong>.
-					</p>
-				</td>
-			</tr>
-		</table>
-		
-		<p>
-			It should be kept in mind that <abbr title="SuperScript.JavaScript.Declarables.CallDeclaration"><code>CallDeclaration</code></abbr> inherits
-			from <a href="#!/page/declarations.javascript-specific-declarations"><abbr title="SuperScript.JavaScript.Declarables.DeclarationBase"><code>DeclarationBase</code></abbr></a> which in turn inherits from 
-			<a href="http://supertext.github.io/SuperScript/declarations/declarations.html"><abbr title="SuperScript.Declarables.DeclarationBase"><code>SuperScript.Declarables.DeclarationBase</code></abbr></a>.
-		</p>
-		
-		<h3>Example</h3>
-		
-		<p>
-			Function calls may be declared in the config file.
-		</p>
-		
-		<p>
-			<strong>Note:</strong> The examples on this page assume an instance of <abbr title="SuperScript.Emitters.IEmitter"><code>IEmitter</code></abbr> has
-			been configured with <abbr title="SuperScript.Emitters.IEmitter.Key"><code>IEmitter.Key = "javascript"</code></abbr>. This is not configured by default. 
-			<a href="http://supertext.github.io/SuperScript/emitters/create-emitter.html" target="_blank">This page</a> explains how to create and configure an 
-			<abbr title="SuperScript.Emitters.IEmitter"><code>IEmitter</code></abbr>.
-		</p>
-		
-		<pre class="brush: xml">
-			&lt;configuration&gt;
-				&lt;configSections&gt;
-					&lt;section name="superScript" type="SuperScript.Configuration.SuperScriptConfig, SuperScript.Common" /&gt;
-					&lt;section name="superScript.JavaScript" type="SuperScript.JavaScript.Configuration.JavaScriptConfig, SuperScript.JavaScript" /&gt;
-				&lt;/configSections&gt;
-			&lt;/configuration&gt;
-			&#10;
-			&hellip;
-			&#10;
-			&lt;superScript.JavaScript&gt;
-				&lt;declarations&gt;
-					&lt;calls&gt;
-						&lt;call functionName="doSomething" comment="A commented function call" emitterKey="javascript"&gt;
-							&lt;parameters&gt;
-								&lt;parameter value="100" type="System.Int32, mscorlib" /&gt;
-							&lt;/parameters&gt;
-						&lt;/call&gt;
-					&lt;/calls&gt;
-				&lt;/declarations&gt;
-			&lt;/superScript.JavaScript&gt;
-		</pre>
-		
-		
-		<p>
-			Function calls may also be declared in code. SuperScript.JavaScript exposes a fluent syntax for declarables which allows for easier adding of declarations.
-		</p>
-		
-		<pre class="brush: c#">
-			using SuperScript.JavaScript;
-			&#10;
-            Declarations.AddCall(opt => opt.Comment("A commented function call")
-                                           .EmitterKey("javascript")
-                                           .FunctionName("doSomething")
-                                           .Parameters(100));
-		</pre>
-		
-		<p>
-			When using the fluent syntax, the <code>Parameters</code> function accepts a a comma-separated list of parameter values:
-		</p>
-		
-		<pre class="brush: c#">
-			CallOptions params object[] Parameters
-		</pre>		
-		
-		<p>
-			Alternatively, function calls may also be declared in a more conventional programmatic style.
-		</p>
-		
-		<pre class="brush: c#">
-			using SuperScript.JavaScript;
-			&#10;
-            var callDecl = new CallDeclaration();
-            callDecl.Comment = "A commented function call";
-            callDecl.EmitterKey = "javascript";
-            callDecl.Name = "doSomething";
-            callDecl.Parameters = new object[] {100};
+<pre class="brush: c#">
+	class CallDeclaration : SuperScript.JavaScript.Declarables.DeclarationBase
+	{
+		object[] Parameters { get; set; }
+		override string ToString();
+	}
+</pre>
 
-            SuperScript.Declarations.AddDeclaration&lt;CallDeclaration&gt;(callDecl);
-		</pre>
-		
-		<p>
-			All of the above examples will output the following:
-		</p>
-		
-		<pre class="brush: js">
-			doSomething(100);	/* A commented function call */
-		</pre>
-		
-		<p>
-			The <code>Parameters</code> object will also recognise an instance of 
-			<abbr title="SuperScript.JavaScript.Declarables.DeclarationBase"><code>DeclarationBase</code></abbr>. For such parameters, the 
-			<abbr title="SuperScript.JavaScript.Declarables.DeclarationBase.Name"><code>DeclarationBase.Name</code></abbr> property will
-			be used as the client-side parameter.
-		</p>
-		
-		<pre class="brush: c#">
-			// add a simple variable
-			var demoDecl = Declarations.AddVariable(opt => opt.EmitterKey("javascript")
-                                                              .Name("demoVal")
-                                                              .Value(100));
-															  
-			// add a function call, passing the above variable as a parameter
-            Declarations.AddCall(opt => opt.Comment("A commented function call")
-                                           .EmitterKey("javascript")
-                                           .FunctionName("doSomething")
-                                           .Parameters(demoDecl));
-		</pre>
-		
-		<pre class="brush: js">
-			var demoVal = 100;
-			doSomething(demoVal);	/* A commented function call */
-		</pre>
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Type</th>
+			<th>Description</th>
+		</tr>
+	</thead>
+	<tr>
+		<td>Parameters</td>
+		<td>object[]</td>
+		<td>
+			<p>
+				Represents the collection of parameters for this function call.
+			</p>
+			<p>
+				<strong>Optional</strong>.
+			</p>
+		</td>
+	</tr>
+	<tr>
+		<td>ToString</td>
+		<td>string</td>
+		<td>
+			<p>
+				Returns this instance as a formatted JavaScript declaration.
+			</p>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="3">
+			Inherited members
+		</td>
+	</tr>
+	<tr>
+		<td>Comment</td>
+		<td>string</td>
+		<td>
+			<p>
+				This text may be emitted onto its own line or after a variable, depending upon the specific implementation of <abbr title="SuperScript.JavaScript.Declarables.DeclarationBase"><code>DeclarationBase</code></abbr>.
+			</p>
+			<p>
+				<strong>Optional</strong>.
+			</p>
+		</td>
+	</tr>
+	<tr>
+		<td>EmitterKey</td>
+		<td>string</td>
+		<td>
+			<p>
+				Indicates which instance of <abbr title="SuperScript.Emitters.IEmitter"><code>IEmitter</code></abbr> the content should be added to.
+			</p>
+			<p>
+				<strong>Optional</strong>. If not specified then the contents will be added to the default implementation of <abbr title="SuperScript.Emitters.IEmitter"><code>IEmitter</code></abbr>.
+			</p>
+		</td>
+	</tr>
+	<tr>
+		<td>Name</td>
+		<td>string</td>
+		<td>
+			<p>
+				Gets or sets the name assigned to this declarable.
+			</p>
+			<p>
+				<strong>Required</strong>.
+			</p>
+		</td>
+	</tr>
+</table>
 
-	</div>
-	
-</div>
+<p>
+	It should be kept in mind that <abbr title="SuperScript.JavaScript.Declarables.CallDeclaration"><code>CallDeclaration</code></abbr> inherits
+	from <a href="#!/declarations.javascript-specific-declarations"><abbr title="SuperScript.JavaScript.Declarables.DeclarationBase"><code>DeclarationBase</code></abbr></a> which in turn inherits from 
+	<a href="http://supertext.github.io/SuperScript/declarations/declarations.html"><abbr title="SuperScript.Declarables.DeclarationBase"><code>SuperScript.Declarables.DeclarationBase</code></abbr></a>.
+</p>
+
+<h3>Example</h3>
+
+<p>
+	Function calls may be declared in the config file.
+</p>
+
+<p>
+	<strong>Note:</strong> The examples on this page assume an instance of <abbr title="SuperScript.Emitters.IEmitter"><code>IEmitter</code></abbr> has
+	been configured with <abbr title="SuperScript.Emitters.IEmitter.Key"><code>IEmitter.Key = "javascript"</code></abbr>. This is not configured by default. 
+	<a href="http://supertext.github.io/SuperScript/emitters/create-emitter.html" target="_blank">This page</a> explains how to create and configure an 
+	<abbr title="SuperScript.Emitters.IEmitter"><code>IEmitter</code></abbr>.
+</p>
+
+<pre class="brush: xml">
+	&lt;configuration&gt;
+		&lt;configSections&gt;
+			&lt;section name="superScript" type="SuperScript.Configuration.SuperScriptConfig, SuperScript.Common" /&gt;
+			&lt;section name="superScript.JavaScript" type="SuperScript.JavaScript.Configuration.JavaScriptConfig, SuperScript.JavaScript" /&gt;
+		&lt;/configSections&gt;
+	&lt;/configuration&gt;
+	&#10;
+	&hellip;
+	&#10;
+	&lt;superScript.JavaScript&gt;
+		&lt;declarations&gt;
+			&lt;calls&gt;
+				&lt;call functionName="doSomething" comment="A commented function call" emitterKey="javascript"&gt;
+					&lt;parameters&gt;
+						&lt;parameter value="100" type="System.Int32, mscorlib" /&gt;
+					&lt;/parameters&gt;
+				&lt;/call&gt;
+			&lt;/calls&gt;
+		&lt;/declarations&gt;
+	&lt;/superScript.JavaScript&gt;
+</pre>
+
+
+<p>
+	Function calls may also be declared in code. SuperScript.JavaScript exposes a fluent syntax for declarables which allows for easier adding of declarations.
+</p>
+
+<pre class="brush: c#">
+	using SuperScript.JavaScript;
+	&#10;
+Declarations.AddCall(opt => opt.Comment("A commented function call")
+                           .EmitterKey("javascript")
+                           .FunctionName("doSomething")
+                           .Parameters(100));
+</pre>
+
+<p>
+	When using the fluent syntax, the <code>Parameters</code> function accepts a a comma-separated list of parameter values:
+</p>
+
+<pre class="brush: c#">
+	CallOptions params object[] Parameters
+</pre>		
+
+<p>
+	Alternatively, function calls may also be declared in a more conventional programmatic style.
+</p>
+
+<pre class="brush: c#">
+	using SuperScript.JavaScript;
+	&#10;
+var callDecl = new CallDeclaration();
+callDecl.Comment = "A commented function call";
+callDecl.EmitterKey = "javascript";
+callDecl.Name = "doSomething";
+callDecl.Parameters = new object[] {100};
+
+SuperScript.Declarations.AddDeclaration&lt;CallDeclaration&gt;(callDecl);
+</pre>
+
+<p>
+	All of the above examples will output the following:
+</p>
+
+<pre class="brush: js">
+	doSomething(100);	/* A commented function call */
+</pre>
+
+<p>
+	The <code>Parameters</code> object will also recognise an instance of 
+	<abbr title="SuperScript.JavaScript.Declarables.DeclarationBase"><code>DeclarationBase</code></abbr>. For such parameters, the 
+	<abbr title="SuperScript.JavaScript.Declarables.DeclarationBase.Name"><code>DeclarationBase.Name</code></abbr> property will
+	be used as the client-side parameter.
+</p>
+
+<pre class="brush: c#">
+	// add a simple variable
+	var demoDecl = Declarations.AddVariable(opt => opt.EmitterKey("javascript")
+                                              .Name("demoVal")
+                                              .Value(100));
+													  
+	// add a function call, passing the above variable as a parameter
+	Declarations.AddCall(opt => opt.Comment("A commented function call")
+                           .EmitterKey("javascript")
+                           .FunctionName("doSomething")
+                           .Parameters(demoDecl));
+</pre>
+
+<pre class="brush: js">
+	var demoVal = 100;
+	doSomething(demoVal);	/* A commented function call */
+</pre>
