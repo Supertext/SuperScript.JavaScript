@@ -1,321 +1,313 @@
-<div class="row">
+<h2>Enum Declaration</h2>
 
-	<div class="col-xs-12">
-	
-		<h2>Enum Declaration</h2>
-		
-		<p>
-			The <abbr title="SuperScript.JavaScript.Declarables.EnumDeclaration"><code>EnumDeclaration</code></abbr> offers
-			an easy way of transferring an enumerated type from server-side code to client-side JavaScript.
-		</p>
-		
-		<p>
-			It should be remembered that JavaScript does not strictly recognise an <code>enum</code>, however an 
-			object can be created which offers the same functionality as a conventional <code>enum</code>, and this
-			is offered by the <abbr title="SuperScript.JavaScript.Declarables.EnumDeclaration"><code>EnumDeclaration</code></abbr>
-			class.
-		</p>
-		
-		<pre class="brush: c#">
-			class EnumDeclaration : SuperScript.JavaScript.Declarables.DeclarationBase
-			{
-				EnumAttribute EnumAttribute { get; set; }
-				Type Type { get; set; }
-				override string ToString();
-			}
-		</pre>
+<p>
+	The <abbr title="SuperScript.JavaScript.Declarables.EnumDeclaration"><code>EnumDeclaration</code></abbr> offers
+	an easy way of transferring an enumerated type from server-side code to client-side JavaScript.
+</p>
 
-		<table class="table table-bordered">
-			<thead>
-				<tr>
-					<th>Name</th>
-					<th>Type</th>
-					<th>Description</th>
-				</tr>
-			</thead>
-			<tr>
-				<td>EnumAttribute</td>
-				<td><abbr title="SuperScript.JavaScript.EnumAttribute"><code>EnumAttribute</code></abbr></td>
-				<td>
-					<p>
-						Allows alternate text to be specified for each enumerator.
-					</p>
-					<p>
-						<strong>Optional</strong>. Default value is <abbr title="SuperScript.JavaScript.EnumAttribute.None"><code>EnumAttribute.None</code></abbr>, which
-						indicates that the enumerator text should be the same as the server-side enumeration text.
-					</p>
-				</td>
-			</tr>
-			<tr>
-				<td>Type</td>
-				<td>Type</td>
-				<td>
-					<p>
-						The <abbr title="System.Type"><code>Type</code></abbr> of the enumerated type to be converted to JavaScript.
-					</p>
-				</td>
-			</tr>
-			<tr>
-				<td>ToString</td>
-				<td>string</td>
-				<td>
-					<p>
-						Returns this enumerated type as a formatted JavaScript enumeration.
-					</p>
-				</td>
-			</tr>
-			<tr>
-				<td colspan="3">
-					Inherited members
-				</td>
-			</tr>
-			<tr>
-				<td>Comment</td>
-				<td>string</td>
-				<td>
-					<p>
-						This text may be emitted onto its own line or after a variable, depending upon the specific implementation of <abbr title="SuperScript.JavaScript.Declarables.DeclarationBase"><code>DeclarationBase</code></abbr>.
-					</p>
-					<p>
-						<strong>Optional</strong>.
-					</p>
-				</td>
-			</tr>
-			<tr>
-			<td>EmitterKey</td>
-			<td>string</td>
-				<td>
-					<p>
-						Indicates which instance of <abbr title="SuperScript.Emitters.IEmitter"><code>IEmitter</code></abbr> the content should be added to.
-					</p>
-					<p>
-						<strong>Optional</strong>. If not specified then the contents will be added to the default implementation of <abbr title="SuperScript.Emitters.IEmitter"><code>IEmitter</code></abbr>.
-					</p>
-				</td>
-			</tr>
-			<tr>
-				<td>Name</td>
-				<td>string</td>
-				<td>
-					<p>
-						Gets or sets the name assigned to this declarable.
-					</p>
-					<p>
-						<strong>Optional</strong>. If not specified, SuperScript.JavaScript will use the name
-						of the enumerated type.
-					</p>
-				</td>
-			</tr>
-		</table>
-		
-		
-		<h3>Example</h3>
-		
-		<p>
-			The following examples reference the following simple enumerated type:
-		</p>
-		
-		<pre class="brush: c#">
-			public enum DemoEnum
-	        {
-	            Value1,
-	            Value2
-	        }
-		</pre>
-		
-		<p>
-			Enumerated types may be declared in the config file.
-		</p>
-		
-		<p>
-			<strong>Note:</strong> The examples on this page assume an instance of <abbr title="SuperScript.Emitters.IEmitter"><code>IEmitter</code></abbr> has
-			been configured with <abbr title="SuperScript.Emitters.IEmitter.Key"><code>IEmitter.Key = "javascript"</code></abbr>. This is not configured by default. 
-			<a href="http://supertext.github.io/SuperScript/emitters/create-emitter.html" target="_blank">This page</a> explains how to create and configure an 
-			<abbr title="SuperScript.Emitters.IEmitter"><code>IEmitter</code></abbr>.
-		</p>
-		
-		<pre class="brush: xml">
-			&lt;configuration&gt;
-				&lt;configSections&gt;
-					&lt;section name="superScript" type="SuperScript.Configuration.SuperScriptConfig, SuperScript.Common" /&gt;
-					&lt;section name="superScript.JavaScript" type="SuperScript.JavaScript.Configuration.JavaScriptConfig, SuperScript.JavaScript" /&gt;
-				&lt;/configSections&gt;
-			&lt;/configuration&gt;
-			&#10;
-			&hellip;
-			&#10;
-			&lt;superScript.JavaScript&gt;
-				&lt;declarations&gt;
-					&lt;enum comment="A simple enum" emitterKey="javascript" type="[Fully-qualified name of the enumerated type, assembly name]" /&gt;
-				&lt;/declarations&gt;
-			&lt;/superScript.JavaScript&gt;
-		</pre>
-		
-		<p>
-			<strong>Important:</strong> the <code>type</code> attribute in the above example must be in the format
-			[fully-qualified name, assembly]. For example, if we wished to declare the enumerated type <code>System.DayOfWeek</code> we
-			would need to write this as
-		</p>
-		
-		<pre class="brush: xml">
-			type="System.DayOfWeek, mscorlib"
-		</pre>
-		
-		<p>
-			Furthermore, in the above example <code>type</code> is the only required attribute.
-		</p>
-		
-		<p>
-			Enumerated types may also be declared in code. SuperScript.JavaScript exposes a fluent syntax for declarables which allows for easier adding of declarations.
-		</p>
-		
-		<pre class="brush: c#">
-			using SuperScript.JavaScript;
-			&#10;
-			Declarations.AddEnum(opt => opt.Comment("A simple enum")
-									.Emitter("javascript")
-								       .Type(typeof (DemoEnum)));
-		</pre>
-		
-		<p>
-			 Alternatively, enumerated types may also be declared in a more conventional programmatic style.
-		</p>
-		
-		<pre class="brush: c#">
- 	using SuperScript.JavaScript;
+<p>
+	It should be remembered that JavaScript does not strictly recognise an <code>enum</code>, however an 
+	object can be created which offers the same functionality as a conventional <code>enum</code>, and this
+	is offered by the <abbr title="SuperScript.JavaScript.Declarables.EnumDeclaration"><code>EnumDeclaration</code></abbr>
+	class.
+</p>
+
+<pre class="brush: c#">
+	class EnumDeclaration : SuperScript.JavaScript.Declarables.DeclarationBase
+	{
+		EnumAttribute EnumAttribute { get; set; }
+		Type Type { get; set; }
+		override string ToString();
+	}
+</pre>
+
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Type</th>
+			<th>Description</th>
+		</tr>
+	</thead>
+	<tr>
+		<td>EnumAttribute</td>
+		<td><abbr title="SuperScript.JavaScript.EnumAttribute"><code>EnumAttribute</code></abbr></td>
+		<td>
+			<p>
+				Allows alternate text to be specified for each enumerator.
+			</p>
+			<p>
+				<strong>Optional</strong>. Default value is <abbr title="SuperScript.JavaScript.EnumAttribute.None"><code>EnumAttribute.None</code></abbr>, which
+				indicates that the enumerator text should be the same as the server-side enumeration text.
+			</p>
+		</td>
+	</tr>
+	<tr>
+		<td>Type</td>
+		<td>Type</td>
+		<td>
+			<p>
+				The <abbr title="System.Type"><code>Type</code></abbr> of the enumerated type to be converted to JavaScript.
+			</p>
+		</td>
+	</tr>
+	<tr>
+		<td>ToString</td>
+		<td>string</td>
+		<td>
+			<p>
+				Returns this enumerated type as a formatted JavaScript enumeration.
+			</p>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="3">
+			Inherited members
+		</td>
+	</tr>
+	<tr>
+		<td>Comment</td>
+		<td>string</td>
+		<td>
+			<p>
+				This text may be emitted onto its own line or after a variable, depending upon the specific implementation of <abbr title="SuperScript.JavaScript.Declarables.DeclarationBase"><code>DeclarationBase</code></abbr>.
+			</p>
+			<p>
+				<strong>Optional</strong>.
+			</p>
+		</td>
+	</tr>
+	<tr>
+	<td>EmitterKey</td>
+	<td>string</td>
+		<td>
+			<p>
+				Indicates which instance of <abbr title="SuperScript.Emitters.IEmitter"><code>IEmitter</code></abbr> the content should be added to.
+			</p>
+			<p>
+				<strong>Optional</strong>. If not specified then the contents will be added to the default implementation of <abbr title="SuperScript.Emitters.IEmitter"><code>IEmitter</code></abbr>.
+			</p>
+		</td>
+	</tr>
+	<tr>
+		<td>Name</td>
+		<td>string</td>
+		<td>
+			<p>
+				Gets or sets the name assigned to this declarable.
+			</p>
+			<p>
+				<strong>Optional</strong>. If not specified, SuperScript.JavaScript will use the name
+				of the enumerated type.
+			</p>
+		</td>
+	</tr>
+</table>
+
+
+<h3>Example</h3>
+
+<p>
+	The following examples reference the following simple enumerated type:
+</p>
+
+<pre class="brush: c#">
+	public enum DemoEnum
+{
+    Value1,
+    Value2
+}
+</pre>
+
+<p>
+	Enumerated types may be declared in the config file.
+</p>
+
+<p>
+	<strong>Note:</strong> The examples on this page assume an instance of <abbr title="SuperScript.Emitters.IEmitter"><code>IEmitter</code></abbr> has
+	been configured with <abbr title="SuperScript.Emitters.IEmitter.Key"><code>IEmitter.Key = "javascript"</code></abbr>. This is not configured by default. 
+	<a href="http://supertext.github.io/SuperScript/emitters/create-emitter.html" target="_blank">This page</a> explains how to create and configure an 
+	<abbr title="SuperScript.Emitters.IEmitter"><code>IEmitter</code></abbr>.
+</p>
+
+<pre class="brush: xml">
+	&lt;configuration&gt;
+		&lt;configSections&gt;
+			&lt;section name="superScript" type="SuperScript.Configuration.SuperScriptConfig, SuperScript.Common" /&gt;
+			&lt;section name="superScript.JavaScript" type="SuperScript.JavaScript.Configuration.JavaScriptConfig, SuperScript.JavaScript" /&gt;
+		&lt;/configSections&gt;
+	&lt;/configuration&gt;
 	&#10;
-    var enumDecl = new EnumDeclaration();
-    enumDecl.Comment = "A simple enum";
-    enumDecl.EmitterKey = "javascript";
-    enumDecl.Type = typeof(DemoEnum);
+	&hellip;
+	&#10;
+	&lt;superScript.JavaScript&gt;
+		&lt;declarations&gt;
+			&lt;enum comment="A simple enum" emitterKey="javascript" type="[Fully-qualified name of the enumerated type, assembly name]" /&gt;
+		&lt;/declarations&gt;
+	&lt;/superScript.JavaScript&gt;
+</pre>
 
-    SuperScript.Declarations.AddDeclaration&lt;EnumDeclaration&gt;(enumDecl);
-		</pre>
+<p>
+	<strong>Important:</strong> the <code>type</code> attribute in the above example must be in the format
+	[fully-qualified name, assembly]. For example, if we wished to declare the enumerated type <code>System.DayOfWeek</code> we
+	would need to write this as
+</p>
 
-		<p>
-			All of the above examples will output the following:
-		</p>
-		
-		<pre class="brush: js">
-			var DemoEnum = { "Value1": 0, "Value2": 1 };	/* A simple enum */
-		</pre>
-		
-		<p>
-			Which can be used in the following way:
-		</p>
-		
-		<pre class="brush: js">
-			var enumVal = DemoEnum.Value1;	// assigns the value 0 to enumVal
-		</pre>
-		
-		
-		<h4>Alternative Text</h4>
-		
-		<p>
-			SuperScript.JavaScript also permits the textual enumerated type to be switched to an alternative value. 
-			This can be achieved by using the <abbr title="SuperScript.JavaScript.EnumAttribute"><code>EnumAttribute</code></abbr> attribute
-			for each enumerator.
-		</p>
-		
-		<p>
-			Each enumerator in the <code>DemoEnum</code> enumerated type used in these examples needs to be decorated:
-		</p>
-		
-		<pre class="brush: c#">
-			public enum DemoEnum
-	        {
-	            [JsEnumText("value_one")]
-	            Value1,
-	            
-	            [JsEnumText("value_two")]
-	            Value2
-	        }
-		</pre>
-		
-		<p>
-			To utilise the values in the <abbr title="SuperScript.JavaScript.Attributes.JsEnumTextAttribute"><code>JsEnumText</code></abbr> attributes
-			we can modify the above examples by specifying where the enumerator text should be obtained from.
-		</p>
-		
-		<pre class="brush: xml">
-			&lt;enum comment="A simple enum." emitterKey="javascript" type="[Fully-qualified name of the enumerated type, assembly name]" enumAttribute="EnumText" /&gt;
-		</pre>
-		
-		<pre class="brush: c#">
-			using SuperScript.JavaScript;
-			&#10;
-			Declarations.AddEnum(opt => opt.Emitter("javascript")
-								              .EnumAttribute(EnumAttribute.EnumText)	// use the JsEnum text
-									      .Type(typeof (DemoEnum)));
-		</pre>
-		
-		<p>
-			Or using the conventional programmatic syntax:
-		</p>
-		
-		<pre class="brush: c#">
+<pre class="brush: xml">
+	type="System.DayOfWeek, mscorlib"
+</pre>
+
+<p>
+	Furthermore, in the above example <code>type</code> is the only required attribute.
+</p>
+
+<p>
+	Enumerated types may also be declared in code. SuperScript.JavaScript exposes a fluent syntax for declarables which allows for easier adding of declarations.
+</p>
+
+<pre class="brush: c#">
 	using SuperScript.JavaScript;
 	&#10;
-    var enumDecl = new EnumDeclaration();
-    enumDecl.EmitterKey = "javascript";
-    enumDecl.EnumAttribute = EnumAttribute.EnumText;	// use the JsEnum text
-    enumDecl.Type = typeof(DemoEnum);
+	Declarations.AddEnum(opt => opt.Comment("A simple enum")
+							.Emitter("javascript")
+						       .Type(typeof (DemoEnum)));
+</pre>
 
-    SuperScript.Declarations.AddDeclaration&lt;EnumDeclaration&gt;(enumDecl);
-		</pre>
-		
-		<p>
-			The above examples will output the following:
-		</p>
-		
-		<pre class="brush: js">
-			var DemoEnum = { "value_one": 0, "value_two": 1 };
-		</pre>
-		
-		<p>
-			If no <abbr title="SuperScript.JavaScript.EnumAttribute"><code>EnumAttribute</code></abbr> is specified
-			then the enumerator text in the client-side JavaScript will be the same as the server-side code.
-		</p>
-		
-		<p>
-			Assigning <abbr title="SuperScript.JavaScript.EnumAttribute.None"><code>EnumAttribute.None</code></abbr> is
-			equivalent to not specifying that an attribute should be used. In other words, 
-			<abbr title="SuperScript.JavaScript.EnumAttribute.None"><code>EnumAttribute.None</code></abbr> will instruct
-			SuperScript.JavaScript to use the text of the enumerator.
-		</p>
-		
-		<p>
-			<abbr title="SuperScript.JavaScript.EnumAttribute.None"><code>EnumAttribute.None</code></abbr> is the default
-			value for the <abbr title="SuperScript.JavaScript.Declarables.EnumDeclaration.EnumAttribute"><code>EnumAttribute</code></abbr> property.
-		</p>
-		
-		<h4>Alternative Name</h4>
-		
-		<p>
-			Another option is presented by the <code>Name</code> property. This allows an alternate name to be specified
-			for the client-side enumerated type (<em>i.e.</em>, the JavaScript object representing the server-side enumerated type).
-		</p>
-		
-		<pre class="brush: xml">
-			&lt;enum comment="A simple enum." emitterKey="javascript" name="anotherName" type="[Fully-qualified name of the enumerated type, assembly name]" /&gt;
-		</pre>
-		
-		<pre class="brush: c#">
-			using SuperScript.JavaScript;
-			&#10;
-			Declarations.AddEnum(opt => opt.Emitter("javascript")
-								              .Name("anotherName")
-								      	      .Type(typeof (DemoEnum)));
-		</pre>
-		
-		<p>
-			This will output the following:
-		</p>
-		
-		<pre class="brush: js">
-			var anotherName = { "Value1": 0, "Value2": 1 };
-		</pre>
+<p>
+	 Alternatively, enumerated types may also be declared in a more conventional programmatic style.
+</p>
 
-	</div>
+<pre class="brush: c#">
+using SuperScript.JavaScript;
+&#10;
+var enumDecl = new EnumDeclaration();
+enumDecl.Comment = "A simple enum";
+enumDecl.EmitterKey = "javascript";
+enumDecl.Type = typeof(DemoEnum);
 
-</div>
+SuperScript.Declarations.AddDeclaration&lt;EnumDeclaration&gt;(enumDecl);
+</pre>
+
+<p>
+	All of the above examples will output the following:
+</p>
+
+<pre class="brush: js">
+	var DemoEnum = { "Value1": 0, "Value2": 1 };	/* A simple enum */
+</pre>
+
+<p>
+	Which can be used in the following way:
+</p>
+
+<pre class="brush: js">
+	var enumVal = DemoEnum.Value1;	// assigns the value 0 to enumVal
+</pre>
+
+
+<h4>Alternative Text</h4>
+
+<p>
+	SuperScript.JavaScript also permits the textual enumerated type to be switched to an alternative value. 
+	This can be achieved by using the <abbr title="SuperScript.JavaScript.EnumAttribute"><code>EnumAttribute</code></abbr> attribute
+	for each enumerator.
+</p>
+
+<p>
+	Each enumerator in the <code>DemoEnum</code> enumerated type used in these examples needs to be decorated:
+</p>
+
+<pre class="brush: c#">
+	public enum DemoEnum
+{
+    [JsEnumText("value_one")]
+    Value1,
+    
+    [JsEnumText("value_two")]
+    Value2
+}
+</pre>
+
+<p>
+	To utilise the values in the <abbr title="SuperScript.JavaScript.Attributes.JsEnumTextAttribute"><code>JsEnumText</code></abbr> attributes
+	we can modify the above examples by specifying where the enumerator text should be obtained from.
+</p>
+
+<pre class="brush: xml">
+	&lt;enum comment="A simple enum." emitterKey="javascript" type="[Fully-qualified name of the enumerated type, assembly name]" enumAttribute="EnumText" /&gt;
+</pre>
+
+<pre class="brush: c#">
+	using SuperScript.JavaScript;
+	&#10;
+	Declarations.AddEnum(opt => opt.Emitter("javascript")
+						              .EnumAttribute(EnumAttribute.EnumText)	// use the JsEnum text
+							      .Type(typeof (DemoEnum)));
+</pre>
+
+<p>
+	Or using the conventional programmatic syntax:
+</p>
+
+<pre class="brush: c#">
+using SuperScript.JavaScript;
+&#10;
+var enumDecl = new EnumDeclaration();
+enumDecl.EmitterKey = "javascript";
+enumDecl.EnumAttribute = EnumAttribute.EnumText;	// use the JsEnum text
+enumDecl.Type = typeof(DemoEnum);
+
+SuperScript.Declarations.AddDeclaration&lt;EnumDeclaration&gt;(enumDecl);
+</pre>
+
+<p>
+	The above examples will output the following:
+</p>
+
+<pre class="brush: js">
+	var DemoEnum = { "value_one": 0, "value_two": 1 };
+</pre>
+
+<p>
+	If no <abbr title="SuperScript.JavaScript.EnumAttribute"><code>EnumAttribute</code></abbr> is specified
+	then the enumerator text in the client-side JavaScript will be the same as the server-side code.
+</p>
+
+<p>
+	Assigning <abbr title="SuperScript.JavaScript.EnumAttribute.None"><code>EnumAttribute.None</code></abbr> is
+	equivalent to not specifying that an attribute should be used. In other words, 
+	<abbr title="SuperScript.JavaScript.EnumAttribute.None"><code>EnumAttribute.None</code></abbr> will instruct
+	SuperScript.JavaScript to use the text of the enumerator.
+</p>
+
+<p>
+	<abbr title="SuperScript.JavaScript.EnumAttribute.None"><code>EnumAttribute.None</code></abbr> is the default
+	value for the <abbr title="SuperScript.JavaScript.Declarables.EnumDeclaration.EnumAttribute"><code>EnumAttribute</code></abbr> property.
+</p>
+
+<h4>Alternative Name</h4>
+
+<p>
+	Another option is presented by the <code>Name</code> property. This allows an alternate name to be specified
+	for the client-side enumerated type (<em>i.e.</em>, the JavaScript object representing the server-side enumerated type).
+</p>
+
+<pre class="brush: xml">
+	&lt;enum comment="A simple enum." emitterKey="javascript" name="anotherName" type="[Fully-qualified name of the enumerated type, assembly name]" /&gt;
+</pre>
+
+<pre class="brush: c#">
+	using SuperScript.JavaScript;
+	&#10;
+	Declarations.AddEnum(opt => opt.Emitter("javascript")
+				              .Name("anotherName")
+				      	      .Type(typeof (DemoEnum)));
+</pre>
+
+<p>
+	This will output the following:
+</p>
+
+<pre class="brush: js">
+	var anotherName = { "Value1": 0, "Value2": 1 };
+</pre>
