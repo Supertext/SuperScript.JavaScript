@@ -1,97 +1,89 @@
-<div class="row">
+<h2>JavaScriptMinifier Post-conversion Modifier</h2>
 
-	<div class="col-xs-12">
-	
-		<h2>JavaScriptMinifier Post-conversion Modifier</h2>
-		
-		<p>
-		  Minifies the specified string (in the <abbr title="SuperScript.Modifiers.PostModifierArgs.Emitted"><code>PostModifierArgs.Emitted</code></abbr> property) using
-		  Microsoft's <a href="https://webgrease.codeplex.com/documentation" target="_blank">WebGrease library</a>.
-		</p>
-		
-		<p>
-		  If errors occur during the minification process then an error message is rendered in place.
-		</p>
-		
-		<pre class="brush: c#">
-			class JavaScriptMinifier : SuperScript.Modifiers.Post.CollectionPostModifier
-			{
-				EmitMode EmitMode { get; set; }
-				override PostModifierArgs Process(PreModifierArgs args)
-			}
-		</pre>
+<p>
+	Minifies the specified string (in the <abbr title="SuperScript.Modifiers.PostModifierArgs.Emitted"><code>PostModifierArgs.Emitted</code></abbr> property) using
+	Microsoft's <a href="https://webgrease.codeplex.com/documentation" target="_blank">WebGrease library</a>.
+</p>
 
-		<table class="table table-bordered">
-			<thead>
-				<tr>
-					<th>Name</th>
-					<th>Type</th>
-					<th>Description</th>
-				</tr>
-			</thead>
-			<tr>
-				<td>Process</td>
-				<td>IHtmlString</td>
-				<td>
-					<p>
-						Minifies the JavaScript. If errors occur during the minification process then an error message is rendered in place.
-					</p>
-				</td>
-			</tr>
-			<tr>
-				<td colspan="3">
-					Inherited members
-				</td>
-			</tr>
-			<tr>
-				<td>EmitMode</td>
-				<td><abbr title="SuperScript.EmitMode"><code>EmitMode</code></abbr></td>
-				<td>
-					<p>
-						Determines the mode in which this implementation emits contents.
-					</p>
-					<p>
-						<strong>Optional</strong>. Default value: <abbr title="SuperScript.EmitMode.Always"><code>EmitMode.Always</code></abbr>
-					</p>
-				</td>
-			</tr>
-		</table>
-		
-		<p>
-		  Like all implementations of <abbr title="SuperScript.Modifiers.Post.CollectionPostModifier"><code>CollectionPostModifier</code></abbr>, 
-		  <abbr title="SuperScript.JavaScript.Modifiers.Post.JavaScriptMinifier"><code>JavaScriptMinifier</code></abbr> exposes a 
-		  public method, <abbr title="SuperScript.Modifiers.Post.CollectionPostModifier.Process"><code>Process</code></abbr> which accepts
-		  an instance of <abbr title="SuperScript.Modifiers.PostModifierArgs"><code>PostModifierArgs</code></abbr>. This argument object's
-		  <abbr title="SuperScript.Modifiers.PostModifierArgs.Emitted"><code>Emitted</code></abbr> property contains the output of either
-		</p>
-		
-		<ul>
-		  <li>
-  		  <p>
-  		    an implementation of <abbr title="SuperScript.Modifiers.Post.CollectionPostModifier"><code>CollectionPostModifier</code></abbr> which
-  		    has been configured for the context <abbr title="SuperScript.Emitters.IEmitter"><code>IEmitter</code></abbr>, or
-  		  </p>
-		  </li>
-		  <li>
-		    <p>
-		      an implementation of <abbr title="SuperScript.Modifiers.Converters.CollectionConverter"><code>CollectionConverter</code></abbr>.
-		    </p>
-		  </li>
-		</ul>
-		
-		<p>
-		  The result of the <abbr title="SuperScript.Modifiers.Post.CollectionPostModifier.Process"><code>Process</code></abbr> method
-		  is an instance of <abbr title="SuperScript.Modifiers.PostModifierArgs"><code>PostModifierArgs</code></abbr> where the 
-		  <abbr title="SuperScript.Modifiers.PostModifierArgs.Emitted"><code>Emitted</code></abbr> property contains the output of the
-		  minification process.
-		</p>
-		
-		<p>
-			<strong>Important:</strong> It should be remembered that multiple implementations of 
-			<abbr title="SuperScript.Modifiers.Post.CollectionPostModifier"><code>CollectionPostModifier</code></abbr> may
-			be configured for an <abbr title="SuperScript.Emitters.IEmitter"><code>IEmitter</code></abbr>.
-		</p>
+<p>
+	If errors occur during the minification process then an error message is rendered in place.
+</p>
 
-	</div>
-	
-</div>
+<pre class="brush: c#">
+	class JavaScriptMinifier : SuperScript.Modifiers.Post.CollectionPostModifier
+	{
+		EmitMode EmitMode { get; set; }
+		override PostModifierArgs Process(PreModifierArgs args)
+	}
+</pre>
+
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Type</th>
+			<th>Description</th>
+		</tr>
+	</thead>
+	<tr>
+		<td>Process</td>
+		<td>IHtmlString</td>
+		<td>
+			<p>
+				Minifies the JavaScript. If errors occur during the minification process then an error message is rendered in place.
+			</p>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="3">
+			Inherited members
+		</td>
+	</tr>
+	<tr>
+		<td>EmitMode</td>
+		<td><abbr title="SuperScript.EmitMode"><code>EmitMode</code></abbr></td>
+		<td>
+			<p>
+				Determines the mode in which this implementation emits contents.
+			</p>
+			<p>
+				<strong>Optional</strong>. Default value: <abbr title="SuperScript.EmitMode.Always"><code>EmitMode.Always</code></abbr>
+			</p>
+		</td>
+	</tr>
+</table>
+
+<p>
+	Like all implementations of <abbr title="SuperScript.Modifiers.Post.CollectionPostModifier"><code>CollectionPostModifier</code></abbr>, 
+	<abbr title="SuperScript.JavaScript.Modifiers.Post.JavaScriptMinifier"><code>JavaScriptMinifier</code></abbr> exposes a 
+	public method, <abbr title="SuperScript.Modifiers.Post.CollectionPostModifier.Process"><code>Process</code></abbr> which accepts
+	an instance of <abbr title="SuperScript.Modifiers.PostModifierArgs"><code>PostModifierArgs</code></abbr>. This argument object's
+	<abbr title="SuperScript.Modifiers.PostModifierArgs.Emitted"><code>Emitted</code></abbr> property contains the output of either
+</p>
+
+<ul>
+	<li>
+		<p>
+			an implementation of <abbr title="SuperScript.Modifiers.Post.CollectionPostModifier"><code>CollectionPostModifier</code></abbr> which
+			has been configured for the context <abbr title="SuperScript.Emitters.IEmitter"><code>IEmitter</code></abbr>, or
+		</p>
+	</li>
+	<li>
+		<p>
+			an implementation of <abbr title="SuperScript.Modifiers.Converters.CollectionConverter"><code>CollectionConverter</code></abbr>.
+		</p>
+	</li>
+</ul>
+
+<p>
+	The result of the <abbr title="SuperScript.Modifiers.Post.CollectionPostModifier.Process"><code>Process</code></abbr> method
+	is an instance of <abbr title="SuperScript.Modifiers.PostModifierArgs"><code>PostModifierArgs</code></abbr> where the 
+	<abbr title="SuperScript.Modifiers.PostModifierArgs.Emitted"><code>Emitted</code></abbr> property contains the output of the
+	minification process.
+</p>
+
+<p>
+	<strong>Important:</strong> It should be remembered that multiple implementations of 
+	<abbr title="SuperScript.Modifiers.Post.CollectionPostModifier"><code>CollectionPostModifier</code></abbr> may
+	be configured for an <abbr title="SuperScript.Emitters.IEmitter"><code>IEmitter</code></abbr>.
+</p>
