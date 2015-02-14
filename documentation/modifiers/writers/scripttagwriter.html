@@ -1,164 +1,156 @@
-<div class="row">
+<h2>ScriptTagWriter HTML Writer</h2>
 
-	<div class="col-xs-12">
-	
-		<h2>ScriptTagWriter HTML Writer</h2>
-		
-		<p>
-		  Writes the formatted output of the <abbr title="SuperScript.Modifiers.PostModifierArgs.Emitted"><code>Emitted</code></abbr>
-		  into an HTML tag.
-		</p>
-		
-		<p>
-		  By default this will output the contents in a <code>&lt;script&gt;</code> tag.
-		</p>
-		
-		<pre class="brush: c#">
-			class ScriptTagWriter : SuperScript.Modifiers.Writers.HtmlWriter
-			{
-				EmitMode EmitMode { get; set; }
-				override IHtmlString Process(PostModifierArgs args)
-				IEnumerable&lt;KeyValuePair&lt;string, string&gt;&gt; TagAttributes { get; set; }
-				string TagName { get; set; }
-			}
-		</pre>
+<p>
+  Writes the formatted output of the <abbr title="SuperScript.Modifiers.PostModifierArgs.Emitted"><code>Emitted</code></abbr>
+  into an HTML tag.
+</p>
 
-		<table class="table table-bordered">
-			<thead>
-				<tr>
-					<th>Name</th>
-					<th>Type</th>
-					<th>Description</th>
-				</tr>
-			</thead>
-			<tr>
-				<td>Process</td>
-				<td>IHtmlString</td>
-				<td>
-					<p>
-						Executes this instance of <abbr title="SuperScript.Modifiers.Writers.HtmlWriter"><code>HtmlWriter</code></abbr> upon the specified argument object.
-					</p>
-				</td>
-			</tr>
-			<tr>
-				<td>TagAttributes</td>
-				<td>IEnumerable&lt;KeyValuePair&lt;string, string&gt;&gt;</td>
-				<td>
-					<p>
-						Gets or sets a collection of key-value pairs which form the tag's attribute collection.
-					</p>
-					<p>
-						<strong>Optional</strong>. Default value: a single key-value pair, <code>type="text/javascript"</code>.
-					</p>
-				</td>
-			</tr>
-			<tr>
-				<td>TagName</td>
-				<td>string</td>
-				<td>
-					<p>
-						Gets or sets the name of the enclosing HTML tag.
-					</p>
-					<p>
-						<strong>Optional</strong>. Default value: "script".
-					</p>
-				</td>
-			</tr>
-			<tr>
-				<td colspan="3">
-					Inherited members
-				</td>
-			</tr>
-			<tr>
-				<td>EmitMode</td>
-				<td><abbr title="SuperScript.EmitMode"><code>EmitMode</code></abbr></td>
-				<td>
-					<p>
-						Determines the mode in which this implementation emits contents.
-					</p>
-					<p>
-						<strong>Optional</strong>. Default value: <abbr title="SuperScript.EmitMode.Always"><code>EmitMode.Always</code></abbr>
-					</p>
-				</td>
-			</tr>
-		</table>
-		
-		<p>
-		  Like all implementations of <abbr title="SuperScript.Modifiers.Writers.HtmlWriter"><code>HtmlWriter</code></abbr>, 
-		  <abbr title="SuperScript.JavaScript.Modifiers.Writers.HtmlWriter"><code>ScriptTagWriter</code></abbr> exposes a single
-		  public method, <abbr title="SuperScript.Modifiers.Writers.HtmLWriter"><code>Process</code></abbr> which accepts
-		  an instance of <abbr title="SuperScript.Modifiers.PostModifierArgs"><code>PostModifierArgs</code></abbr>. This argument object's
-		  <abbr title="SuperScript.Modifiers.PostModifierArgs.Emitted"><code>Emitted</code></abbr> property contains the output of 
-		</p>
-		
-		<ul>
-		  <li>
-  		  <p>
-  		    an implementation of <abbr title="SuperScript.Modifiers.Post.CollectionPostModifier"><code>CollectionPostModifier</code></abbr> which
-  		    has been configured for the context <abbr title="SuperScript.Emitters.IEmitter"><code>IEmitter</code></abbr>, or
-  		  </p>
-		  </li>
-		  <li>
-		    <p>
-		      an implementation of <abbr title="SuperScript.Modifiers.Converters.CollectionConverter"><code>CollectionConverter</code></abbr>.
-		    </p>
-		  </li>
-		</ul>
-		
-		<p>
-		  The result of the <abbr title="SuperScript.Modifiers.Writers.HtmlWriter.Process"><code>Process</code></abbr> method
-		  is a string which, in this case, is contained inside an HTML tag described by the 
-		  <abbr title="SuperScript.Modifiers.Writers.HtmlWriter.TagAttributes"><code>TagAttributes</code></abbr> and
-		  <abbr title="SuperScript.Modifiers.Writers.HtmlWriter.TagName"><code>TagName</code></abbr> properties.
-		</p>
-		
-		
-		<h3>Example</h3>
-		
-		<p>
-			Programatically adding an instance of <abbr title="SuperScript.JavaScript.Modifiers.Writers.ScriptTagWriter"><code>ScriptTagWriter</code></abbr> to an 
-			<abbr title="SuperScript.Emitters.IEmitter"><code>IEmitter</code></abbr> is fairly trivial. However, here is an 
-			example of declaratively configuring an <abbr title="SuperScript.Emitters.IEmitter"><code>IEmitter</code></abbr> with a
-			<abbr title="SuperScript.JavaScript.Modifiers.Writers.ScriptTagWriter"><code>ScriptTagWriter</code></abbr> in a config file.
-		</p>
-		
-		<p>
-			This example also shows how to explicitly set the <abbr title="SuperScript.JavaScript.Modifiers.Writers.ScriptTagWriter.TagName"><code>TagName</code></abbr> property. 
-			Unfortunately the <abbr title="SuperScript.JavaScript.Modifiers.Writers.ScriptTagWriter.TagAttributes"><code>TagAttributes</code></abbr> property cannot 
-			be declared in a config file.
-		</p>
-		
-		<pre class="brush: xml">
-			&lt;configuration&gt;
-				&lt;configSections&gt;
-					&lt;section name="superScript" type="SuperScript.Configuration.SuperScriptConfig, SuperScript.Common" /&gt;
-					&lt;section name="superScript.JavaScript" type="SuperScript.JavaScript.Configuration.JavaScriptConfig, SuperScript.JavaScript" /&gt;
-				&lt;/configSections&gt;
-			&lt;/configuration&gt;
-			&#10;
-			&hellip;
-			&#10;
-			&lt;superScript&gt;
-				&lt;emitters&gt;
-					&lt;emitter key="javascript"&gt;
-						&lt;writers&gt;
-							&lt;modifier type="SuperScript.JavaScript.Modifiers.Writers.ScriptTagWriter, SuperScript.JavaScript"&gt;
-								&lt;properties&gt;
-									&lt;!-- the 'type' attribute has the default value of String, but is shown here by example --&gt;
-									&lt;property name="TagName" value="script" type="System.String, mscorlib" /&gt;
-								&lt;/properties&gt;
-							&lt;/modifier&gt;
-						&lt;/writers&gt;
-					&lt;/emitter&gt;
-				&lt;/emitters&gt;
-			&lt;/superScript&gt;
-		</pre>
-		
-		<p>
-			More details on configuring an <abbr title="SuperScript.Emitters.IEmitter"><code>IEmitter</code></abbr> can be
-			read <a href="http://supertext.github.io/SuperScript/emitters/create-emitter.html" target="_blank">here</a>.
-		</p>
+<p>
+  By default this will output the contents in a <code>&lt;script&gt;</code> tag.
+</p>
 
-	</div>
-	
-</div>
+<pre class="brush: c#">
+	class ScriptTagWriter : SuperScript.Modifiers.Writers.HtmlWriter
+	{
+		EmitMode EmitMode { get; set; }
+		override IHtmlString Process(PostModifierArgs args)
+		IEnumerable&lt;KeyValuePair&lt;string, string&gt;&gt; TagAttributes { get; set; }
+		string TagName { get; set; }
+	}
+</pre>
+
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Type</th>
+			<th>Description</th>
+		</tr>
+	</thead>
+	<tr>
+		<td>Process</td>
+		<td>IHtmlString</td>
+		<td>
+			<p>
+				Executes this instance of <abbr title="SuperScript.Modifiers.Writers.HtmlWriter"><code>HtmlWriter</code></abbr> upon the specified argument object.
+			</p>
+		</td>
+	</tr>
+	<tr>
+		<td>TagAttributes</td>
+		<td>IEnumerable&lt;KeyValuePair&lt;string, string&gt;&gt;</td>
+		<td>
+			<p>
+				Gets or sets a collection of key-value pairs which form the tag's attribute collection.
+			</p>
+			<p>
+				<strong>Optional</strong>. Default value: a single key-value pair, <code>type="text/javascript"</code>.
+			</p>
+		</td>
+	</tr>
+	<tr>
+		<td>TagName</td>
+		<td>string</td>
+		<td>
+			<p>
+				Gets or sets the name of the enclosing HTML tag.
+			</p>
+			<p>
+				<strong>Optional</strong>. Default value: "script".
+			</p>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="3">
+			Inherited members
+		</td>
+	</tr>
+	<tr>
+		<td>EmitMode</td>
+		<td><abbr title="SuperScript.EmitMode"><code>EmitMode</code></abbr></td>
+		<td>
+			<p>
+				Determines the mode in which this implementation emits contents.
+			</p>
+			<p>
+				<strong>Optional</strong>. Default value: <abbr title="SuperScript.EmitMode.Always"><code>EmitMode.Always</code></abbr>
+			</p>
+		</td>
+	</tr>
+</table>
+
+<p>
+  Like all implementations of <abbr title="SuperScript.Modifiers.Writers.HtmlWriter"><code>HtmlWriter</code></abbr>, 
+  <abbr title="SuperScript.JavaScript.Modifiers.Writers.HtmlWriter"><code>ScriptTagWriter</code></abbr> exposes a single
+  public method, <abbr title="SuperScript.Modifiers.Writers.HtmLWriter"><code>Process</code></abbr> which accepts
+  an instance of <abbr title="SuperScript.Modifiers.PostModifierArgs"><code>PostModifierArgs</code></abbr>. This argument object's
+  <abbr title="SuperScript.Modifiers.PostModifierArgs.Emitted"><code>Emitted</code></abbr> property contains the output of 
+</p>
+
+<ul>
+  <li>
+    <p>
+      an implementation of <abbr title="SuperScript.Modifiers.Post.CollectionPostModifier"><code>CollectionPostModifier</code></abbr> which
+      has been configured for the context <abbr title="SuperScript.Emitters.IEmitter"><code>IEmitter</code></abbr>, or
+    </p>
+  </li>
+  <li>
+    <p>
+      an implementation of <abbr title="SuperScript.Modifiers.Converters.CollectionConverter"><code>CollectionConverter</code></abbr>.
+    </p>
+  </li>
+</ul>
+
+<p>
+  The result of the <abbr title="SuperScript.Modifiers.Writers.HtmlWriter.Process"><code>Process</code></abbr> method
+  is a string which, in this case, is contained inside an HTML tag described by the 
+  <abbr title="SuperScript.Modifiers.Writers.HtmlWriter.TagAttributes"><code>TagAttributes</code></abbr> and
+  <abbr title="SuperScript.Modifiers.Writers.HtmlWriter.TagName"><code>TagName</code></abbr> properties.
+</p>
+
+
+<h3>Example</h3>
+
+<p>
+	Programatically adding an instance of <abbr title="SuperScript.JavaScript.Modifiers.Writers.ScriptTagWriter"><code>ScriptTagWriter</code></abbr> to an 
+	<abbr title="SuperScript.Emitters.IEmitter"><code>IEmitter</code></abbr> is fairly trivial. However, here is an 
+	example of declaratively configuring an <abbr title="SuperScript.Emitters.IEmitter"><code>IEmitter</code></abbr> with a
+	<abbr title="SuperScript.JavaScript.Modifiers.Writers.ScriptTagWriter"><code>ScriptTagWriter</code></abbr> in a config file.
+</p>
+
+<p>
+	This example also shows how to explicitly set the <abbr title="SuperScript.JavaScript.Modifiers.Writers.ScriptTagWriter.TagName"><code>TagName</code></abbr> property. 
+	Unfortunately the <abbr title="SuperScript.JavaScript.Modifiers.Writers.ScriptTagWriter.TagAttributes"><code>TagAttributes</code></abbr> property cannot 
+	be declared in a config file.
+</p>
+
+<pre class="brush: xml">
+	&lt;configuration&gt;
+		&lt;configSections&gt;
+			&lt;section name="superScript" type="SuperScript.Configuration.SuperScriptConfig, SuperScript.Common" /&gt;
+			&lt;section name="superScript.JavaScript" type="SuperScript.JavaScript.Configuration.JavaScriptConfig, SuperScript.JavaScript" /&gt;
+		&lt;/configSections&gt;
+	&lt;/configuration&gt;
+	&#10;
+	&hellip;
+	&#10;
+	&lt;superScript&gt;
+		&lt;emitters&gt;
+			&lt;emitter key="javascript"&gt;
+				&lt;writers&gt;
+					&lt;modifier type="SuperScript.JavaScript.Modifiers.Writers.ScriptTagWriter, SuperScript.JavaScript"&gt;
+						&lt;properties&gt;
+							&lt;!-- the 'type' attribute has the default value of String, but is shown here by example --&gt;
+							&lt;property name="TagName" value="script" type="System.String, mscorlib" /&gt;
+						&lt;/properties&gt;
+					&lt;/modifier&gt;
+				&lt;/writers&gt;
+			&lt;/emitter&gt;
+		&lt;/emitters&gt;
+	&lt;/superScript&gt;
+</pre>
+
+<p>
+	More details on configuring an <abbr title="SuperScript.Emitters.IEmitter"><code>IEmitter</code></abbr> can be
+	read <a href="http://supertext.github.io/SuperScript/emitters/create-emitter.html" target="_blank">here</a>.
+</p>
