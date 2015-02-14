@@ -1,216 +1,209 @@
-<div class="row">
+<h2>Standard Declaration</h2>
 
-	<div class="col-xs-12">
+<p>
+	The <abbr title="SuperScript.JavaScript.Declarables.StandardDeclaration"><code>StandardDeclaration</code></abbr> offers 
+	a means of creating a JavaScript variable declaration from server-side code.
+</p>
+
+<pre class="brush: c#">
+	class StandardDeclaration : SuperScript.JavaScript.Declarables.DeclarationBase
+	{
+		bool AssignExisting { get; set; }
+		override string ToString();
+		object Value { get; set; }
+	}
+</pre>
+
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Type</th>
+			<th>Description</th>
+		</tr>
+	</thead>
+	<tr>
+		<td>AssignExisting</td>
+		<td>bool</td>
+		<td>
+			<p>
+				Indicates whether this declaration is new or is setting the value of an existing variable.
+			</p>
+			<p>
+				This value determines whether the emitted variable is preceded by the <code>var</code> keyword.
+			</p>
+			<p>
+				<strong>Optional</strong>. Default value: <code>false</code>
+			</p>
+		</td>
+	</tr>
+	<tr>
+		<td>ToString</td>
+		<td>string</td>
+		<td>
+			<p>
+				Returns this instance as a formatted JavaScript declaration.
+			</p>
+		</td>
+	</tr>
+	<tr>
+		<td>Value</td>
+		<td>object</td>
+		<td>
+			<p>
+				The value of the JavaScript declaration's source (<em>i.e.</em>, the right-hand side of the declaration).
+			</p>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="3">
+			Inherited members
+		</td>
+	</tr>
+	<tr>
+		<td>Comment</td>
+		<td>string</td>
+		<td>
+			<p>
+				Emitted inside JavaScript's multi-line comment symbols, a tab space after the end of the client-side declaration.
+			</p>
+			<p>
+				<strong>Optional</strong>.
+			</p>
+		</td>
+	</tr>
+	<tr>
+		<td>EmitterKey</td>
+		<td>string</td>
+		<td>
+			<p>
+				Indicates which instance of <abbr title="SuperScript.Emitters.IEmitter"><code>IEmitter</code></abbr> the content should be added to.
+			</p>
+			<p>
+				<strong>Optional</strong>. If not specified then the contents will be added to the default implementation of <abbr title="SuperScript.Emitters.IEmitter"><code>IEmitter</code></abbr>.
+			</p>
+		</td>
+	</tr>
+	<tr>
+		<td>Name</td>
+		<td>string</td>
+		<td>
+			<p>
+				Gets or sets the name assigned to this declarable.
+			</p>
+			<p>
+				<strong>Required</strong>.
+			</p>
+		</td>
+	</tr>
+</table>
+
+<h3>Example</h3>
+
+<p>
+	Variables may be declared in the config file. 
+</p>
+
+<p>
+	<strong>Note:</strong> The examples on this page assume an instance of <abbr title="SuperScript.Emitters.IEmitter"><code>IEmitter</code></abbr> has
+	been configured with <abbr title="SuperScript.Emitters.IEmitter.Key"><code>IEmitter.Key = "javascript"</code></abbr>. This is not configured by default. 
+	<a href="http://supertext.github.io/SuperScript/emitters/create-emitter.html" target="_blank">This page</a> explains how to create and configure an 
+	<abbr title="SuperScript.Emitters.IEmitter"><code>IEmitter</code></abbr>.
+</p>
+
+<pre class="brush: xml">
+	&lt;configuration&gt;
+		&lt;configSections&gt;
+			&lt;section name="superScript" type="SuperScript.Configuration.SuperScriptConfig, SuperScript.Common" /&gt;
+			&lt;section name="superScript.JavaScript" type="SuperScript.JavaScript.Configuration.JavaScriptConfig, SuperScript.JavaScript" /&gt;
+		&lt;/configSections&gt;
+	&lt;/configuration&gt;
+	&#10;
+	&hellip;
+	&#10;
+	&lt;superScript.JavaScript&gt;
+		&lt;declarations&gt;
+			&lt;variables&gt;
+				&lt;variable name="exampleVar" value="hello world" comment="A commented variable" emitterKey="javascript" /&gt;
+			&lt;/variables&gt;
+		&lt;/declarations&gt;
+	&lt;/superScript.JavaScript&gt;
+</pre>
+
+<p>
+	The above example will produce the following output:
+</p>
+
+<pre class="brush: js">
+	var exampleVar = "hello world";		/* A commented variable */
+</pre>
+
+<p>
+	When specified in the config file, the <abbr title="System.Type"><code>Type</code></abbr> may also be declared.
+	If not declared, as in the above example, the value is assumed to be a <abbr title="System.String"><code>string</code></abbr>.
+</p>
+
+<p>
+	The above example could therefore be changed accordingly.
+</p>
+
+<pre class="brush: xml">
+	&lt;superScript.JavaScript&gt;
+		&lt;declarations&gt;
+			&lt;variables&gt;
+				&lt;variable name="exampleVar" value="1" comment="A commented variable" emitterKey="javascript" type="System.Int32, mscorlib" /&gt;
+			&lt;/variables&gt;
+		&lt;/declarations&gt;
+	&lt;/superScript.JavaScript&gt;
+</pre>
+
+<p>
+	The above example will produce the following output:
+</p>
+
+<pre class="brush: js">
+	var exampleVar = 1;	/* A commented variable */
+</pre>
+
+<p>
+	Variables may also be declared in code. SuperScript.JavaScript exposes a fluent syntax for declarables which allows for easier adding of declarations. In this case
+	the <abbr title="System.Type"><code>Type</code></abbr> is not specified.
+</p>
+
+<pre class="brush: c#">
+	var exampleVar = Declarations.AddVariable(opt => opt.Comment("A commented variable")
+									.EmitterKey("javascript")
+									.Name("exampleVar")
+									.Value("hello world"));
+</pre>
+
+<p>
+	The above example will produce the following output:
+</p>
+
+<pre class="brush: js">
+	var exampleVar = "hello world";		/* A commented variable */
+</pre>
+
+<p>
+	Alternatively, JavaScript variables may also be declared in a more conventional programmatic style.
+</p>
+
+<pre class="brush: c#">
+	var varDecl = new StandardDeclaration();
+	varDecl.AssignExisting = false; // this is the default value
+	varDecl.Comment = "A commented variable";
+	varDecl.EmitterKey = "javascript";
+	varDecl.Name = "exampleVar";
+	varDecl.Value = 1;
 	
-		<h2>Standard Declaration</h2>
-		
-		<p>
-			The <abbr title="SuperScript.JavaScript.Declarables.StandardDeclaration"><code>StandardDeclaration</code></abbr> offers 
-			a means of creating a JavaScript variable declaration from server-side code.
-		</p>
-		
-		<pre class="brush: c#">
-			class StandardDeclaration : SuperScript.JavaScript.Declarables.DeclarationBase
-			{
-				bool AssignExisting { get; set; }
-				override string ToString();
-				object Value { get; set; }
-			}
-		</pre>
+	SuperScript.Declarations.AddDeclaration&lt;StandardDeclaration&gt;(varDecl);
+</pre>
 
-		<table class="table table-bordered">
-			<thead>
-				<tr>
-					<th>Name</th>
-					<th>Type</th>
-					<th>Description</th>
-				</tr>
-			</thead>
-			<tr>
-				<td>AssignExisting</td>
-				<td>bool</td>
-				<td>
-					<p>
-						Indicates whether this declaration is new or is setting the value of an existing variable.
-					</p>
-					<p>
-						This value determines whether the emitted variable is preceded by the <code>var</code> keyword.
-					</p>
-					<p>
-						<strong>Optional</strong>. Default value: <code>false</code>
-					</p>
-				</td>
-			</tr>
-			<tr>
-				<td>ToString</td>
-				<td>string</td>
-				<td>
-					<p>
-						Returns this instance as a formatted JavaScript declaration.
-					</p>
-				</td>
-			</tr>
-			<tr>
-				<td>Value</td>
-				<td>object</td>
-				<td>
-					<p>
-						The value of the JavaScript declaration's source (<em>i.e.</em>, the right-hand side of the declaration).
-					</p>
-				</td>
-			</tr>
-			<tr>
-				<td colspan="3">
-					Inherited members
-				</td>
-			</tr>
-			<tr>
-				<td>Comment</td>
-				<td>string</td>
-				<td>
-					<p>
-						Emitted inside JavaScript's multi-line comment symbols, a tab space after the end of the client-side declaration.
-					</p>
-					<p>
-						<strong>Optional</strong>.
-					</p>
-				</td>
-			</tr>
-			<tr>
-				<td>EmitterKey</td>
-				<td>string</td>
-				<td>
-					<p>
-						Indicates which instance of <abbr title="SuperScript.Emitters.IEmitter"><code>IEmitter</code></abbr> the content should be added to.
-					</p>
-					<p>
-						<strong>Optional</strong>. If not specified then the contents will be added to the default implementation of <abbr title="SuperScript.Emitters.IEmitter"><code>IEmitter</code></abbr>.
-					</p>
-				</td>
-			</tr>
-			<tr>
-				<td>Name</td>
-				<td>string</td>
-				<td>
-					<p>
-						Gets or sets the name assigned to this declarable.
-					</p>
-					<p>
-						<strong>Required</strong>.
-					</p>
-				</td>
-			</tr>
-		</table>
-		
-		<h3>Example</h3>
-		
-		<p>
-			Variables may be declared in the config file. 
-		</p>
-		
-		<p>
-			<strong>Note:</strong> The examples on this page assume an instance of <abbr title="SuperScript.Emitters.IEmitter"><code>IEmitter</code></abbr> has
-			been configured with <abbr title="SuperScript.Emitters.IEmitter.Key"><code>IEmitter.Key = "javascript"</code></abbr>. This is not configured by default. 
-			<a href="http://supertext.github.io/SuperScript/emitters/create-emitter.html" target="_blank">This page</a> explains how to create and configure an 
-			<abbr title="SuperScript.Emitters.IEmitter"><code>IEmitter</code></abbr>.
-		</p>
-		
-		<pre class="brush: xml">
-			&lt;configuration&gt;
-				&lt;configSections&gt;
-					&lt;section name="superScript" type="SuperScript.Configuration.SuperScriptConfig, SuperScript.Common" /&gt;
-					&lt;section name="superScript.JavaScript" type="SuperScript.JavaScript.Configuration.JavaScriptConfig, SuperScript.JavaScript" /&gt;
-				&lt;/configSections&gt;
-			&lt;/configuration&gt;
-			&#10;
-			&hellip;
-			&#10;
-			&lt;superScript.JavaScript&gt;
-				&lt;declarations&gt;
-					&lt;variables&gt;
-						&lt;variable name="exampleVar" value="hello world" comment="A commented variable" emitterKey="javascript" /&gt;
-					&lt;/variables&gt;
-				&lt;/declarations&gt;
-			&lt;/superScript.JavaScript&gt;
-		</pre>
-		
-		<p>
-			The above example will produce the following output:
-		</p>
-		
-		<pre class="brush: js">
-			var exampleVar = "hello world";		/* A commented variable */
-		</pre>
-		
-		<p>
-			When specified in the config file, the <abbr title="System.Type"><code>Type</code></abbr> may also be declared.
-			If not declared, as in the above example, the value is assumed to be a <abbr title="System.String"><code>string</code></abbr>.
-		</p>
-		
-		<p>
-			The above example could therefore be changed accordingly.
-		</p>
-		
-		<pre class="brush: xml">
-			&lt;superScript.JavaScript&gt;
-				&lt;declarations&gt;
-					&lt;variables&gt;
-						&lt;variable name="exampleVar" value="1" comment="A commented variable" emitterKey="javascript" type="System.Int32, mscorlib" /&gt;
-					&lt;/variables&gt;
-				&lt;/declarations&gt;
-			&lt;/superScript.JavaScript&gt;
-		</pre>
-		
-		<p>
-			The above example will produce the following output:
-		</p>
-		
-		<pre class="brush: js">
-			var exampleVar = 1;	/* A commented variable */
-		</pre>
-		
-		<p>
-			Variables may also be declared in code. SuperScript.JavaScript exposes a fluent syntax for declarables which allows for easier adding of declarations. In this case
-			the <abbr title="System.Type"><code>Type</code></abbr> is not specified.
-		</p>
-		
-		<pre class="brush: c#">
-			var exampleVar = Declarations.AddVariable(opt => opt.Comment("A commented variable")
-														.EmitterKey("javascript")
-														.Name("exampleVar")
-														.Value("hello world"));
-		</pre>
-		
-		<p>
-			The above example will produce the following output:
-		</p>
-		
-		<pre class="brush: js">
-			var exampleVar = "hello world";		/* A commented variable */
-		</pre>
-		
-		<p>
-			Alternatively, JavaScript variables may also be declared in a more conventional programmatic style.
-		</p>
-		
-		<pre class="brush: c#">
-		var varDecl = new StandardDeclaration();
-		varDecl.AssignExisting = false; // this is the default value
-		varDecl.Comment = "A commented variable";
-		varDecl.EmitterKey = "javascript";
-		varDecl.Name = "exampleVar";
-		varDecl.Value = 1;
-		
-		SuperScript.Declarations.AddDeclaration&lt;StandardDeclaration&gt;(varDecl);
-		</pre>
-		
-		<p>
-			The above example will produce the following output:
-		</p>
-		
-		<pre class="brush: js">
-			var exampleVar = 1;	/* A commented variable */
-		</pre>
-	</div>
+<p>
+	The above example will produce the following output:
+</p>
 
-</div>
+<pre class="brush: js">
+	var exampleVar = 1;	/* A commented variable */
+</pre>
