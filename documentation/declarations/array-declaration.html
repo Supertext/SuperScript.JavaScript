@@ -1,211 +1,203 @@
-<div class="row">
+<h2>Array Declaration</h2>
 
-	<div class="col-xs-12">
+<p>
+	By specifying a collection of objects, a JavaScript array may be declared.
+</p>
+
+<pre class="brush: c#">
+	class ArrayDeclaration : SuperScript.JavaScript.Declarables.DeclarationBase
+	{
+		bool AssignExisting { get; set; }
+		object[] Elements { get; set; }
+		override string ToString();
+	}
+</pre>
+
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Type</th>
+			<th>Description</th>
+		</tr>
+	</thead>
+	<tr>
+		<td>AssignExisting</td>
+		<td>bool</td>
+		<td>
+			<p>
+				Indicates whether this declaration is new or is setting the value of an existing variable.
+			</p>
+			<p>
+				This value determines whether the emitted variable is preceded by the <code>var</code> keyword.
+			</p>
+			<p>
+				<strong>Optional</strong>. Default value: <code>false</code>
+			</p>
+		</td>
+	</tr>
+	<tr>
+		<td>Elements</td>
+		<td>object[]</td>
+		<td>
+			<p>
+				Specifies the elements of the array.
+			</p>
+			<p>
+				<strong>Required</strong>.
+			</p>
+		</td>
+	</tr>
+	<tr>
+		<td>ToString</td>
+		<td>string</td>
+		<td>
+			<p>
+				Returns this instance as a formatted JavaScript declaration.
+			</p>
+		</td>
+	</tr>
+	<tr>
+		<td>Type</td>
+		<td>Type</td>
+		<td>
+			<p>
+				Specify an explicit output type for the declared 
+				<abbr title="SuperScript.JavaScript.Declarables.ArrayDeclaration.Elements"><code>Elements</code></abbr>.
+			</p>
+			<p>
+				If the array element type cannot be converted to the specified type, SuperScript.JavaScript will output the array element
+				in its native, unconverted type.
+			</p>
+			<p>
+				<strong>Optional</strong>. Default value is <code>System.String</code>
+			</p>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="3">
+			Inherited members
+		</td>
+	</tr>
+	<tr>
+		<td>Comment</td>
+		<td>string</td>
+		<td>
+			<p>
+				This text may be emitted onto its own line or after a variable, depending upon the specific implementation of <abbr title="SuperScript.JavaScript.Declarables.DeclarationBase"><code>DeclarationBase</code></abbr>.
+			</p>
+			<p>
+				<strong>Optional</strong>.
+			</p>
+		</td>
+	</tr>
+	<tr>
+		<td>EmitterKey</td>
+		<td>string</td>
+		<td>
+			<p>
+				Indicates which instance of <abbr title="SuperScript.Emitters.IEmitter"><code>IEmitter</code></abbr> the content should be added to.
+			</p>
+			<p>
+				<strong>Optional</strong>. If not specified then the contents will be added to the default implementation of <abbr title="SuperScript.Emitters.IEmitter"><code>IEmitter</code></abbr>.
+			</p>
+		</td>
+	</tr>
+	<tr>
+		<td>Name</td>
+		<td>string</td>
+		<td>
+			<p>
+				Gets or sets the name assigned to this declarable.
+			</p>
+			<p>
+				<strong>Required</strong>.
+			</p>
+		</td>
+	</tr>
+</table>
+
+<p>
+	It should be kept in mind that <abbr title="SuperScript.JavaScript.Declarables.ArrayDeclaration"><code>ArrayDeclaration</code></abbr> inherits
+	from <a href="#!/declarations.javascript-specific-declarations"><abbr title="SuperScript.JavaScript.Declarables.DeclarationBase"><code>DeclarationBase</code></abbr></a> which in turn inherits from 
+	<a href="http://supertext.github.io/SuperScript/declarations/declarations.html"><abbr title="SuperScript.Declarables.DeclarationBase"><code>SuperScript.Declarables.DeclarationBase</code></abbr></a>.
+</p>
+
+<h3>Example</h3>
+
+<p>
+	Arrays may be declared in the config file.
+</p>
+
+<p>
+	<strong>Note:</strong> The examples on this page assume an instance of <abbr title="SuperScript.Emitters.IEmitter"><code>IEmitter</code></abbr> has
+	been configured with <abbr title="SuperScript.Emitters.IEmitter.Key"><code>IEmitter.Key = "javascript"</code></abbr>. This is not configured by default. 
+	<a href="http://supertext.github.io/SuperScript/emitters/create-emitter.html" target="_blank">This page</a> explains how to create and configure an 
+	<abbr title="SuperScript.Emitters.IEmitter"><code>IEmitter</code></abbr>.
+</p>
+
+<pre class="brush: xml">
+	&lt;configuration&gt;
+		&lt;configSections&gt;
+			&lt;section name="superScript" 	type="SuperScript.Configuration.SuperScriptConfig, SuperScript.Common" /&gt;
+			&lt;section name="superScript.JavaScript" type="SuperScript.JavaScript.Configuration.JavaScriptConfig, SuperScript.JavaScript" /&gt;
+		&lt;/configSections&gt;
+	&lt;/configuration&gt;
+	&#10;
+	&hellip;
+	&#10;
+	&lt;superScript.JavaScript&gt;
+		&lt;declarations&gt;
+			&lt;arrays&gt;
+				&lt;array name="demoArray" 
+					   assignExisting="true"
+					   comment="A comment"
+					   elements="2014, 2015, 2016"
+					   emitterKey="javascript"
+					   type="System.Int32, mscorlib" /&gt;
+			&lt;/arrays&gt;
+		&lt;/declarations&gt;
+	&lt;/superScript.JavaScript&gt;
+</pre>
+
+
+<p>
+	Arrays may also be declared in code. SuperScript.JavaScript exposes a fluent syntax for declarables which allows for easier adding of declarations.
+</p>
+
+<pre class="brush: c#">
+	using SuperScript.JavaScript;
+	&#10;
+	Declarations.AddArray(opt => opt.AssignExisting(false)
+								    .Comment("A comment")
+								    .Elements(new object[] { "2014", "2015", "2016" })
+								    .EmitterKey("javascript")
+								    .Name("demoArray")
+                            .Type(typeof(Int32));
+</pre>
+
+<p>
+	Alternatively, arrays may also be declared in a more conventional programmatic style.
+</p>
+
+<pre class="brush: c#">
+	using SuperScript.JavaScript;
+	&#10;
+	var arr = new ArrayDeclaration();
+	arr.AssignExisting = false;
+	arr.Comment = "A comment";
+	arr.Elements = new object[] { "2014", "2015", "2016" };
+	arr.EmitterKey = "javascript";
+	arr.Name = "demoArray";
+	arr.Type = typeof (Int32);
 	
-		<h2>Array Declaration</h2>
-		
-		<p>
-			By specifying a collection of objects, a JavaScript array may be declared.
-		</p>
-		
-		<pre class="brush: c#">
-			class ArrayDeclaration : SuperScript.JavaScript.Declarables.DeclarationBase
-			{
-				bool AssignExisting { get; set; }
-				object[] Elements { get; set; }
-				override string ToString();
-			}
-		</pre>
+	SuperScript.Declarations.AddDeclaration&lt;ArrayDeclaration&gt;(arr);
+</pre>
 
-		<table class="table table-bordered">
-			<thead>
-				<tr>
-					<th>Name</th>
-					<th>Type</th>
-					<th>Description</th>
-				</tr>
-			</thead>
-			<tr>
-				<td>AssignExisting</td>
-				<td>bool</td>
-				<td>
-					<p>
-						Indicates whether this declaration is new or is setting the value of an existing variable.
-					</p>
-					<p>
-						This value determines whether the emitted variable is preceded by the <code>var</code> keyword.
-					</p>
-					<p>
-						<strong>Optional</strong>. Default value: <code>false</code>
-					</p>
-				</td>
-			</tr>
-			<tr>
-				<td>Elements</td>
-				<td>object[]</td>
-				<td>
-					<p>
-						Specifies the elements of the array.
-					</p>
-					<p>
-						<strong>Required</strong>.
-					</p>
-				</td>
-			</tr>
-			<tr>
-				<td>ToString</td>
-				<td>string</td>
-				<td>
-					<p>
-						Returns this instance as a formatted JavaScript declaration.
-					</p>
-				</td>
-			</tr>
-			<tr>
-				<td>Type</td>
-				<td>Type</td>
-				<td>
-					<p>
-						Specify an explicit output type for the declared 
-						<abbr title="SuperScript.JavaScript.Declarables.ArrayDeclaration.Elements"><code>Elements</code></abbr>.
-					</p>
-					<p>
-						If the array element type cannot be converted to the specified type, SuperScript.JavaScript will output the array element
-						in its native, unconverted type.
-					</p>
-					<p>
-						<strong>Optional</strong>. Default value is <code>System.String</code>
-					</p>
-				</td>
-			</tr>
-			<tr>
-				<td colspan="3">
-					Inherited members
-				</td>
-			</tr>
-			<tr>
-				<td>Comment</td>
-				<td>string</td>
-				<td>
-					<p>
-						This text may be emitted onto its own line or after a variable, depending upon the specific implementation of <abbr title="SuperScript.JavaScript.Declarables.DeclarationBase"><code>DeclarationBase</code></abbr>.
-					</p>
-					<p>
-						<strong>Optional</strong>.
-					</p>
-				</td>
-			</tr>
-			<tr>
-				<td>EmitterKey</td>
-				<td>string</td>
-				<td>
-					<p>
-						Indicates which instance of <abbr title="SuperScript.Emitters.IEmitter"><code>IEmitter</code></abbr> the content should be added to.
-					</p>
-					<p>
-						<strong>Optional</strong>. If not specified then the contents will be added to the default implementation of <abbr title="SuperScript.Emitters.IEmitter"><code>IEmitter</code></abbr>.
-					</p>
-				</td>
-			</tr>
-			<tr>
-				<td>Name</td>
-				<td>string</td>
-				<td>
-					<p>
-						Gets or sets the name assigned to this declarable.
-					</p>
-					<p>
-						<strong>Required</strong>.
-					</p>
-				</td>
-			</tr>
-		</table>
-		
-		<p>
-			It should be kept in mind that <abbr title="SuperScript.JavaScript.Declarables.ArrayDeclaration"><code>ArrayDeclaration</code></abbr> inherits
-			from <a href="#!/page/declarations.javascript-specific-declarations"><abbr title="SuperScript.JavaScript.Declarables.DeclarationBase"><code>DeclarationBase</code></abbr></a> which in turn inherits from 
-			<a href="http://supertext.github.io/SuperScript/declarations/declarations.html"><abbr title="SuperScript.Declarables.DeclarationBase"><code>SuperScript.Declarables.DeclarationBase</code></abbr></a>.
-		</p>
-		
-		<h3>Example</h3>
-		
-		<p>
-			Arrays may be declared in the config file.
-		</p>
-		
-		<p>
-			<strong>Note:</strong> The examples on this page assume an instance of <abbr title="SuperScript.Emitters.IEmitter"><code>IEmitter</code></abbr> has
-			been configured with <abbr title="SuperScript.Emitters.IEmitter.Key"><code>IEmitter.Key = "javascript"</code></abbr>. This is not configured by default. 
-			<a href="http://supertext.github.io/SuperScript/emitters/create-emitter.html" target="_blank">This page</a> explains how to create and configure an 
-			<abbr title="SuperScript.Emitters.IEmitter"><code>IEmitter</code></abbr>.
-		</p>
-		
-		<pre class="brush: xml">
-			&lt;configuration&gt;
-				&lt;configSections&gt;
-					&lt;section name="superScript" 	type="SuperScript.Configuration.SuperScriptConfig, SuperScript.Common" /&gt;
-					&lt;section name="superScript.JavaScript" type="SuperScript.JavaScript.Configuration.JavaScriptConfig, SuperScript.JavaScript" /&gt;
-				&lt;/configSections&gt;
-			&lt;/configuration&gt;
-			&#10;
-			&hellip;
-			&#10;
-			&lt;superScript.JavaScript&gt;
-				&lt;declarations&gt;
-					&lt;arrays&gt;
-						&lt;array name="demoArray" 
-							   assignExisting="true"
-							   comment="A comment"
-							   elements="2014, 2015, 2016"
-							   emitterKey="javascript"
-							   type="System.Int32, mscorlib" /&gt;
-					&lt;/arrays&gt;
-				&lt;/declarations&gt;
-			&lt;/superScript.JavaScript&gt;
-		</pre>
-		
-		
-		<p>
-			Arrays may also be declared in code. SuperScript.JavaScript exposes a fluent syntax for declarables which allows for easier adding of declarations.
-		</p>
-		
-		<pre class="brush: c#">
-			using SuperScript.JavaScript;
-			&#10;
-			Declarations.AddArray(opt => opt.AssignExisting(false)
-										    .Comment("A comment")
-										    .Elements(new object[] { "2014", "2015", "2016" })
-										    .EmitterKey("javascript")
-										    .Name("demoArray")
-                                            .Type(typeof(Int32));
-		</pre>
-		
-		<p>
-			Alternatively, arrays may also be declared in a more conventional programmatic style.
-		</p>
-		
-		<pre class="brush: c#">
-			using SuperScript.JavaScript;
-			&#10;
-			var arr = new ArrayDeclaration();
-            arr.AssignExisting = false;
-            arr.Comment = "A comment";
-            arr.Elements = new object[] { "2014", "2015", "2016" };
-            arr.EmitterKey = "javascript";
-            arr.Name = "demoArray";
-            arr.Type = typeof (Int32);
-			
-            SuperScript.Declarations.AddDeclaration&lt;ArrayDeclaration&gt;(arr);
-		</pre>
-		
-		<p>
-			All of the above examples will output the following:
-		</p>
-		
-		<pre class="brush: js">
-			var demoArray = [2, 4, 6];	/* A comment */
-		</pre>
+<p>
+	All of the above examples will output the following:
+</p>
 
-	</div>
-	
-</div>
+<pre class="brush: js">
+	var demoArray = [2, 4, 6];	/* A comment */
+</pre>
