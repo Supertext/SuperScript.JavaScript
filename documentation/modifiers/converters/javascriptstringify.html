@@ -1,81 +1,73 @@
-<div class="row">
+<h2>JavaScriptStringify Collection Converter</h2>
 
-	<div class="col-xs-12">
-	
-		<h2>JavaScriptStringify Collection Converter</h2>
-		
-		<p>
-			Converts the <abbr title="SuperScript.Modifiers.PreModifierArgs.Declarations"><code>Declarations</code></abbr> property
-			of the specified <abbr title="SuperScript.Modifiers.PreModifierArgs"><code>PreModifierArgs</code></abbr> into 
-			an instance of <abbr title="SuperScript.Modifiers.PostModifierArgs"><code>PostModifierArgs</code></abbr> where 
-			the <abbr title="SuperScript.Modifiers.PostModifierArgs.Emitted"><code>Emitted</code></abbr> property contains the stringified JavaScript.
-		</p>
-		
-		<pre class="brush: c#">
-			class JavaScriptStringify : SuperScript.Modifiers.Converters.CollectionConverter
-			{
-				EmitMode EmitMode { get; set; }
-				override PostModifierArgs Process(PreModifierArgs args)
-			}
-		</pre>
+<p>
+	Converts the <abbr title="SuperScript.Modifiers.PreModifierArgs.Declarations"><code>Declarations</code></abbr> property
+	of the specified <abbr title="SuperScript.Modifiers.PreModifierArgs"><code>PreModifierArgs</code></abbr> into 
+	an instance of <abbr title="SuperScript.Modifiers.PostModifierArgs"><code>PostModifierArgs</code></abbr> where 
+	the <abbr title="SuperScript.Modifiers.PostModifierArgs.Emitted"><code>Emitted</code></abbr> property contains the stringified JavaScript.
+</p>
 
-		<table class="table table-bordered">
-			<thead>
-				<tr>
-					<th>Name</th>
-					<th>Type</th>
-					<th>Description</th>
-				</tr>
-			</thead>
-			<tr>
-				<td>Process</td>
-				<td><abbr title="SuperScript.Modifiers.PostModifierArgs"><code>PostModifierArgs</code></abbr></td>
-				<td>
-					<p>
-						Converts the <abbr title="SuperScript.Modifiers.PreModifierArgs.Declarations"><code>Declarations</code></abbr> property
-						of the specified <abbr title="SuperScript.Modifiers.PreModifierArgs"><code>PreModifierArgs</code></abbr> into 
-						an instance of <abbr title="SuperScript.Modifiers.PostModifierArgs"><code>PostModifierArgs</code></abbr> where 
-						the <abbr title="SuperScript.Modifiers.PostModifierArgs.Emitted"><code>Emitted</code></abbr> property contains the stringified JavaScript.
-					</p>
-				</td>
-			</tr>
-			<tr>
-				<td colspan="3">
-					Inherited members
-				</td>
-			</tr>
-			<tr>
-				<td>EmitMode</td>
-				<td><abbr title="SuperScript.EmitMode"><code>EmitMode</code></abbr></td>
-				<td>
-					<p>
-						Determines the mode in which this implementation emits contents.
-					</p>
-					<p>
-						<strong>Optional</strong>. Default value: <abbr title="SuperScript.EmitMode.Always"><code>EmitMode.Always</code></abbr>
-					</p>
-				</td>
-			</tr>
-		</table>
-		
-		<p>
-			This implementation of <abbr title="SuperScript.Modifiers.Converters.CollectionConverter"><code>CollectionConverter</code></abbr> simply
-			enumerates each instance of <abbr title="SuperScript.JavaScript.Declarables.DeclarationBase"><code>DeclarationBase</code></abbr> in 
-			the <abbr title="SuperScript.Modifiers.PreModifierArgs.Declarations"><code>PreModifierArgs.Declarations</code></abbr> property
-			and calls <abbr title="SuperScript.JavaScript.Declarables.DeclarationBase.ToString()"><code>DeclarationBase.ToString()</code></abbr>.
-		</p>
-		
-		<p>
-			The result of each <abbr title="SuperScript.JavaScript.Declarables.DeclarationBase.ToString()"><code>DeclarationBase.ToString()</code></abbr> call
-			is placed on a new line and indented by a tab space.
-		</p>
-		
-		<p>
-			The result of this conversion process is then passed to the 
-			<abbr title="SuperScript.Modifiers.PostModifierArgs.Emitted"><code>Emitted</code></abbr> property of a 
-			<abbr title="SuperScript.Modifiers.PostModifierArgs"><code>PostModifierArgs</code></abbr> object.
-		</p>
+<pre class="brush: c#">
+	class JavaScriptStringify : SuperScript.Modifiers.Converters.CollectionConverter
+	{
+		EmitMode EmitMode { get; set; }
+		override PostModifierArgs Process(PreModifierArgs args)
+	}
+</pre>
 
-	</div>
-	
-</div>
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Type</th>
+			<th>Description</th>
+		</tr>
+	</thead>
+	<tr>
+		<td>Process</td>
+		<td><abbr title="SuperScript.Modifiers.PostModifierArgs"><code>PostModifierArgs</code></abbr></td>
+		<td>
+			<p>
+				Converts the <abbr title="SuperScript.Modifiers.PreModifierArgs.Declarations"><code>Declarations</code></abbr> property
+				of the specified <abbr title="SuperScript.Modifiers.PreModifierArgs"><code>PreModifierArgs</code></abbr> into 
+				an instance of <abbr title="SuperScript.Modifiers.PostModifierArgs"><code>PostModifierArgs</code></abbr> where 
+				the <abbr title="SuperScript.Modifiers.PostModifierArgs.Emitted"><code>Emitted</code></abbr> property contains the stringified JavaScript.
+			</p>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="3">
+			Inherited members
+		</td>
+	</tr>
+	<tr>
+		<td>EmitMode</td>
+		<td><abbr title="SuperScript.EmitMode"><code>EmitMode</code></abbr></td>
+		<td>
+			<p>
+				Determines the mode in which this implementation emits contents.
+			</p>
+			<p>
+				<strong>Optional</strong>. Default value: <abbr title="SuperScript.EmitMode.Always"><code>EmitMode.Always</code></abbr>
+			</p>
+		</td>
+	</tr>
+</table>
+
+<p>
+	This implementation of <abbr title="SuperScript.Modifiers.Converters.CollectionConverter"><code>CollectionConverter</code></abbr> simply
+	enumerates each instance of <abbr title="SuperScript.JavaScript.Declarables.DeclarationBase"><code>DeclarationBase</code></abbr> in 
+	the <abbr title="SuperScript.Modifiers.PreModifierArgs.Declarations"><code>PreModifierArgs.Declarations</code></abbr> property
+	and calls <abbr title="SuperScript.JavaScript.Declarables.DeclarationBase.ToString()"><code>DeclarationBase.ToString()</code></abbr>.
+</p>
+
+<p>
+	The result of each <abbr title="SuperScript.JavaScript.Declarables.DeclarationBase.ToString()"><code>DeclarationBase.ToString()</code></abbr> call
+	is placed on a new line and indented by a tab space.
+</p>
+
+<p>
+	The result of this conversion process is then passed to the 
+	<abbr title="SuperScript.Modifiers.PostModifierArgs.Emitted"><code>Emitted</code></abbr> property of a 
+	<abbr title="SuperScript.Modifiers.PostModifierArgs"><code>PostModifierArgs</code></abbr> object.
+</p>
