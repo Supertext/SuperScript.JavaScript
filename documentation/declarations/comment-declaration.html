@@ -1,147 +1,139 @@
-<div class="row">
+<h2>Comment Declaration</h2>
 
-	<div class="col-xs-12">
-	
-		<h2>Comment Declaration</h2>
-		
-		<p>
-			Offers a simple means of declaring a JavaScript comment from server-side code.
-		</p>
-		
-		<p>
-			The comment will be wrapped in JavaScript multi-line symbols, <em>i.e.</em>, <code>/*&hellip;*/</code>
-		</p>
-		
-		<pre class="brush: c#">
-			class CommentDeclaration : SuperScript.JavaScript.Declarables.DeclarationBase
-			{
-				override string ToString();
-			}
-		</pre>
+<p>
+	Offers a simple means of declaring a JavaScript comment from server-side code.
+</p>
 
-		<table class="table table-bordered">
-			<thead>
-				<tr>
-					<th>Name</th>
-					<th>Type</th>
-					<th>Description</th>
-				</tr>
-			</thead>
-			<tr>
-				<td>ToString</td>
-				<td>string</td>
-				<td>
-					<p>
-						Returns this instance as a formatted JavaScript declaration.
-					</p>
-				</td>
-			</tr>
-			<tr>
-				<td colspan="3">
-					Inherited members
-				</td>
-			</tr>
-			<tr>
-				<td>Comment</td>
-				<td>string</td>
-				<td>
-					<p>
-						This text may be emitted onto its own line or after a variable, depending upon the specific implementation of <abbr title="SuperScript.JavaScript.Declarables.DeclarationBase"><code>DeclarationBase</code></abbr>.
-					</p>
-					<p>
-						<strong>Optional</strong>.
-					</p>
-				</td>
-			</tr>
-			<tr>
-			<td>EmitterKey</td>
-			<td>string</td>
-				<td>
-					<p>
-						Indicates which instance of <abbr title="SuperScript.Emitters.IEmitter"><code>IEmitter</code></abbr> the content should be added to.
-					</p>
-					<p>
-						<strong>Optional</strong>. If not specified then the contents will be added to the default implementation of <abbr title="SuperScript.Emitters.IEmitter"><code>IEmitter</code></abbr>.
-					</p>
-				</td>
-			</tr>
-			<tr>
-				<td>Name</td>
-				<td>string</td>
-				<td>
-					<p>
-						Gets or sets the name assigned to this declarable.
-					</p>
-					<p>
-						<strong>Optional</strong>. If not specified, SuperScript.JavaScript will use the name
-						of the enumeration.
-					</p>
-				</td>
-			</tr>
-		</table>
-		
-		<h3>Example</h3>
-		
-		<p>
-			Comments may be declared in the config file.
-		</p>
-		
-		<p>
-			<strong>Note:</strong> The examples on this page assume an instance of <abbr title="SuperScript.Emitters.IEmitter"><code>IEmitter</code></abbr> has
-			been configured with <abbr title="SuperScript.Emitters.IEmitter.Key"><code>IEmitter.Key = "javascript"</code></abbr>. This is not configured by default. 
-			<a href="http://supertext.github.io/SuperScript/emitters/create-emitter.html" target="_blank">This page</a> explains how to create and configure an 
-			<abbr title="SuperScript.Emitters.IEmitter"><code>IEmitter</code></abbr>.
-		</p>
-		
-		<pre class="brush: xml">
-			&lt;configuration&gt;
-				&lt;configSections&gt;
-					&lt;section name="superScript" type="SuperScript.Configuration.SuperScriptConfig, SuperScript.Common" /&gt;
-					&lt;section name="superScript.JavaScript" type="SuperScript.JavaScript.Configuration.JavaScriptConfig, SuperScript.JavaScript" /&gt;
-				&lt;/configSections&gt;
-			&lt;/configuration&gt;
-			&#10;
-			&hellip;
-			&#10;
-			&lt;superScript.JavaScript&gt;
-				&lt;declarations&gt;
-					&lt;comment text="This is a test comment." emitterKey="javascript" /&gt;
-				&lt;/declarations&gt;
-			&lt;/superScript.JavaScript&gt;
-		</pre>
-		
-		<p>
-			Comments may also be declared in code. SuperScript.JavaScript exposes a fluent syntax for declarables which allows for easier adding of declarations.
-		</p>
-		
-		<pre class="brush: c#">
-			using SuperScript.JavaScript;
-			&#10;
-			Declarations.AddComment(opt => opt.Comment("This is a test comment.")
-                                              .EmitterKey("javascript"));
-		</pre>
-		
-		<p>
-			Alternatively, function calls may also be declared in a more conventional programmatic style.
-		</p>
-		
-		<pre class="brush: c#">
-			using SuperScript.JavaScript;
-			&#10;
-			var cmtDecl = new CommentDeclaration();
-			cmtDecl.Comment = "This is a test comment.";
-			callDecl.EmitterKey = "javascript";
-			SuperScript.Declarations.AddDeclaration&lt;CommentDeclaration&gt;(cmtDecl);
-		</pre>
-		
-		<p>
-			All of the above examples will output the following:
-		</p>
-		
-		<pre class="brush: js">
-			/* This is a test comment. */
-		</pre>
+<p>
+	The comment will be wrapped in JavaScript multi-line symbols, <em>i.e.</em>, <code>/*&hellip;*/</code>
+</p>
 
-	</div>
+<pre class="brush: c#">
+	class CommentDeclaration : SuperScript.JavaScript.Declarables.DeclarationBase
+	{
+		override string ToString();
+	}
+</pre>
 
-</div>
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Type</th>
+			<th>Description</th>
+		</tr>
+	</thead>
+	<tr>
+		<td>ToString</td>
+		<td>string</td>
+		<td>
+			<p>
+				Returns this instance as a formatted JavaScript declaration.
+			</p>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="3">
+			Inherited members
+		</td>
+	</tr>
+	<tr>
+		<td>Comment</td>
+		<td>string</td>
+		<td>
+			<p>
+				This text may be emitted onto its own line or after a variable, depending upon the specific implementation of <abbr title="SuperScript.JavaScript.Declarables.DeclarationBase"><code>DeclarationBase</code></abbr>.
+			</p>
+			<p>
+				<strong>Optional</strong>.
+			</p>
+		</td>
+	</tr>
+	<tr>
+	<td>EmitterKey</td>
+	<td>string</td>
+		<td>
+			<p>
+				Indicates which instance of <abbr title="SuperScript.Emitters.IEmitter"><code>IEmitter</code></abbr> the content should be added to.
+			</p>
+			<p>
+				<strong>Optional</strong>. If not specified then the contents will be added to the default implementation of <abbr title="SuperScript.Emitters.IEmitter"><code>IEmitter</code></abbr>.
+			</p>
+		</td>
+	</tr>
+	<tr>
+		<td>Name</td>
+		<td>string</td>
+		<td>
+			<p>
+				Gets or sets the name assigned to this declarable.
+			</p>
+			<p>
+				<strong>Optional</strong>. If not specified, SuperScript.JavaScript will use the name
+				of the enumeration.
+			</p>
+		</td>
+	</tr>
+</table>
+
+<h3>Example</h3>
+
+<p>
+	Comments may be declared in the config file.
+</p>
+
+<p>
+	<strong>Note:</strong> The examples on this page assume an instance of <abbr title="SuperScript.Emitters.IEmitter"><code>IEmitter</code></abbr> has
+	been configured with <abbr title="SuperScript.Emitters.IEmitter.Key"><code>IEmitter.Key = "javascript"</code></abbr>. This is not configured by default. 
+	<a href="http://supertext.github.io/SuperScript/emitters/create-emitter.html" target="_blank">This page</a> explains how to create and configure an 
+	<abbr title="SuperScript.Emitters.IEmitter"><code>IEmitter</code></abbr>.
+</p>
+
+<pre class="brush: xml">
+	&lt;configuration&gt;
+		&lt;configSections&gt;
+			&lt;section name="superScript" type="SuperScript.Configuration.SuperScriptConfig, SuperScript.Common" /&gt;
+			&lt;section name="superScript.JavaScript" type="SuperScript.JavaScript.Configuration.JavaScriptConfig, SuperScript.JavaScript" /&gt;
+		&lt;/configSections&gt;
+	&lt;/configuration&gt;
+	&#10;
+	&hellip;
+	&#10;
+	&lt;superScript.JavaScript&gt;
+		&lt;declarations&gt;
+			&lt;comment text="This is a test comment." emitterKey="javascript" /&gt;
+		&lt;/declarations&gt;
+	&lt;/superScript.JavaScript&gt;
+</pre>
+
+<p>
+	Comments may also be declared in code. SuperScript.JavaScript exposes a fluent syntax for declarables which allows for easier adding of declarations.
+</p>
+
+<pre class="brush: c#">
+	using SuperScript.JavaScript;
+	&#10;
+	Declarations.AddComment(opt => opt.Comment("This is a test comment.")
+                              .EmitterKey("javascript"));
+</pre>
+
+<p>
+	Alternatively, function calls may also be declared in a more conventional programmatic style.
+</p>
+
+<pre class="brush: c#">
+	using SuperScript.JavaScript;
+	&#10;
+	var cmtDecl = new CommentDeclaration();
+	cmtDecl.Comment = "This is a test comment.";
+	callDecl.EmitterKey = "javascript";
+	SuperScript.Declarations.AddDeclaration&lt;CommentDeclaration&gt;(cmtDecl);
+</pre>
+
+<p>
+	All of the above examples will output the following:
+</p>
+
+<pre class="brush: js">
+	/* This is a test comment. */
+</pre>
