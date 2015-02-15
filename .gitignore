@@ -3,3 +3,4 @@
 *.DotSettings
 *.nupkg
 *.cache
+NuGet/

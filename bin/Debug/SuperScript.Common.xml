@@ -37,7 +37,8 @@
             <para>Gets the instance of <see cref="T:SuperScript.Emitters.IEmitter"/> which has IsDefault=true.</para>
             <para>If no instance of <see cref="T:SuperScript.Emitters.IEmitter"/> has this status explicitly indicated then the first instance of <see cref="T:SuperScript.Emitters.IEmitter"/> in the configuration shall be returned.</para>
             </summary>
-            <exception cref="T:SuperScript.SuperScriptException">Thrown if no instances of <see cref="T:SuperScript.Emitters.IEmitter"/> have been configured.</exception>
+            <exception cref="T:SuperScript.CollectionNotInstantiatedException">Thrown if the <see cref="P:SuperScript.Configuration.Settings.Emitters"/> collection property has not been instantiated. This should be done for each HTTP request.</exception>
+            <exception cref="T:SuperScript.NoEmittersConfiguredException">Thrown if no instances of <see cref="T:SuperScript.Emitters.IEmitter"/> have been configured.</exception>
         </member>
         <member name="P:SuperScript.Configuration.Settings.Emitters">
             <summary>
@@ -316,8 +317,13 @@
         </member>
         <member name="T:SuperScript.CollectionNotInstantiatedException">
             <summary>
-            <para>An <see cref="T:System.Exception"/> indicating the the <see cref="T:System.Collections.ObjectModel.Collection`1"/> has not been instantiated.</para>
+            <para>An <see cref="T:System.Exception"/> indicating that the <see cref="T:System.Collections.ObjectModel.Collection`1"/> has not been instantiated.</para>
             <para>By default, this should be instantiated in the <see cref="T:SuperScript.HttpInitialiser"/> handler, though it can be set anywhere.</para>
+            </summary>
+        </member>
+        <member name="M:SuperScript.CollectionNotInstantiatedException.#ctor(System.String)">
+            <summary>
+            Constructor for <see cref="T:SuperScript.CollectionNotInstantiatedException"/> which allows an exception-specific message to be relayed to the developer.
             </summary>
         </member>
         <member name="M:SuperScript.CollectionNotInstantiatedException.#ctor">
