@@ -139,15 +139,13 @@
 			&lt;section name="superScript" type="SuperScript.Configuration.SuperScriptConfig, SuperScript.Common" /&gt;
 			&lt;section name="superScript.JavaScript" type="SuperScript.JavaScript.Configuration.JavaScriptConfig, SuperScript.JavaScript" /&gt;
 		&lt;/configSections&gt;
+		&hellip;
+		&lt;superScript.JavaScript&gt;
+			&lt;declarations&gt;
+				&lt;enum comment="A simple enum" emitterKey="javascript" type="[Fully-qualified name of the enumerated type, assembly name]" /&gt;
+			&lt;/declarations&gt;
+		&lt;/superScript.JavaScript&gt;
 	&lt;/configuration&gt;
-	&#10;
-	&hellip;
-	&#10;
-	&lt;superScript.JavaScript&gt;
-		&lt;declarations&gt;
-			&lt;enum comment="A simple enum" emitterKey="javascript" type="[Fully-qualified name of the enumerated type, assembly name]" /&gt;
-		&lt;/declarations&gt;
-	&lt;/superScript.JavaScript&gt;
 </pre>
 
 <p>
@@ -181,14 +179,14 @@
 </p>
 
 <pre class="brush: c#">
-using SuperScript.JavaScript;
-&#10;
-var enumDecl = new EnumDeclaration();
-enumDecl.Comment = "A simple enum";
-enumDecl.EmitterKey = "javascript";
-enumDecl.Type = typeof(DemoEnum);
-
-SuperScript.Declarations.AddDeclaration&lt;EnumDeclaration&gt;(enumDecl);
+	using SuperScript.JavaScript;
+	&hellip;
+	var enumDecl = new EnumDeclaration();
+	enumDecl.Comment = "A simple enum";
+	enumDecl.EmitterKey = "javascript";
+	enumDecl.Type = typeof(DemoEnum);
+	
+	SuperScript.Declarations.AddDeclaration&lt;EnumDeclaration&gt;(enumDecl);
 </pre>
 
 <p>
@@ -253,14 +251,14 @@ SuperScript.Declarations.AddDeclaration&lt;EnumDeclaration&gt;(enumDecl);
 </p>
 
 <pre class="brush: c#">
-using SuperScript.JavaScript;
-&#10;
-var enumDecl = new EnumDeclaration();
-enumDecl.EmitterKey = "javascript";
-enumDecl.EnumAttribute = EnumAttribute.EnumText;	// use the JsEnum text
-enumDecl.Type = typeof(DemoEnum);
-
-SuperScript.Declarations.AddDeclaration&lt;EnumDeclaration&gt;(enumDecl);
+	using SuperScript.JavaScript;
+	&hellip;
+	var enumDecl = new EnumDeclaration();
+	enumDecl.EmitterKey = "javascript";
+	enumDecl.EnumAttribute = EnumAttribute.EnumText;	// use the JsEnum text
+	enumDecl.Type = typeof(DemoEnum);
+	
+	SuperScript.Declarations.AddDeclaration&lt;EnumDeclaration&gt;(enumDecl);
 </pre>
 
 <p>
@@ -301,7 +299,7 @@ SuperScript.Declarations.AddDeclaration&lt;EnumDeclaration&gt;(enumDecl);
 
 <pre class="brush: c#">
 	using SuperScript.JavaScript;
-	&#10;
+	&hellip;
 	Declarations.AddEnum(opt => opt.Emitter("javascript")
 				              .Name("anotherName")
 				      	      .Type(typeof (DemoEnum)));
