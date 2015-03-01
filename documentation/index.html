@@ -55,26 +55,26 @@
 			&lt;section name="superScript" type="SuperScript.Configuration.SuperScriptConfig, SuperScript.Common" /&gt;
 			&lt;section name="superScript.JavaScript" type="SuperScript.JavaScript.Configuration.JavaScriptConfig, SuperScript.JavaScript" /&gt;
 		&lt;/configSections&gt;
+		&#10;
+		&hellip;
+		&#10;
+		&lt;superScript&gt;
+			&lt;emitters&gt;
+				&lt;emitter key="javascript"&gt;
+					&lt;converters&gt;
+						&lt;modifier type="SuperScript.JavaScript.Modifiers.Converters.JavaScriptStringify, SuperScript.JavaScript" /&gt;
+					&lt;/converters&gt;
+					&lt;postModifiers&gt;
+						&lt;modifier emitMode="LiveOnly" useWhenBundled="false" type="SuperScript.JavaScript.Modifiers.Post.JavaScriptMinifier, SuperScript.JavaScript" /&gt;
+						&lt;modifier type="SuperScript.JavaScript.Modifiers.Post.WhenReady, SuperScript.JavaScript" /&gt;
+					&lt;/postModifiers&gt;
+					&lt;writers&gt;
+						&lt;modifier type="SuperScript.JavaScript.Modifiers.Writers.ScriptTagWriter, SuperScript.JavaScript" /&gt;
+					&lt;/writers&gt;
+				&lt;/emitter&gt;
+			&lt;/emitters&gt;
+		&lt;/superScript&gt;
 	&lt;/configuration&gt;
-	&#10;
-	&hellip;
-	&#10;
-	&lt;superScript&gt;
-		&lt;emitters&gt;
-			&lt;emitter key="javascript"&gt;
-				&lt;converters&gt;
-					&lt;modifier type="SuperScript.JavaScript.Modifiers.Converters.JavaScriptStringify, SuperScript.JavaScript" /&gt;
-				&lt;/converters&gt;
-				&lt;postModifiers&gt;
-					&lt;modifier emitMode="LiveOnly" useWhenBundled="false" type="SuperScript.JavaScript.Modifiers.Post.JavaScriptMinifier, SuperScript.JavaScript" /&gt;
-					&lt;modifier type="SuperScript.JavaScript.Modifiers.Post.WhenReady, SuperScript.JavaScript" /&gt;
-				&lt;/postModifiers&gt;
-				&lt;writers&gt;
-					&lt;modifier type="SuperScript.JavaScript.Modifiers.Writers.ScriptTagWriter, SuperScript.JavaScript" /&gt;
-				&lt;/writers&gt;
-			&lt;/emitter&gt;
-		&lt;/emitters&gt;
-	&lt;/superScript&gt;
 </pre>
 
 <p>
