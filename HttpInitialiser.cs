@@ -1,18 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Web;
-using SuperScript.Declarables;
+﻿using SuperScript.Declarables;
 using SuperScript.Emitters;
+using System.Collections.Generic;
+using System.Threading;
+using System.Web;
+
 
 namespace SuperScript.JavaScript
 {
     /// <summary>
-    /// This class is instantiated for each HTTP request. [This is wired-up in the web.config.]
+    /// This class is instantiated for each HTTP request, and is used to instantiate any SuperScript.JavaScript declarables
+    /// which are declared in the configuration file.
     /// </summary>
     public class HttpInitialiser : IHttpModule
     {
-        private bool _initialised;
-        private readonly object _obj = new object();
+        private readonly object _initSync = new object();
+        private static int _initialized;
 
 
         #region IHttpModule Members
@@ -27,27 +29,18 @@ namespace SuperScript.JavaScript
 
         public void Init(HttpApplication context)
         {
-            if (_initialised) return;
-
-            lock (_obj)
+            // Prevent the initialization pipeline to be executed several times.
+            if (Interlocked.CompareExchange(ref _initialized, 0, 0) == 0)
             {
-                if (_initialised) return;
-
-                InitEvents(context);
-                _initialised = true;
+                lock (_initSync)
+                {
+                    if (Interlocked.CompareExchange(ref _initialized, 0, 0) == 0)
+                    {
+                        OneTimeInitialization(context);
+                        Interlocked.Exchange(ref _initialized, 1);
+                    }
+                }
             }
-        }
-
-
-        /// <summary>
-        /// Custom handler for wiring-up events.
-        /// </summary>
-        /// <param name="context">
-        /// The current HttpContext.
-        /// </param>
-        public void InitEvents(HttpApplication context)
-        {
-            context.BeginRequest += OnBeginRequest;
         }
 
 
@@ -60,7 +53,7 @@ namespace SuperScript.JavaScript
         /// <para>contain instances of <see cref="IEmitter"/>. However, the <see cref="SuperScript.JavaScript.Configuration.Settings"/></para>
         /// <para>singleton automatically adds these to the central collection of <see cref="IEmitter"/>s in <see cref="SuperScript.Configuration.Settings"/>.</para>
         /// </remarks>
-        public virtual void OnBeginRequest(object s, EventArgs e)
+        protected virtual void OneTimeInitialization(HttpApplication context)
         {
             // Add the configured default declarations, if any.
             var defaultDecs = Configuration.Settings.Instance.Declarations;
