@@ -17,17 +17,16 @@
   var defaultDecs = Configuration.Settings.Instance.Declarations;
   foreach (var declaration in defaultDecs)
   {
-	  SuperScript.Declarations.AddDeclaration<Declarables.DeclarationBase>(declaration);
+	  SuperScript.Declarations.AddDeclaration&lt;Declarables.DeclarationBase&gt;(declaration);
   }
 </pre>
 
 <p>
-  There are two recommended locations for including this code, though <strong>these are only required if not installed via 
-  NuGet</strong>, or if the NuGet-added configuration is removed.
+	The above code could be included in the global.asax file's <code>Application_BeginRequest</code> method.
 </p>
 
 <p>
-  An HTTP handler with the above code is already included inside SuperScript.JavaScript. To enlist this 
+	However, an HTTP handler with the above code is already included inside SuperScript.JavaScript. To enlist this 
   HTTP handler the following code should be added to the web.config file:
 </p>
 
@@ -36,7 +35,3 @@
     &lt;add name="HttpInitialiser" type="SuperScript.HttpInitialiser, SuperScript.JavaScript" /&gt;
   &lt;/httpModules&gt;
 </pre>
-
-<p>
-  An alternative is to use the <code>Application_BeginRequest</code> event in the project's global.asax file.
-</p>
