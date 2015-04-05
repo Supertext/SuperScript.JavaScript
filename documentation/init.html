@@ -27,11 +27,10 @@
 
 <p>
 	However, an HTTP handler with the above code is already included inside SuperScript.JavaScript. To enlist this 
-  HTTP handler the following code should be added to the web.config file:
+  HTTP handler the following code should be added - ideally to the <code>SuperScriptConfig</code> class's 
+  <code>RegisterDefaults</code> method.
 </p>
 
 <pre class="brush: xml">
-  &lt;httpModules&gt;
-    &lt;add name="HttpInitialiser" type="SuperScript.HttpInitialiser, SuperScript.JavaScript" /&gt;
-  &lt;/httpModules&gt;
+  HttpApplication.RegisterModule(typeof (SuperScript.JavaScript.HttpInitialiser));
 </pre>
